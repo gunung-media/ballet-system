@@ -22,6 +22,8 @@ class Sidebar extends Component
             new SidebarItem(title: 'Beranda', url: route('dashboard'), icon: HeroIconEnum::home),
             "Penjualan",
             new SidebarItem(title: 'Kategori', url: route('kategori.index'), icon: HeroIconEnum::home),
+            "Kursus",
+            new SidebarItem(title: 'Data Siswa', url: route('siswa.index'), icon: HeroIconEnum::home),
         ];
     }
 

@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title', 'Kategori')
+@section('title', 'Siswa')
 @section('sidebar')
-    <x-sidebar active-menu="Kategori" />
+    <x-sidebar active-menu="Data Siswa" />
 @endsection
 @section('breadcrumb')
-    <x-breadcrumb :stacks="['Home', 'Penjualan', 'Kategori']" />
+    <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Siswa']" />
 @endsection
 @section('content')
     <div class="row">
@@ -12,8 +12,8 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between">
                     <div>
-                        <h6>Data Kategori</h6>
-                        <p class="font-weight-light text-xs">Berikut data kategori yang ada di Sistem</p>
+                        <h6>Data Siswa</h6>
+                        <p class="font-weight-light text-xs">Berikut data siswa yang ada di Sistem</p>
                     </div>
 
                     <div>
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    <x-table :table-columns="['No', 'Kategori']">
+                    <x-table :table-columns="['No', 'Nama', 'Status', 'Kelas']">
                         @foreach (range(1, 20) as $item)
                             <tr>
                                 <td>
@@ -38,6 +38,12 @@
                                             <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
                                         </div>
                                     </div>
+                                </td>
+                                <td class="align-middle text-center text-sm">
+                                    <span class="badge badge-sm badge-success">Online</span>
+                                </td>
+                                <td class="align-middle text-center text-sm">
+                                    10
                                 </td>
                                 <td class="align-middle">
                                     <a href="javascript:;" class="text-secondary font-weight-bold text-xs"

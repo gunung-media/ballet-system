@@ -14,32 +14,32 @@ class CategoryController extends Controller
         return view('pages.sales.category.index');
     }
 
-    public function create()
+    public function create(): View|Factory
     {
         return view('pages.sales.category.form');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): void
     {
         //
     }
 
-    public function show(string $id)
+    public function show(string $id): void
     {
         //
     }
 
-    public function edit(string $id)
+    public function edit(string $id): void
     {
         //
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): void
     {
         //
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id): void
     {
         //
     }

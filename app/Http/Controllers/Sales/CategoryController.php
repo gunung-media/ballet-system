@@ -16,7 +16,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        //
+        return view('pages.sales.category.form');
     }
 
     public function store(Request $request)

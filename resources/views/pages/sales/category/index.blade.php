@@ -17,7 +17,7 @@
                     </div>
 
                     <div>
-                        <button class="btn btn-primary">+ Tambah Data</button>
+                        <a class="btn btn-primary" href="{{ route('kategori.create') }}">+ Tambah Data</a>
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">

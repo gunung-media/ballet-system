@@ -21,6 +21,7 @@ class Sidebar extends Component
         $this->items = [
             new SidebarItem(title: 'Beranda', url: route('dashboard'), icon: HeroIconEnum::home),
             "Penjualan",
+            new SidebarItem(title: 'Kategori', url: route('kategori.index'), icon: HeroIconEnum::home),
         ];
     }
 

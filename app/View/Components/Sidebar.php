@@ -34,9 +34,9 @@ class Sidebar extends Component
             new SidebarItem(title: 'Data Absensi', url: route('siswa.index'), icon: HeroIconEnum::home),
             new SidebarItem(title: 'Pembayaran SPP', url: route('siswa.index'), icon: HeroIconEnum::home),
             "Lain-Lain",
-            new SidebarItem(title: 'Data Admin', url: route('sign-in'), icon: HeroIconEnum::users),
-            new SidebarItem(title: 'Panduan', url: route('sign-in'), icon: HeroIconEnum::book),
-            new SidebarItem(title: 'Logout', url: route('sign-in'), icon: HeroIconEnum::logout),
+            new SidebarItem(title: 'Data Admin', url: route('auth.login'), icon: HeroIconEnum::users),
+            new SidebarItem(title: 'Panduan', url: route('auth.login'), icon: HeroIconEnum::book),
+            new SidebarItem(title: 'Logout', url: route('auth.login'), icon: HeroIconEnum::logout),
         ];
     }
 

@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\Authentication\UserAuthController;
 use App\Http\Controllers\Course\StudentController;
 use App\Http\Controllers\Sales\CategoryController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login', function () {
-    return view('sign-in');
-})->name('sign-in');
+Route::name('auth.')->group(function () {
+    Route::get('login', [UserAuthController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [UserAuthController::class, 'login'])->name('login.post');
+    Route::post('logout', [UserAuthController::class, 'logout'])->name('logout');
+});
 
 Route::get('/', function () {
     return view('pages.index');

@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use App\Classes\SidebarItem;
-use App\Enums\HeroIconEnum;
+use App\Enums\IconEnum;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -19,24 +19,24 @@ class Sidebar extends Component
         public string $activeMenu,
     ) {
         $this->items = [
-            new SidebarItem(title: 'Beranda', url: route('dashboard'), icon: HeroIconEnum::home),
+            new SidebarItem(title: 'Beranda', url: route('dashboard'), icon: IconEnum::home),
             "Penjualan",
-            new SidebarItem(title: 'Kategori', url: route('kategori.index'), icon: HeroIconEnum::tag),
-            new SidebarItem(title: 'Data Barang', url: route('kategori.index'), icon: HeroIconEnum::wrenchScrewdriver),
-            new SidebarItem(title: 'Penjualan', url: route('kategori.index'), icon: HeroIconEnum::sale),
+            new SidebarItem(title: 'Kategori', url: route('kategori.index'), icon: IconEnum::tag),
+            new SidebarItem(title: 'Data Barang', url: route('kategori.index'), icon: IconEnum::wrenchScrewdriver),
+            new SidebarItem(title: 'Penjualan', url: route('kategori.index'), icon: IconEnum::sale),
             "Penyewaan",
-            new SidebarItem(title: 'Inventori', url: route('dashboard'), icon: HeroIconEnum::home),
-            new SidebarItem(title: 'Transaksi Penyewaan', url: route('dashboard'), icon: HeroIconEnum::sale),
+            new SidebarItem(title: 'Inventori', url: route('dashboard'), icon: IconEnum::home),
+            new SidebarItem(title: 'Transaksi Penyewaan', url: route('dashboard'), icon: IconEnum::sale),
             "Kursus",
-            new SidebarItem(title: 'Data Siswa', url: route('siswa.index'), icon: HeroIconEnum::users),
-            new SidebarItem(title: 'Data Guru', url: route('siswa.index'), icon: HeroIconEnum::users),
-            new SidebarItem(title: 'Data Kelas', url: route('siswa.index'), icon: HeroIconEnum::home),
-            new SidebarItem(title: 'Data Absensi', url: route('siswa.index'), icon: HeroIconEnum::home),
-            new SidebarItem(title: 'Pembayaran SPP', url: route('siswa.index'), icon: HeroIconEnum::home),
+            new SidebarItem(title: 'Data Siswa', url: route('siswa.index'), icon: IconEnum::users),
+            new SidebarItem(title: 'Data Guru', url: route('siswa.index'), icon: IconEnum::users),
+            new SidebarItem(title: 'Data Kelas', url: route('siswa.index'), icon: IconEnum::home),
+            new SidebarItem(title: 'Data Absensi', url: route('siswa.index'), icon: IconEnum::home),
+            new SidebarItem(title: 'Pembayaran SPP', url: route('siswa.index'), icon: IconEnum::home),
             "Lain-Lain",
-            new SidebarItem(title: 'Data Admin', url: route('auth.login'), icon: HeroIconEnum::users),
-            new SidebarItem(title: 'Panduan', url: route('auth.login'), icon: HeroIconEnum::book),
-            new SidebarItem(title: 'Logout', url: route('auth.logout'), icon: HeroIconEnum::logout),
+            new SidebarItem(title: 'Data Admin', url: route('auth.login'), icon: IconEnum::users),
+            new SidebarItem(title: 'Panduan', url: route('auth.login'), icon: IconEnum::book),
+            new SidebarItem(title: 'Logout', url: route('auth.logout'), icon: IconEnum::logout),
         ];
     }
 

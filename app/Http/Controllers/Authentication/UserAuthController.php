@@ -28,7 +28,7 @@ class UserAuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required|min:6',
+            'password' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -36,10 +36,10 @@ class UserAuthController extends Controller
         }
 
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard');
+        if (Auth::attempt($credentials, $request->input('remember'))) {
+            return redirect()->intended(route('dashboard'))->with('success', 'Berhasil Login');
         }
-        return redirect()->back()->withErrors(['email' => 'Invalid email or password.'])->withInput();
+        return redirect()->back()->with('error', 'Email atau Password anda salah')->withInput();
     }
 
     public function logout(): Redirector|RedirectResponse

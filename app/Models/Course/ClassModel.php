@@ -2,14 +2,26 @@
 
 namespace App\Models\Course;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Validation\Rule;
 
-/**
- * @mixin \Illuminate\Database\Eloquent\Builder
- */
-class ClassModel extends Model
+class ClassModel extends BaseModel
 {
+    #[\Override]
+    static function validationRules(mixed $ignoredVal = null): array
+    {
+        return  [
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique(table: 'classes', column: 'name')->ignore($ignoredVal)
+            ],
+            'is_active' => 'boolean'
+        ];
+    }
+
     public function schedules(): HasMany
     {
         return $this->hasMany(ClassSchedule::class);

@@ -3,15 +3,11 @@
 namespace App\Models\Course;
 
 use App\Enums\DayEnum;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-/**
- * @mixin \Illuminate\Database\Eloquent\Builder
- */
-class ClassSchedule extends Model
+class ClassSchedule extends BaseModel
 {
-
     public function casts(): array
     {
         return [

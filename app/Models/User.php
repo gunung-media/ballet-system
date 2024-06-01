@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, BaseModel;
 
     protected $fillable = [
         'name',

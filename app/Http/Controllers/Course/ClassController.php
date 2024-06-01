@@ -30,7 +30,7 @@ class ClassController extends Controller
 
     public function store(Request $request): void
     {
-        $request->validate(ClassModel::VALIDATION_RULES);
+        $request->validate(ClassModel::validationRules());
 
         try {
             $this->classRepository->insert($request->all());
@@ -46,7 +46,7 @@ class ClassController extends Controller
 
     public function update(Request $request, ClassModel $classModel): void
     {
-        $request->validate(ClassModel::VALIDATION_RULES);
+        $request->validate(ClassModel::validationRules($classModel->id));
 
         if (!$this->classRepository->update($classModel, $request->all())) {
             back()->with('error', 'Gagal mengupdate kelas');

@@ -21,8 +21,16 @@ class ClassRepository
         return $this->classModel->all();
     }
 
-    public function getById(int $id): ClassModel | null
+    public function getById(mixed $identifier): ClassModel | null
     {
-        return $this->classModel->find($id);
+        if ($identifier instanceof ClassModel) return  $identifier;
+        return $this->classModel->find($identifier);
+    }
+
+    public function delete(mixed $identifier): bool
+    {
+        $model = $this->getById($identifier);
+        if ($model === null) return false;
+        return $model->delete();
     }
 }

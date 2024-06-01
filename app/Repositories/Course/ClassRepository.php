@@ -27,6 +27,23 @@ class ClassRepository
         return $this->classModel->find($identifier);
     }
 
+    /**
+     * @param array<int,mixed> $data
+     */
+    public function insert(array $data): ClassModel
+    {
+        return $this->classModel->create($data);
+    }
+
+    /**
+     * @param array<int,mixed> $data
+     */
+    public function update(mixed $identifier, array $data): bool
+    {
+        $model = $this->getById($identifier);
+        return $model->update($data);
+    }
+
     public function delete(mixed $identifier): bool
     {
         $model = $this->getById($identifier);

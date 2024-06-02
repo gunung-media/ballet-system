@@ -6,11 +6,21 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                         {{ $header }}</th>
                 @endforeach
-                <th class="text-secondary opacity-7"></th>
+                @if ($hasActions)
+                    <th class="text-secondary opacity-7"></th>
+                @endif
             </tr>
         </thead>
         <tbody>
-            {{ $slot }}
+            @if ($isEmpty)
+                <tr>
+                    <td colspan="{{ count($tableColumns) }}" class="text-center font-weight-bold mb-0">
+                        Tidak ada data
+                    </td>
+                </tr>
+            @else
+                {{ $slot }}
+            @endif
         </tbody>
     </table>
 

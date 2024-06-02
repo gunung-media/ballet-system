@@ -10,6 +10,8 @@ class Table extends Component
 {
     public function __construct(
         public array $tableColumns,
+        public bool $hasActions = true,
+        public bool $isEmpty = false,
     ) {
     }
 

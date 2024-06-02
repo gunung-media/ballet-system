@@ -8,6 +8,8 @@ use Illuminate\Validation\Rule;
 
 class ClassModel extends BaseModel
 {
+    protected $table = 'classes';
+
     #[\Override]
     static function validationRules(mixed $ignoredVal = null): array
     {

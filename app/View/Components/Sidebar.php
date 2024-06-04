@@ -29,7 +29,7 @@ class Sidebar extends Component
             new SidebarItem(title: 'Transaksi Penyewaan', url: route('dashboard'), icon: IconEnum::sale),
             "Kursus",
             new SidebarItem(title: 'Data Siswa', url: route('siswa.index'), icon: IconEnum::users),
-            new SidebarItem(title: 'Data Guru', url: route('siswa.index'), icon: IconEnum::users),
+            new SidebarItem(title: 'Data Guru', url: route('guru.index'), icon: IconEnum::users),
             new SidebarItem(title: 'Data Kelas', url: route('kelas.index'), icon: IconEnum::home),
             new SidebarItem(title: 'Data Absensi', url: route('siswa.index'), icon: IconEnum::home),
             new SidebarItem(title: 'Pembayaran SPP', url: route('siswa.index'), icon: IconEnum::home),

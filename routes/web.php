@@ -3,6 +3,7 @@
 use App\Http\Controllers\Authentication\UserAuthController;
 use App\Http\Controllers\Course\ClassController;
 use App\Http\Controllers\Course\StudentController;
+use App\Http\Controllers\Course\TeacherController;
 use App\Http\Controllers\Sales\CategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('kategori', CategoryController::class)->except('show');
     Route::resource('siswa', StudentController::class)->except('show');
     Route::resource('kelas', ClassController::class)->except('show');
+    Route::resource('guru', TeacherController::class)->except('show');
 });

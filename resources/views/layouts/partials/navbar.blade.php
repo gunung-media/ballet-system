@@ -22,9 +22,9 @@
                     </a>
                 </li>
                 <li class="nav-item d-flex align-items-center">
-                    <a href="{{ route('auth.login') }}" class="nav-link text-body font-weight-bold px-0">
+                    <a href="#" class="nav-link text-body font-weight-bold px-0">
                         <i class="fa fa-user me-sm-1"></i>
-                        <span class="d-sm-inline d-none">Sign In</span>
+                        <span class="d-sm-inline d-none">{{ auth()->user()->name }}</span>
                     </a>
                 </li>
                 <li class="nav-item dropdown pe-2 d-flex align-items-center px-3">

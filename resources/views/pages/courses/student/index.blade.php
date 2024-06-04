@@ -50,10 +50,14 @@
                                         data-toggle="tooltip" data-original-title="Edit user">
                                         Edit
                                     </a>
-                                    <a href="javascript:;" class="px-3 text-danger font-weight-bold text-xs btn"
-                                        data-toggle="tooltip" data-original-title="Edit user">
-                                        Hapus
-                                    </a>
+                                    <form action="{{ route('siswa.destroy', $d->id) }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button class="px-3 text-danger font-weight-bold text-xs btn" data-toggle="tooltip"
+                                            data-original-title="Edit user">
+                                            Hapus
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

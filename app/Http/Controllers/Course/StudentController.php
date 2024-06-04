@@ -52,8 +52,10 @@ class StudentController extends Controller
         //
     }
 
-    public function destroy(string $id): void
+    public function destroy(string $id): RedirectResponse
     {
-        //
+        $deleted = $this->studentRepository->delete($id);
+        if (!$deleted) back()->with('error', 'Gagal menghapus siswa');
+        return back()->with('success', 'Berhasil menghapus siswa');
     }
 }

@@ -6,6 +6,7 @@
 <script src="../assets/js/plugins/chartjs.min.js"></script>
 <script src="../assets/js/plugins/sweetalert.min.js"></script>
 <script src="../assets/js/plugins/choices.min.js"></script>
+<script src="../assets/js/plugins/fullcalendar.min.js"></script>
 <script>
     var win = navigator.platform.indexOf("Win") > -1;
     if (win && document.querySelector("#sidenav-scrollbar")) {

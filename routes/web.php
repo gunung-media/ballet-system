@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Authentication\UserAuthController;
+use App\Http\Controllers\Course\AbsenceController;
 use App\Http\Controllers\Course\ClassController;
 use App\Http\Controllers\Course\StudentController;
 use App\Http\Controllers\Course\TeacherController;
@@ -27,4 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('siswa', StudentController::class)->except('show');
     Route::resource('kelas', ClassController::class)->except('show');
     Route::resource('guru', TeacherController::class)->except('show');
+
+    Route::get('/absence', [AbsenceController::class, 'index'])->name('absence.index');
 });

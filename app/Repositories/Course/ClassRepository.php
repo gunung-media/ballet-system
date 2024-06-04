@@ -18,7 +18,26 @@ class ClassRepository
      */
     public function getAll(): Collection
     {
-        return $this->classModel->all();
+        $query = $this->classModel->with('schedules');
+        return $query->get();
+    }
+
+    public function getForCalendar()
+    {
+        $currentMonth = now()->format('m');
+        $datas = $this->getAll();
+        return $datas->mapWithKeys(
+            fn ($data) =>
+            $data->schedules->map(
+                fn ($schedule) => [
+                    'id' => $data->id,
+                    'title' => $data->name,
+                    'start' => now()->format('Y-m-d'),
+                    'end' => now()->format('Y-m-d'),
+                    'className' => 'bg-gradient-success'
+                ]
+            )
+        );
     }
 
     public function getById(mixed $identifier): ClassModel | null

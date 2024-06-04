@@ -42,19 +42,20 @@ class ClassController extends Controller
         }
     }
 
-    public function edit(ClassModel $classModel): View|Factory
+    public function edit($classModel): View|Factory
     {
-        return view('pages.courses.class.index', compact('classModel'));
+        $days = DayEnum::class;
+        return view('pages.courses.class.index', compact('days', 'classModel'));
     }
 
-    public function update(Request $request, ClassModel $classModel): void
+    public function update(Request $request, $classModel): RedirectResponse
     {
-        $request->validate(ClassModel::validationRules($classModel->id));
+        $request->validate(ClassModel::validationRules($classModel));
 
         if (!$this->classRepository->update($classModel, $request->all())) {
-            back()->with('error', 'Gagal mengupdate kelas');
+            return redirect()->back()->with('error', 'Gagal mengupdate kelas')->withInput();
         }
-        back()->with('success', 'Berhasil mengupdate kelas');
+        return redirect()->back()->with('success', 'Berhasil mengupdate kelas');
     }
 
     public function destroy($classModel): RedirectResponse

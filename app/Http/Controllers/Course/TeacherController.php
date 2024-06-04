@@ -42,18 +42,20 @@ class TeacherController extends Controller
         }
     }
 
-    public function edit(Teacher $teacher): void
+    public function edit($teacher): void
     {
         //
     }
 
-    public function update(Request $request, Teacher $teacher): void
+    public function update(Request $request, $teacher): void
     {
         //
     }
 
-    public function destroy(Teacher $teacher): void
+    public function destroy($teacher): RedirectResponse
     {
-        //
+        $deleted = $this->teacherRepository->delete($teacher);
+        if (!$deleted) back()->with('error', 'Gagal menghapus guru');
+        return back()->with('success', 'Berhasil menghapus guru');
     }
 }

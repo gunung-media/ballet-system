@@ -16,13 +16,13 @@ class Select extends Component
     public function __construct(
         string $name,
         string $label,
-        bool $isRequired = false,
+        bool $isRequired = true,
         mixed $choices = null
     ) {
         $this->name = $name;
         $this->label = $label;
         $this->isRequired = $isRequired;
-        $this->choices = enum_exists($choices) ? collect($choices::cases())->mapWithKeys(fn ($choice) => [$choice->name => $choice->value])->toArray() : $choices;
+        $this->choices = is_string($choices) && enum_exists($choices) ? collect($choices::cases())->mapWithKeys(fn ($choice) => [$choice->name => $choice->value])->toArray() : $choices;
     }
 
     public function render(): View|Closure|string

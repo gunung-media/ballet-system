@@ -22,20 +22,20 @@
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <x-table :table-columns="['No', 'Nama', 'Status', 'Kelas']">
-                        @foreach (range(1, 20) as $item)
+                        @foreach ($data as $key => $d)
                             <tr>
                                 <td>
-                                    <p class="text-xs font-weight-bold mb-0">{{ $item }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ $key + 1 }}</p>
                                 </td>
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3"
+                                            <img src="{{ asset('storage/' . $d->photo) }}" class="avatar avatar-sm me-3"
                                                 alt="user1">
                                         </div>
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">John Michael</h6>
-                                            <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+                                            <h6 class="mb-0 text-sm">{{ $d->name }}</h6>
+                                            <p class="text-xs text-secondary mb-0">{{ $d->email }}</p>
                                         </div>
                                     </div>
                                 </td>

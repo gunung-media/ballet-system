@@ -7,7 +7,8 @@
     <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Siswa']" />
 @endsection
 @section('content')
-    <form class="row">
+    <form class="row" enctype="multipart/form-data" action="{{ route('siswa.store') }}" method="POST">
+        @csrf
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between">
@@ -20,46 +21,31 @@
                 <div class="card-body">
                     <div action="">
                         <div class="row">
-                            <div class="form-group col-md-6 col-12">
-                                <label>Nama Lengkap <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" required>
+                            <div class="col-md-6 col-12">
+                                <x-fields.input type="text" name="name" label="Name" />
                             </div>
 
-                            <div class="form-group col-md-6 col-12">
-                                <label>Jenis Kelamin <span class="text-danger">*</span></label>
-                                <select name="" id="" class="form-control">
-                                    <option value="">Pria</option>
-                                    <option value="">Wanita</option>
-                                </select>
+                            <div class="col-md-6 col-12">
+                                <x-fields.select name="gender" label="Jenis Kelamin" :choices="['male' => 'Laki-Laki', 'female' => 'Perempuan']" />
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Tanggal Lahir <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" required>
-                        </div>
+                        <x-fields.input type="date" name="birth_date" label="Tanggal Lahir" />
 
-                        <div class="form-group">
-                            <label>Alamat<span class="text-danger">*</span></label>
-                            <textarea name="" id="" class="form-control"></textarea>
-                        </div>
+                        <x-fields.input type="text" name="address" label="Alamat" />
+
 
                         <div class="row">
-                            <div class="form-group col-md-6 col-12">
-                                <label>Email <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" required>
+                            <div class="col-md-6 col-12">
+                                <x-fields.input type="email" name="email" label="Email" />
                             </div>
 
-                            <div class="form-group col-md-6 col-12">
-                                <label>No. Telepon <span class="text-danger">*</span></label>
-                                <input type="tel" class="form-control" required>
+                            <div class="col-md-6 col-12">
+                                <x-fields.input type="tel" name="phone" label="No. Telepon " />
                             </div>
                         </div>
 
-                        <div class="form-group mb-4">
-                            <label>Foto Siswa</label>
-                            <input type="file" class="form-control">
-                        </div>
+                        <x-fields.input type="file" name="photo" label="Foto Siswa" />
                     </div>
                 </div>
             </div>
@@ -77,25 +63,9 @@
                 </div>
                 <div class="card-body">
                     <div action="">
-                        <div class="form-group">
-                            <label>Nama Kontak Darurat<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Nama Wali<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Nomor Wali/Kontak Darurat<span class="text-danger">*</span></label>
-                            <input type="tel" class="form-control" required>
-                        </div>
-
+                        <x-fields.input type="text" name="wali_name" label="Nama Wali" />
+                        <x-fields.input type="tel" name="wali_phone" label="Nomor Wali/Kontak Darurat" />
                         <br />
-                        <br />
-                        <br />
-
                     </div>
                 </div>
             </div>
@@ -105,25 +75,9 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <div action="">
-                        <div class="form-group">
-                            <label>Kursus Yang Diikuti<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" required>
-                        </div>
+                        <x-fields.input type="date" name="registration" label="Tanggal Pendaftaran" />
 
-                        <div class="form-group">
-                            <label>Tanggal Pendaftaran<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Jadwal Kelas<span class="text-danger">*</span></label>
-                            <input type="tel" class="form-control" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Catatan<span class="text-danger">*</span></label>
-                            <textarea name="" id="" class="form-control"></textarea>
-                        </div>
+                        <x-fields.input type="text" name="note" label="Catatan" />
 
                         <hr />
 

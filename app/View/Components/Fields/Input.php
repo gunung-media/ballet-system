@@ -18,7 +18,7 @@ class Input extends Component
         string $type,
         string $name,
         string $label,
-        bool $isRequired = false,
+        bool $isRequired = true,
         ?string $value = null
     ) {
         $this->type = $type;

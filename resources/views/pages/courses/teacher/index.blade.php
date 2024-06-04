@@ -47,11 +47,11 @@
                                         class="badge badge-sm badge-{{ $d->status->color() }}">{{ $d->status->value }}</span>
                                 </td>
                                 <td class="align-middle">
-                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
+                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs btn"
                                         data-toggle="tooltip" data-original-title="Edit user">
                                         Edit
                                     </a>
-                                    <a href="javascript:;" class="px-3 text-danger font-weight-bold text-xs"
+                                    <a href="javascript:;" class="px-3 text-danger font-weight-bold text-xs btn"
                                         data-toggle="tooltip" data-original-title="Edit user">
                                         Hapus
                                     </a>

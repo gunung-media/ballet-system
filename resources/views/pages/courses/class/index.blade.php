@@ -32,7 +32,7 @@
                                 </td>
                                 <td class="">
                                     <p class="text-xs font-weight-bold mb-0">
-                                        {{ $d->schedules->map(fn($schedule) => "{$schedule->day->value} {$schedule->time}") }}
+                                        {!! $d->schedules->map(fn($schedule) => "{$schedule->day->value} {$schedule->time}")->join('<br>') !!}
                                     </p>
                                 </td>
                                 <td class="align-middle">

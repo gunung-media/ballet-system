@@ -5,6 +5,7 @@
 <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
 <script src="../assets/js/plugins/chartjs.min.js"></script>
 <script src="../assets/js/plugins/sweetalert.min.js"></script>
+<script src="../assets/js/plugins/choices.min.js"></script>
 <script>
     var win = navigator.platform.indexOf("Win") > -1;
     if (win && document.querySelector("#sidenav-scrollbar")) {
@@ -19,6 +20,26 @@
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
 
+<script type="text/javascript">
+    if (document.getElementById('choices-button')) {
+        var element = document.getElementById('choices-button');
+        const example = new Choices(element, {});
+    }
+    var choicesTags = document.getElementById('choices-tags');
+    var color = choicesTags.dataset.color;
+    if (choicesTags) {
+        const example = new Choices(choicesTags, {
+            delimiter: ',',
+            editItems: true,
+            maxItemCount: 5,
+            removeItemButton: true,
+            addItems: true,
+            classNames: {
+                item: 'badge rounded-pill choices-' + color + ' me-2'
+            }
+        });
+    }
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         @if (session('success'))

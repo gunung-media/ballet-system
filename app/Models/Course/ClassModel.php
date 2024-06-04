@@ -10,6 +10,10 @@ class ClassModel extends BaseModel
 {
     protected $table = 'classes';
 
+    protected $fillable = [
+        'name'
+    ];
+
     #[\Override]
     static function validationRules(mixed $ignoredVal = null): array
     {
@@ -20,12 +24,13 @@ class ClassModel extends BaseModel
                 'max:255',
                 Rule::unique(table: 'classes', column: 'name')->ignore($ignoredVal)
             ],
-            'is_active' => 'boolean'
+            'is_active' => 'boolean',
+            'schedule' => 'required|array|min:1',
         ];
     }
 
     public function schedules(): HasMany
     {
-        return $this->hasMany(ClassSchedule::class);
+        return $this->hasMany(ClassSchedule::class, 'class_id');
     }
 }

@@ -32,7 +32,13 @@ class ClassRepository
      */
     public function insert(array $data): ClassModel
     {
-        return $this->classModel->create($data);
+        $scheduleData = $data['schedule'];
+        if (!is_null($scheduleData)) unset($data['schedule']);
+        $classModel =  $this->classModel->create($data);
+        if (!is_null($scheduleData)) {
+            $classModel->schedules()->createMany($scheduleData);
+        }
+        return $classModel;
     }
 
     /**

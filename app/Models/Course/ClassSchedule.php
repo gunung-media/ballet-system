@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ClassSchedule extends BaseModel
 {
+    protected $fillable = [
+        'class_id',
+        'day',
+        'time',
+        'duration'
+    ];
+
     public function casts(): array
     {
         return [
@@ -17,6 +24,6 @@ class ClassSchedule extends BaseModel
 
     public function class(): BelongsTo
     {
-        return $this->belongsTo(ClassModel::class);
+        return $this->belongsTo(ClassModel::class, 'class_id');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Course;
 
+use App\Enums\DayEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Course\ClassModel;
 use App\Repositories\Course\ClassRepository;
@@ -25,17 +26,19 @@ class ClassController extends Controller
 
     public function create(): View|Factory
     {
-        return view('pages.courses.class.index');
+        $days = DayEnum::class;
+        return view('pages.courses.class.form', compact('days'));
     }
 
-    public function store(Request $request): void
+    public function store(Request $request): RedirectResponse
     {
         $request->validate(ClassModel::validationRules());
 
         try {
-            $this->classRepository->insert($request->all());
+            $this->classRepository->insert($request->except('_token'));
+            return redirect()->intended(route('kelas.index'))->with('success', 'Berhasil Menambahkan Kelas');
         } catch (\Exception $exception) {
-            back()->with('error', $exception->getMessage());
+            return redirect()->back()->with('error', $exception->getMessage())->withInput();
         }
     }
 

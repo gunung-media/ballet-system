@@ -57,9 +57,9 @@ class ClassController extends Controller
         back()->with('success', 'Berhasil mengupdate kelas');
     }
 
-    public function destroy(ClassModel $classModel): RedirectResponse
+    public function destroy($classModel): RedirectResponse
     {
-        $deleted = $this->classRepository->delete($classModel->id);
+        $deleted = $this->classRepository->delete($classModel);
         if (!$deleted) back()->with('error', 'Gagal menghapus kelas');
         return back()->with('success', 'Berhasil menghapus kelas');
     }

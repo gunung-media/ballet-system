@@ -23,7 +23,7 @@ class ClassRepository
 
     public function getById(mixed $identifier): ClassModel | null
     {
-        if ($identifier instanceof ClassModel) return  $identifier;
+        if ($identifier instanceof ClassModel) return $identifier;
         return $this->classModel->find($identifier);
     }
 

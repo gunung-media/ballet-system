@@ -41,55 +41,41 @@
     }
 </script>
 <script>
+    function createToast(icon, title, html = null) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: icon,
+            title: title,
+            html: html,
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         @if (session('success'))
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'success',
-                title: '{{ session('success') }}',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
+            createToast('success', '{{ session('success') }}');
         @endif
 
 
         @if (session('error'))
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'error',
-                title: '{{ session('error') }}',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
+            createToast('error', '{{ session('error') }}');
+        @endif
+
+        @if (session('warning'))
+            createToast('warning', '{{ session('warning') }}');
         @endif
 
         @if ($errors->any())
-            Swal.fire({
-                toast: true,
-                position: 'top-end',
-                icon: 'error',
-                title: 'Validation Error',
-                html: '<ul style="list-style:none;margin:0;padding:0;">@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
+            createToast('error', 'Validation Error',
+                '<ul style="list-style:none;margin:0;padding:0;">@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>'
+            );
         @endif
     })
 </script>

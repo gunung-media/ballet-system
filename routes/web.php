@@ -6,6 +6,7 @@ use App\Http\Controllers\Course\StudentController;
 use App\Http\Controllers\Course\TeacherController;
 use App\Http\Controllers\Sales\CategoryController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 Route::name('auth.')->group(function () {
     Route::middleware('guest')->group(function () {
@@ -18,6 +19,7 @@ Route::name('auth.')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
+        Session::flash('warning', 'Under Development!');
         return view('pages.index');
     })->name('dashboard');
 

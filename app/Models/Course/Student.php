@@ -2,6 +2,7 @@
 
 namespace App\Models\Course;
 
+use App\Enums\GenderEnum;
 use App\Models\BaseModel;
 
 class Student extends BaseModel
@@ -19,6 +20,13 @@ class Student extends BaseModel
         'registration',
         'note',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'gender' => GenderEnum::class
+        ];
+    }
 
     static function validationRules(mixed $ignoredVal = null): array
     {

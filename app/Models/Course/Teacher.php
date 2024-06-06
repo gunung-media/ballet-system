@@ -2,6 +2,7 @@
 
 namespace App\Models\Course;
 
+use App\Enums\GenderEnum;
 use App\Enums\TeacherStatus;
 use App\Models\BaseModel;
 
@@ -20,9 +21,10 @@ class Teacher extends BaseModel
         'status',
     ];
 
-    public function casts(): array
+    protected function casts(): array
     {
         return [
+            'gender' => GenderEnum::class,
             'status'  => TeacherStatus::class
         ];
     }

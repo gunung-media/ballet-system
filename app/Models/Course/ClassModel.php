@@ -3,16 +3,27 @@
 namespace App\Models\Course;
 
 use App\Models\BaseModel;
+use App\Traits\HasActive;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Validation\Rule;
 
 class ClassModel extends BaseModel
 {
+    use HasActive;
+
     protected $table = 'classes';
 
     protected $fillable = [
         'name'
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+        ];
+    }
+
 
     #[\Override]
     static function validationRules(mixed $ignoredVal = null): array

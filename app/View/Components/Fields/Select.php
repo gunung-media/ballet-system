@@ -23,7 +23,7 @@ class Select extends Component
     ) {
         $this->name = $name;
         $this->label = $label;
-        $this->value = !is_string($value) ? $value->value : $value;
+        $this->value = !is_string($value) && isset($value) && !is_null($value) ? $value->value : $value;
         $this->isRequired = $isRequired;
         $this->choices = is_string($choices) && enum_exists($choices) ? collect($choices::cases())->mapWithKeys(fn ($choice) => [$choice->value => $choice->value])->toArray() : $choices;
     }

@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Course;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Course\AbsenceRepository;
+use App\Repositories\Course\AbsenceStudentRepository;
 use App\Repositories\Course\ClassRepository;
 use App\Repositories\Course\StudentRepository;
 use App\Repositories\Course\TeacherRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -18,6 +20,7 @@ class AbsenceController extends Controller
         protected ClassRepository $classRepository,
         protected TeacherRepository $teacherRepository,
         protected AbsenceRepository $absenceRepository,
+        protected AbsenceStudentRepository $absenceStudentRepository,
         protected StudentRepository $studentRepository,
     ) {
     }
@@ -29,7 +32,7 @@ class AbsenceController extends Controller
         return view('pages.courses.absence.index', compact('events'));
     }
 
-    public function form(Request $request)
+    public function form(Request $request): View|Factory
     {
         $scheduleId = $request->get('id');
         $date = $request->get('date');
@@ -41,7 +44,20 @@ class AbsenceController extends Controller
         return view('pages.courses.absence.form', compact('scheduleId', 'date', 'teachers', 'absence', 'students', 'class'));
     }
 
-    public function submit()
+    public function submit(Request $request): RedirectResponse
     {
+        $isSubmit = $request->has('is_submit');
+
+        try {
+            if ($isSubmit) {
+                $this->absenceRepository->insert($request->except('token'));
+                return redirect()->back()->with('success', 'Absence created successfully!');
+            }
+
+            $this->absenceStudentRepository->createOrUpdate($request->except('token'));
+            return redirect()->back()->with('success', 'Siswa berhasil absen!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

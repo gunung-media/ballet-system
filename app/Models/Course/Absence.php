@@ -4,6 +4,7 @@ namespace App\Models\Course;
 
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Absence extends BaseModel
 {
@@ -21,5 +22,10 @@ class Absence extends BaseModel
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(Teacher::class);
+    }
+
+    public function students(): HasMany
+    {
+        return $this->hasMany(AbsenceStudent::class);
     }
 }

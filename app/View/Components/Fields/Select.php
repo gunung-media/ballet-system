@@ -22,7 +22,7 @@ class Select extends Component
         $this->name = $name;
         $this->label = $label;
         $this->isRequired = $isRequired;
-        $this->choices = is_string($choices) && enum_exists($choices) ? collect($choices::cases())->mapWithKeys(fn ($choice) => [$choice->name => $choice->value])->toArray() : $choices;
+        $this->choices = is_string($choices) && enum_exists($choices) ? collect($choices::cases())->mapWithKeys(fn ($choice) => [$choice->value => $choice->value])->toArray() : $choices;
     }
 
     public function render(): View|Closure|string

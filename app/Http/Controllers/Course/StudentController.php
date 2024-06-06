@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Course;
 
+use App\Enums\GenderEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Course\Student;
 use App\Repositories\Course\StudentRepository;
@@ -25,7 +26,8 @@ class StudentController extends Controller
 
     public function create(): View|Factory
     {
-        return view('pages.courses.student.form');
+        $genders = GenderEnum::class;
+        return view('pages.courses.student.form', compact('genders'));
     }
     /**
      * @return RedirectResponse

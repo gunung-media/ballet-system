@@ -22,9 +22,19 @@ class ClassRepository
         return $query->get();
     }
 
-    public function getForCalendar()
+    public function getForCalendar(int $threshold = 1)
     {
-        $currentMonth = now()->format('m');
+        $lowerBound = now()->subMonths($threshold);
+        $upperBound = now()->addMonths($threshold);
+        $currentDate = $lowerBound->copy();
+
+        $data = [];
+        while ($currentDate->lessThanOrEqualTo($upperBound)) {
+            echo $currentDate->dayName . "\n";
+
+            $currentDate->addDay();
+        }
+
         $datas = $this->getAll();
         return $datas->mapWithKeys(
             fn ($data) =>
@@ -34,7 +44,6 @@ class ClassRepository
                     'title' => $data->name,
                     'start' => now()->format('Y-m-d'),
                     'end' => now()->format('Y-m-d'),
-                    'className' => 'bg-gradient-success'
                 ]
             )
         );

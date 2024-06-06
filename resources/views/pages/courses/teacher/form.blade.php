@@ -27,7 +27,7 @@
                             </div>
 
                             <div class="col-md-6 col-12">
-                                <x-fields.select name="gender" label="Jenis Kelamin" :choices="['male' => 'Laki-Laki', 'female' => 'Perempuan']" />
+                                <x-fields.select name="gender" label="Jenis Kelamin" :choices="$genders" />
                             </div>
                         </div>
 

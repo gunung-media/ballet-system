@@ -26,7 +26,7 @@
                             </div>
 
                             <div class="col-md-6 col-12">
-                                <x-fields.select name="gender" label="Jenis Kelamin" :choices="['male' => 'Laki-Laki', 'female' => 'Perempuan']" />
+                                <x-fields.select name="gender" label="Jenis Kelamin" :choices="$genders" />
                             </div>
                         </div>
 
@@ -56,9 +56,6 @@
                 <div class="card-header pb-0 d-flex justify-content-between">
                     <div>
                         <h6>Data Wali</h6>
-                        <p class="font-weight-light text-xs">Wajib masukan data yang bertanda <span
-                                class="text-danger">*</span>
-                        </p>
                     </div>
                 </div>
                 <div class="card-body">

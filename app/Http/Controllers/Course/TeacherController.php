@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Course;
 
+use App\Enums\GenderEnum;
 use App\Enums\TeacherStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Course\Teacher;
@@ -26,8 +27,9 @@ class TeacherController extends Controller
 
     public function create(): View|Factory
     {
+        $genders = GenderEnum::class;
         $status = TeacherStatus::class;
-        return view('pages.courses.teacher.form', compact('status'));
+        return view('pages.courses.teacher.form', compact('genders', 'status'));
     }
 
     public function store(Request $request): RedirectResponse

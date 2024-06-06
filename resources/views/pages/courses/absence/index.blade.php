@@ -28,8 +28,8 @@
                 center: '',
                 end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
             },
-            selectable: true,
-            editable: true,
+            selectable: false,
+            editable: false,
             initialDate: '{{ now() }}',
             events: @json($events),
             eventClick: function(info) {

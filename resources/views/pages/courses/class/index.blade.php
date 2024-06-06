@@ -36,8 +36,9 @@
                                     </p>
                                 </td>
                                 <td class="align-middle">
-                                    <a href="javascript:;" class="btn text-secondary font-weight-bold text-xs"
-                                        data-toggle="tooltip" data-original-title="Edit user">
+                                    <a href="{{ route('kelas.edit', $d->id) }}"
+                                        class="btn text-secondary font-weight-bold text-xs" data-toggle="tooltip"
+                                        data-original-title="Edit user">
                                         Edit
                                     </a>
                                     <form action="{{ route('kelas.destroy', $d->id) }}" method="post">

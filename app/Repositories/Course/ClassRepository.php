@@ -53,7 +53,7 @@ class ClassRepository
     public function getById(mixed $identifier): ClassModel | null
     {
         if ($identifier instanceof ClassModel) return $identifier;
-        return $this->classModel->find($identifier);
+        return $this->classModel->with('schedules')->find($identifier);
     }
 
     public function getByDay(string $day): Collection|array
@@ -87,7 +87,22 @@ class ClassRepository
     public function update(mixed $identifier, array $data): bool
     {
         $model = $this->getById($identifier);
-        return $model->update($data);
+
+        $scheduleData = $data['schedule'] ?? null;
+        if (!is_null($scheduleData)) {
+            unset($data['schedule']);
+        }
+
+        $modelUpdated = $model->update($data);
+
+        if (!is_null($scheduleData)) {
+            // If there are existing schedules, delete them first
+            $model->schedules()->delete();
+            // Create new schedules
+            $model->schedules()->createMany($scheduleData);
+        }
+
+        return $modelUpdated;
     }
 
     public function delete(mixed $identifier): bool

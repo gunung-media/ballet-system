@@ -7,7 +7,12 @@
     <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Kelas']" />
 @endsection
 @section('content')
-    <form class="row" action="{{ route('kelas.store') }}" method="POST">
+    <form class="row" action="{{ isset($data) ? route('kelas.update', $data->id) : route('kelas.store') }}" method="POST">
+
+        @if (isset($data))
+            @method('PUT')
+        @endif
+
         @csrf
         <div class="col-12">
             <div class="card mb-4">
@@ -20,7 +25,7 @@
                 </div>
                 <div class="card-body">
                     <div action="">
-                        <x-fields.input type="text" name="name" label="Nama Kelas" />
+                        <x-fields.input type="text" name="name" label="Nama Kelas" :value="$data->name ?? null" />
                         <hr />
                     </div>
                 </div>
@@ -36,20 +41,42 @@
                 </div>
                 <div class="card-body">
                     <div class="parent" id="parent">
-                        <div class="row draggable" id="copy" style="background-color: #f8f9fa; border-radius:10px ">
-                            <div class="col-12">
-                                <x-fields.select name="schedule[0][day]" label="Hari" :choices="$days" />
+                        @if (isset($data))
+                            @foreach ($data->schedules as $key => $schedule)
+                                <div class="row " id="copy" style="background-color: #f8f9fa; border-radius:10px ">
+                                    <div class="col-12">
+                                        <x-fields.select name="schedule[{{ $key }}][day]" label="Hari"
+                                            :choices="$days" :value="$schedule->day" />
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
+                                        <x-fields.input type="time" name="schedule[{{ $key }}][time]"
+                                            label="Waktu" :value="$schedule->time" />
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
+                                        <x-fields.input type="number" name="schedule[{{ $key }}][duration]"
+                                            label="Durasi" :value="$schedule->duration" />
+                                    </div>
+                                    <button class="btn btn-danger" onclick="removeDiv(this)" type="button">-</button>
+                                    <button class="btn btn-primary add-btn" onclick="copyDiv()" type="button">+</button>
+                                </div>
+                                <hr />
+                            @endforeach
+                        @else
+                            <div class="row " id="copy" style="background-color: #f8f9fa; border-radius:10px ">
+                                <div class="col-12">
+                                    <x-fields.select name="schedule[0][day]" label="Hari" :choices="$days" />
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <x-fields.input type="time" name="schedule[0][time]" label="Waktu" />
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <x-fields.input type="number" name="schedule[0][duration]" label="Durasi" />
+                                </div>
+                                <button class="btn btn-danger" onclick="removeDiv(this)" type="button">-</button>
+                                <button class="btn btn-primary add-btn" onclick="copyDiv()" type="button">+</button>
                             </div>
-                            <div class="form-group col-md-6 col-12">
-                                <x-fields.input type="time" name="schedule[0][time]" label="Waktu" />
-                            </div>
-                            <div class="form-group col-md-6 col-12">
-                                <x-fields.input type="number" name="schedule[0][duration]" label="Durasi" />
-                            </div>
-                            <button class="btn btn-danger" onclick="removeDiv(this)" type="button">-</button>
-                            <button class="btn btn-primary add-btn" onclick="copyDiv()" type="button">+</button>
-                        </div>
-                        <hr />
+                            <hr />
+                        @endif
 
                     </div>
                     <div class="form-group">
@@ -82,7 +109,7 @@
     </script>
 
     <script>
-        let counter = 0;
+        let counter = {{ isset($data) ? count($data->schedules) : 0 }}
 
         function copyDiv() {
             const originalDiv = document.getElementById('copy');

@@ -34,7 +34,7 @@ class ClassModel extends BaseModel
                 'required',
                 'string',
                 'max:255',
-                Rule::unique(table: 'classes', column: 'name')->ignore($ignoredVal)
+                Rule::unique('classes', 'name')->ignore($ignoredVal)
             ],
             'is_active' => 'boolean',
             'schedule' => 'required|array|min:1',

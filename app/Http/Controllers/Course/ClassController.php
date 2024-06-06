@@ -42,13 +42,14 @@ class ClassController extends Controller
         }
     }
 
-    public function edit($classModel): View|Factory
+    public function edit(mixed $classModel): View|Factory
     {
         $days = DayEnum::class;
-        return view('pages.courses.class.index', compact('days', 'classModel'));
+        $data = $this->classRepository->getById($classModel);
+        return view('pages.courses.class.form', compact('days', 'data'));
     }
 
-    public function update(Request $request, $classModel): RedirectResponse
+    public function update(Request $request, mixed $classModel): RedirectResponse
     {
         $request->validate(ClassModel::validationRules($classModel));
 
@@ -58,7 +59,7 @@ class ClassController extends Controller
         return redirect()->back()->with('success', 'Berhasil mengupdate kelas');
     }
 
-    public function destroy($classModel): RedirectResponse
+    public function destroy(mixed $classModel): RedirectResponse
     {
         $deleted = $this->classRepository->delete($classModel);
         if (!$deleted) back()->with('error', 'Gagal menghapus kelas');

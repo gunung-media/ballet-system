@@ -96,10 +96,10 @@ class ClassRepository
         $modelUpdated = $model->update($data);
 
         if (!is_null($scheduleData)) {
-            // If there are existing schedules, delete them first
+            $uniqueSchedules = collect($scheduleData)->unique('day')->toArray();
+            $modelUpdated = $model->update($data);
             $model->schedules()->delete();
-            // Create new schedules
-            $model->schedules()->createMany($scheduleData);
+            $model->schedules()->createMany($uniqueSchedules);
         }
 
         return $modelUpdated;

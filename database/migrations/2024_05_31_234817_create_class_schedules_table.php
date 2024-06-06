@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\DayEnum;
+use App\Utils\EnumUtils;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -10,7 +12,7 @@ return new class extends Migration
     {
         Schema::create('class_schedules', function (Blueprint $table) {
             $table->id();
-            $table->enum('day', ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']);
+            $table->enum('day', EnumUtils::toArray(DayEnum::class));
             $table->time('time');
             $table->float('duration');
             $table->unsignedBigInteger('class_id');

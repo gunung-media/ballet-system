@@ -1,5 +1,8 @@
 <?php
 
+use App\Enums\GenderEnum;
+use App\Enums\TeacherStatus;
+use App\Utils\EnumUtils;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,13 +19,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('photo')->nullable();
             $table->string('identity_number');
-            $table->enum('gender', ['Male', 'Female']);
+            $table->enum('gender', EnumUtils::toArray(GenderEnum::class));
             $table->string('email');
             $table->string('phone');
             $table->string('address');
             $table->date('birth_date');
             $table->date('join_date');
-            $table->enum('status', ['Active', 'Vacation', 'Resign'])->default('Active');
+            $table->enum('status', EnumUtils::toArray(TeacherStatus::class))->default('Active');
             $table->timestamps();
         });
     }

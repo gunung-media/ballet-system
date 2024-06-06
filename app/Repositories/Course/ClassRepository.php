@@ -9,7 +9,7 @@ class ClassRepository
 {
     public function __construct(
         protected ClassModel $classModel,
-
+        protected ClassScheduleRepository $classScheduleRepository,
     ) {
     }
 
@@ -36,7 +36,7 @@ class ClassRepository
             if ($classHasDay->isNotEmpty()) {
                 $data[] = $classHasDay->mapWithKeys(
                     fn ($data) => [
-                        'id' => $data->id,
+                        'id' => $this->classScheduleRepository->getScheduleByClassAndDay($data->id, $day)->id,
                         'title' => $data->name,
                         'start' => $currentDate->format('Y-m-d'),
                         'end' => $currentDate->format('Y-m-d'),
@@ -65,6 +65,17 @@ class ClassRepository
                 $query->where('day', $day);
             })
             ->get();
+    }
+
+    public function getBySchedule($scheduleId)
+    {
+        $schedule = $this->classScheduleRepository->getById($scheduleId);
+
+        if ($schedule) {
+            return $schedule->class;
+        }
+
+        return null;
     }
 
     /**

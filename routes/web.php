@@ -30,4 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('guru', TeacherController::class)->except('show');
 
     Route::get('/absence', [AbsenceController::class, 'index'])->name('absence.index');
+    Route::get('/absence/form', [AbsenceController::class, 'form'])->name('absence.form');
+    Route::post('/absence/form/submit', [AbsenceController::class, 'submit'])->name('absence.form.submit');
 });

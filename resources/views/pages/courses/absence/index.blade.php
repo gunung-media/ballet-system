@@ -33,8 +33,18 @@
             initialDate: '{{ now() }}',
             events: @json($events),
             eventClick: function(info) {
-                alert('Event: ' + info.event.title);
-                alert('ID: ' + info.event.id);
+                const eventId = info.event.id;
+                const date = info.event.start;
+                var jsDate = new Date(date);
+
+                var year = jsDate.getFullYear();
+                var month = jsDate.getMonth() + 1;
+                var day = jsDate.getDate();
+                var phpDateString = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') +
+                    day;
+
+                window.location.href = "{{ route('absence.form') }}" + "?id=" + eventId + "&date=" +
+                    phpDateString;
             },
             views: {
                 month: {

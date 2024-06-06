@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Course;
 
+use App\Models\Course\ClassModel;
 use App\Models\Course\Student;
 use App\Models\Course\StudentModel;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,7 +15,7 @@ class StudentRepository
 {
     public function __construct(
         protected Student $student,
-
+        protected ClassModel $classModel,
     ) {
     }
 
@@ -30,6 +31,19 @@ class StudentRepository
     {
         if ($identifier instanceof Student) return $identifier;
         return $this->student->with('classes')->find($identifier);
+    }
+
+    public function getStudentsByScheduleId(mixed $scheduleId): Collection
+    {
+        $class = $this->classModel->whereHas('schedules', function ($query) use ($scheduleId) {
+            $query->where('id', $scheduleId);
+        })->first();
+
+        if ($class) {
+            return $class->students;
+        }
+
+        return collect();
     }
 
     /**

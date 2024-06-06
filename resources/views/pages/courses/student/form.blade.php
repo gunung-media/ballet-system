@@ -90,6 +90,9 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <div action="">
+                        <x-fields.select name="classes[]" label="Kelas" :choices="$classes" :is-multiple="true"
+                            :value="isset($selectedClass) ? $selectedClass : null" />
+
                         <x-fields.input type="date" name="registration" label="Tanggal Pendaftaran"
                             value="{{ $data->registration ?? null }}" />
 

@@ -11,21 +11,26 @@ class Select extends Component
     public string $name;
     public string $label;
     public ?string $value;
-    public bool $isRequired;
     public array $choices;
+    public bool $isRequired;
+    public bool $isMultiple;
 
     public function __construct(
         string $name,
         string $label,
         mixed $value = null,
+        mixed $choices = null,
         bool $isRequired = true,
-        mixed $choices = null
+        bool $isMultiple = false,
     ) {
         $this->name = $name;
         $this->label = $label;
         $this->value = !is_string($value) && isset($value) && !is_null($value) ? $value->value : $value;
+        $this->choices = is_string($choices) && enum_exists($choices)
+            ? collect($choices::cases())->mapWithKeys(fn ($choice) => [$choice->value => $choice->value])->toArray()
+            : $choices;
         $this->isRequired = $isRequired;
-        $this->choices = is_string($choices) && enum_exists($choices) ? collect($choices::cases())->mapWithKeys(fn ($choice) => [$choice->value => $choice->value])->toArray() : $choices;
+        $this->isMultiple = $isMultiple;
     }
 
     public function render(): View|Closure|string

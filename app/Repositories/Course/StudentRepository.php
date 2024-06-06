@@ -29,7 +29,7 @@ class StudentRepository
     public function getById(mixed $identifier): Student | null
     {
         if ($identifier instanceof Student) return $identifier;
-        return $this->student->find($identifier);
+        return $this->student->with('classes')->find($identifier);
     }
 
     /**
@@ -57,6 +57,10 @@ class StudentRepository
             $student->save();
         }
 
+        if (isset($data['classes']) && is_array($data['classes'])) {
+            $student->classes()->attach($data['classes']);
+        }
+
         return $student;
     }
 
@@ -76,6 +80,10 @@ class StudentRepository
             }
 
             $data['photo'] = $path;
+        }
+
+        if (isset($data['classes']) && is_array($data['classes'])) {
+            $model->classes()->sync($data['classes']);
         }
 
         return $model->update($data);

@@ -31,7 +31,10 @@ class Student extends BaseModel
 
     static function validationRules(mixed $ignoredVal = null): array
     {
-        return  [];
+        return  [
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'classes' => 'array',
+        ];
     }
 
     public function classes(): BelongsToMany

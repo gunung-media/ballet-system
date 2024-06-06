@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Course;
 use App\Enums\GenderEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Course\Student;
+use App\Repositories\Course\ClassRepository;
 use App\Repositories\Course\StudentRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -14,7 +15,8 @@ use Illuminate\Http\Request;
 class StudentController extends Controller
 {
     public function __construct(
-        protected StudentRepository $studentRepository
+        protected StudentRepository $studentRepository,
+        protected ClassRepository $classRepository
     ) {
     }
 
@@ -27,7 +29,8 @@ class StudentController extends Controller
     public function create(): View|Factory
     {
         $genders = GenderEnum::class;
-        return view('pages.courses.student.form', compact('genders'));
+        $classes = $this->classRepository->getAll()->mapWithKeys(fn ($class) => [$class->id => $class->name])->toArray();
+        return view('pages.courses.student.form', compact('genders', 'classes'));
     }
     /**
      * @return RedirectResponse
@@ -48,7 +51,9 @@ class StudentController extends Controller
     {
         $genders = GenderEnum::class;
         $data = $this->studentRepository->getById($id);
-        return view('pages.courses.student.form', compact('genders', 'data'));
+        $classes = $this->classRepository->getAll()->mapWithKeys(fn ($class) => [$class->id => $class->name])->toArray();
+        $selectedClass = $data->classes->map(fn ($query) => $query->id)->join(', ');
+        return view('pages.courses.student.form', compact('genders', 'data', 'classes', 'selectedClass'));
     }
 
     public function update(Request $request, string $id)

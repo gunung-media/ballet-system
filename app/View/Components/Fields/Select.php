@@ -10,17 +10,20 @@ class Select extends Component
 {
     public string $name;
     public string $label;
+    public string $value;
     public bool $isRequired;
     public array $choices;
 
     public function __construct(
         string $name,
         string $label,
+        string $value,
         bool $isRequired = true,
         mixed $choices = null
     ) {
         $this->name = $name;
         $this->label = $label;
+        $this->value = $value;
         $this->isRequired = $isRequired;
         $this->choices = is_string($choices) && enum_exists($choices) ? collect($choices::cases())->mapWithKeys(fn ($choice) => [$choice->value => $choice->value])->toArray() : $choices;
     }

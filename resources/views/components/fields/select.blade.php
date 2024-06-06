@@ -4,10 +4,11 @@
             <span class="text-danger">*</span>
         @endif
     </label>
-    <select class="form-control" name="{{ $name }}" jlaceholder="Pilih {{ $label }}"
+    <select class="form-control" name="{{ $name }}" placeholder="Pilih {{ $label }}"
         required="{{ $isRequired }}">
-        @foreach ($choices as $key => $value)
-            <option value="{{ $key }}">{{ Illuminate\Support\Str::title($value) }}</option>
+        @foreach ($choices as $key => $choice)
+            <option value="{{ $key }}" {{ $key == $value ? 'selected' : '' }}>
+                {{ Illuminate\Support\Str::title($choice) }}</option>
         @endforeach
     </select>
 </div>

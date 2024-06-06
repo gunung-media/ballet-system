@@ -44,17 +44,24 @@ class TeacherController extends Controller
         }
     }
 
-    public function edit($teacher): void
+    public function edit(mixed $teacher): View|Factory
     {
-        //
+        $genders = GenderEnum::class;
+        $status = TeacherStatus::class;
+        $data =  $this->teacherRepository->getById($teacher);
+        return view('pages.courses.teacher.form', compact('genders', 'status', 'data'));
     }
 
-    public function update(Request $request, $teacher): void
+    public function update(Request $request, mixed $teacher): RedirectResponse
     {
-        //
+        $request->validate(Teacher::validationRules());
+        if ($this->teacherRepository->update($teacher, $request->except('_token'))) {
+            return back()->with('success', 'Berhasil Mengupdate Guru');
+        }
+        return back()->with('error', 'Gagal Mengupdate Guru');
     }
 
-    public function destroy($teacher): RedirectResponse
+    public function destroy(mixed $teacher): RedirectResponse
     {
         $deleted = $this->teacherRepository->delete($teacher);
         if (!$deleted) back()->with('error', 'Gagal menghapus guru');

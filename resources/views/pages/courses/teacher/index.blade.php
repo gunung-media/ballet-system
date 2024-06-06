@@ -47,8 +47,9 @@
                                         class="badge badge-sm badge-{{ $d->status->color() }}">{{ $d->status->value }}</span>
                                 </td>
                                 <td class="align-middle">
-                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs btn"
-                                        data-toggle="tooltip" data-original-title="Edit user">
+                                    <a href="{{ route('guru.edit', $d->id) }}"
+                                        class="text-secondary font-weight-bold text-xs btn" data-toggle="tooltip"
+                                        data-original-title="Edit user">
                                         Edit
                                     </a>
                                     <form action="{{ route('guru.destroy', $d->id) }}" method="post">

@@ -47,12 +47,10 @@ class TeacherRepository
 
         $teacher = $this->teacher->create($data);
 
-        // Store photo if provided
         if (!is_null($photo)) {
             $fileName = uniqid('teacher_') . '.' . $photo->getClientOriginalExtension();
             $path = Storage::putFileAs('public/teachers', $photo, $fileName);
 
-            // Update teacher model with photo path
             $teacher->photo = $path;
             $teacher->save();
         }
@@ -66,6 +64,19 @@ class TeacherRepository
     public function update(mixed $identifier, array $data): bool
     {
         $model = $this->getById($identifier);
+
+        if (isset($data['photo']) && !is_string($data['photo'])) {
+            $photo = $data['photo'];
+            $fileName = uniqid('teacher_') . '.' . $photo->getClientOriginalExtension();
+            $path = Storage::putFileAs('public/teachers', $photo, $fileName);
+
+            if ($model->photo) {
+                Storage::disk('public')->delete($model->photo);
+            }
+
+            $data['photo'] = $path;
+        }
+
         return $model->update($data);
     }
 

@@ -13,6 +13,8 @@ Route::name('auth.')->group(function () {
     Route::middleware('guest')->group(function () {
         Route::get('login', [UserAuthController::class, 'showLoginForm'])->name('login');
         Route::post('login', [UserAuthController::class, 'login'])->name('login.post');
+        Route::get('register', [StudentController::class, 'register'])->name('register');
+        Route::post('register_post', [StudentController::class, 'registerPost'])->name('register.post');
     });
     Route::get('logout', [UserAuthController::class, 'logout'])->name('logout')->middleware('auth');
 });

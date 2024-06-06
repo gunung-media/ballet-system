@@ -32,6 +32,25 @@ class StudentController extends Controller
         $classes = $this->classRepository->getAll()->mapWithKeys(fn ($class) => [$class->id => $class->name])->toArray();
         return view('pages.courses.student.form', compact('genders', 'classes'));
     }
+
+    public function register(): View|Factory
+    {
+        $genders = GenderEnum::class;
+        return view('sign-up', compact('genders'));
+    }
+
+    public function registerPost(Request $request): RedirectResponse
+    {
+        $request->validate(Student::validationRules());
+
+        try {
+            $this->studentRepository->insert($request->except('_token'));
+            return redirect()->intended(route('auth.register'))->with('success', 'Berhasil Daftar');
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', $exception->getMessage())->withInput();
+        }
+    }
+
     /**
      * @return RedirectResponse
      */
@@ -56,7 +75,7 @@ class StudentController extends Controller
         return view('pages.courses.student.form', compact('genders', 'data', 'classes', 'selectedClass'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate(Student::validationRules());
 

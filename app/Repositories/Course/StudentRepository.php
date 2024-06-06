@@ -37,7 +37,6 @@ class StudentRepository
      */
     public function insert(array $data): Student
     {
-        // Extract and validate photo
         $photo = $data['photo'];
         if (!is_null($photo) && !($photo instanceof UploadedFile)) {
             throw new InvalidArgumentException('Photo must be an uploaded file');
@@ -49,7 +48,6 @@ class StudentRepository
 
         $student = $this->student->create($data);
 
-        // Store photo if provided
         if (!is_null($photo)) {
             $fileName = uniqid('student_') . '.' . $photo->getClientOriginalExtension();
             $path = Storage::putFileAs('public/students', $photo, $fileName);
@@ -68,6 +66,18 @@ class StudentRepository
     public function update(mixed $identifier, array $data): bool
     {
         $model = $this->getById($identifier);
+        if (isset($data['photo']) && !is_string($data['photo'])) {
+            $photo = $data['photo'];
+            $fileName = uniqid('student_') . '.' . $photo->getClientOriginalExtension();
+            $path = Storage::putFileAs('public/students', $photo, $fileName);
+
+            if ($model->photo) {
+                Storage::disk('public')->delete($model->photo);
+            }
+
+            $data['photo'] = $path;
+        }
+
         return $model->update($data);
     }
 

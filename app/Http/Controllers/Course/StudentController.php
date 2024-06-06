@@ -44,14 +44,21 @@ class StudentController extends Controller
         }
     }
 
-    public function edit(string $id): void
+    public function edit(string $id): View|Factory
     {
-        //
+        $genders = GenderEnum::class;
+        $data = $this->studentRepository->getById($id);
+        return view('pages.courses.student.form', compact('genders', 'data'));
     }
 
-    public function update(Request $request, string $id): void
+    public function update(Request $request, string $id)
     {
-        //
+        $request->validate(Student::validationRules());
+
+        if ($this->studentRepository->update($id, $request->except('_token'))) {
+            return back()->with('success', 'Berhasil Mengedit Siswa');
+        }
+        return back()->with('error', 'Gagal Mengedit Siswa');
     }
 
     public function destroy(string $id): RedirectResponse

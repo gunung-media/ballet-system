@@ -7,7 +7,12 @@
     <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Siswa']" />
 @endsection
 @section('content')
-    <form class="row" enctype="multipart/form-data" action="{{ route('siswa.store') }}" method="POST">
+    <form class="row" enctype="multipart/form-data"
+        action="{{ isset($data) ? route('siswa.update', $data->id) : route('siswa.store') }}" method="POST">
+        @if (isset($data))
+            @method('PUT')
+        @endif
+
         @csrf
         <div class="col-12">
             <div class="card mb-4">
@@ -22,30 +27,41 @@
                     <div action="">
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <x-fields.input type="text" name="name" label="Name" />
+                                <x-fields.input type="text" name="name" label="Name"
+                                    value="{{ $data->name ?? null }}" />
                             </div>
 
                             <div class="col-md-6 col-12">
-                                <x-fields.select name="gender" label="Jenis Kelamin" :choices="$genders" />
+                                <x-fields.select name="gender" label="Jenis Kelamin" :choices="$genders"
+                                    value="{{ $data->gender ?? null }}" />
                             </div>
                         </div>
 
-                        <x-fields.input type="date" name="birth_date" label="Tanggal Lahir" />
+                        <x-fields.input type="date" name="birth_date" label="Tanggal Lahir"
+                            value="{{ $data->birth_date ?? null }}" />
 
-                        <x-fields.input type="text" name="address" label="Alamat" />
+                        <x-fields.input type="text" name="address" label="Alamat" value="{{ $data->address ?? null }}" />
 
 
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <x-fields.input type="email" name="email" label="Email" />
+                                <x-fields.input type="email" name="email" label="Email"
+                                    value="{{ $data->email ?? null }}" />
                             </div>
 
                             <div class="col-md-6 col-12">
-                                <x-fields.input type="tel" name="phone" label="No. Telepon " />
+                                <x-fields.input type="tel" name="phone" label="No. Telepon"
+                                    value="{{ $data->phone ?? null }}" />
                             </div>
                         </div>
 
-                        <x-fields.input type="file" name="photo" label="Foto Siswa" />
+                        <x-fields.input type="file" name="photo" label="Foto Siswa" :is-required="!isset($data) || empty($data->photo)" />
+
+                        @if ($data->photo ?? false)
+                            <div>
+                                <img src="{{ asset('storage/' . $data->photo) }}    " alt="{{ $data->name }}" />
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -60,8 +76,10 @@
                 </div>
                 <div class="card-body">
                     <div action="">
-                        <x-fields.input type="text" name="wali_name" label="Nama Wali" />
-                        <x-fields.input type="tel" name="wali_phone" label="Nomor Wali/Kontak Darurat" />
+                        <x-fields.input type="text" name="wali_name" label="Nama Wali"
+                            value="{{ $data->wali_name ?? null }}    " />
+                        <x-fields.input type="tel" name="wali_phone" label="Nomor Wali/Kontak Darurat"
+                            value="{{ $data->wali_phone ?? null }}" />
                         <br />
                     </div>
                 </div>
@@ -72,9 +90,10 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <div action="">
-                        <x-fields.input type="date" name="registration" label="Tanggal Pendaftaran" />
+                        <x-fields.input type="date" name="registration" label="Tanggal Pendaftaran"
+                            value="{{ $data->registration ?? null }}" />
 
-                        <x-fields.input type="text" name="note" label="Catatan" />
+                        <x-fields.input type="text" name="note" label="Catatan" value="{{ $data->note ?? null }}" />
 
                         <hr />
 
@@ -87,7 +106,4 @@
             </div>
         </div>
     </form>
-@endsection
-
-@section('customScripts')
 @endsection

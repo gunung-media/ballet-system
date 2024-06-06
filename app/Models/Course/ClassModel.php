@@ -4,6 +4,7 @@ namespace App\Models\Course;
 
 use App\Models\BaseModel;
 use App\Traits\HasActive;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Validation\Rule;
 
@@ -43,5 +44,10 @@ class ClassModel extends BaseModel
     public function schedules(): HasMany
     {
         return $this->hasMany(ClassSchedule::class, 'class_id');
+    }
+
+    public function students(): BelongsToMany
+    {
+        return $this->belongsToMany(Student::class, 'class_students', 'class_id', 'student_id');
     }
 }

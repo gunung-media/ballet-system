@@ -4,6 +4,7 @@ namespace App\Models\Course;
 
 use App\Enums\GenderEnum;
 use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Student extends BaseModel
 {
@@ -31,5 +32,10 @@ class Student extends BaseModel
     static function validationRules(mixed $ignoredVal = null): array
     {
         return  [];
+    }
+
+    public function classes(): BelongsToMany
+    {
+        return $this->belongsToMany(ClassModel::class, 'class_students', 'student_id', 'class_id');
     }
 }

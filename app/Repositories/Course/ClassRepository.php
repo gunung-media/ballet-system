@@ -22,7 +22,7 @@ class ClassRepository
         return $query->get();
     }
 
-    public function getForCalendar(int $threshold = 1)
+    public function getForCalendar(int $threshold = 5): Collection| array
     {
         $lowerBound = now()->subMonths($threshold);
         $upperBound = now()->addMonths($threshold);
@@ -30,29 +30,41 @@ class ClassRepository
 
         $data = [];
         while ($currentDate->lessThanOrEqualTo($upperBound)) {
-            echo $currentDate->dayName . "\n";
+            $day = $currentDate->dayName;
+            $classHasDay = $this->getByDay($day);
+
+            if ($classHasDay->isNotEmpty()) {
+                $data[] = $classHasDay->mapWithKeys(
+                    fn ($data) => [
+                        'id' => $data->id,
+                        'title' => $data->name,
+                        'start' => $currentDate->format('Y-m-d'),
+                        'end' => $currentDate->format('Y-m-d'),
+                    ]
+                )->toArray();
+            }
 
             $currentDate->addDay();
         }
 
-        $datas = $this->getAll();
-        return $datas->mapWithKeys(
-            fn ($data) =>
-            $data->schedules->map(
-                fn ($schedule) => [
-                    'id' => $data->id,
-                    'title' => $data->name,
-                    'start' => now()->format('Y-m-d'),
-                    'end' => now()->format('Y-m-d'),
-                ]
-            )
-        );
+        return $data;
     }
 
     public function getById(mixed $identifier): ClassModel | null
     {
         if ($identifier instanceof ClassModel) return $identifier;
         return $this->classModel->find($identifier);
+    }
+
+    public function getByDay(string $day): Collection|array
+    {
+        return $this
+            ->classModel
+            ->active()
+            ->whereHas('schedules', function ($query) use ($day) {
+                $query->where('day', $day);
+            })
+            ->get();
     }
 
     /**

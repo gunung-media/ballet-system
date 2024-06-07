@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Course;
 
 use App\Enums\GenderEnum;
+use App\Enums\StudentStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Course\Student;
 use App\Repositories\Course\ClassRepository;
@@ -23,7 +24,9 @@ class StudentController extends Controller
     public function index(): View|Factory
     {
         $data = $this->studentRepository->getAll();
-        return view('pages.courses.student.index', compact('data'));
+        $selectedClass = fn ($student) => $student->classes->map(fn ($query) => $query->name)->join(', ');
+        $enum = StudentStatusEnum::class;
+        return view('pages.courses.student.index', compact('data', 'selectedClass', 'enum'));
     }
 
     public function create(): View|Factory
@@ -31,24 +34,6 @@ class StudentController extends Controller
         $genders = GenderEnum::class;
         $classes = $this->classRepository->getAll()->mapWithKeys(fn ($class) => [$class->id => $class->name])->toArray();
         return view('pages.courses.student.form', compact('genders', 'classes'));
-    }
-
-    public function register(): View|Factory
-    {
-        $genders = GenderEnum::class;
-        return view('sign-up', compact('genders'));
-    }
-
-    public function registerPost(Request $request): RedirectResponse
-    {
-        $request->validate(Student::validationRules());
-
-        try {
-            $this->studentRepository->insert($request->except('_token'));
-            return redirect()->intended(route('auth.register'))->with('success', 'Berhasil Daftar');
-        } catch (\Exception $exception) {
-            return redirect()->back()->with('error', $exception->getMessage())->withInput();
-        }
     }
 
     /**
@@ -59,7 +44,7 @@ class StudentController extends Controller
         $request->validate(Student::validationRules());
 
         try {
-            $this->studentRepository->insert($request->except('_token'));
+            $this->studentRepository->insert([...$request->except('_token'), 'status' => StudentStatusEnum::APPROVED]);
             return redirect()->intended(route('siswa.index'))->with('success', 'Berhasil Menambahkan Siswa');
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', $exception->getMessage())->withInput();
@@ -90,5 +75,18 @@ class StudentController extends Controller
         $deleted = $this->studentRepository->delete($id);
         if (!$deleted) back()->with('error', 'Gagal menghapus siswa');
         return back()->with('success', 'Berhasil menghapus siswa');
+    }
+
+    public function changeStatus(Request $request, string $id): RedirectResponse
+    {
+        try {
+            $data = $this->studentRepository->getById($id);
+            $data->status = $request->status;
+            $data->save();
+            return back()->with('success', 'Berhasil Mengubah Status siswa');
+        } catch (\Throwable $th) {
+            dd($th);
+            return back()->with('error', 'Gagal Mengubah Status siswa');
+        }
     }
 }

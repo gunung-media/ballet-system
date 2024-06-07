@@ -27,7 +27,10 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     Route::resource('kategori', CategoryController::class)->except('show');
+
     Route::resource('siswa', StudentController::class)->except('show');
+    Route::post('siswa/change_status/{id}', [StudentController::class, 'changeStatus'])->name('siswa.change-status');
+
     Route::resource('kelas', ClassController::class)->except('show');
     Route::resource('guru', TeacherController::class)->except('show');
 

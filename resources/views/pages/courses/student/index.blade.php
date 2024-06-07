@@ -40,24 +40,44 @@
                                     </div>
                                 </td>
                                 <td class="align-middle text-sm">
-                                    <span class="badge badge-sm badge-success">Online</span>
+                                    <span
+                                        class="badge badge-sm badge-{{ $d->status?->color() ?? 'warning' }}">{{ $d->status?->value ?? 'Tidak di ketaui' }}</span>
                                 </td>
-                                <td class="align-middle text-center text-sm">
-                                    10
+                                <td class="align-middle text-sm">
+                                    {{ strlen($selectedClass($d)) == 0 ? '-' : $selectedClass($d) }}
                                 </td>
                                 <td class="align-middle">
                                     <a href="{{ route('siswa.edit', $d->id) }}"
-                                        class="text-secondary font-weight-bold text-xs btn" data-toggle="tooltip"
+                                        class="text-secondary font-weight-bold text-xs btn w-100" data-toggle="tooltip"
                                         data-original-title="Edit user">
                                         Edit
                                     </a>
                                     <form action="{{ route('siswa.destroy', $d->id) }}" method="post">
                                         @method('DELETE')
                                         @csrf
-                                        <button class="px-3 text-danger font-weight-bold text-xs btn" data-toggle="tooltip"
-                                            data-original-title="Edit user">
+                                        <button class="px-3 text-danger font-weight-bold text-xs btn w-100"
+                                            data-toggle="tooltip" data-original-title="Edit user">
                                             Hapus
                                         </button>
+                                    </form>
+
+
+                                    <form action="{{ route('siswa.change-status', ['id' => $d->id]) }}" method="post">
+                                        @csrf
+                                        @if ($d->status == $enum::REJECTED || $d->status == $enum::PENDING || !isset($d->status))
+                                            <button type="submit" name="status" value="{{ $enum::APPROVED->value }}"
+                                                class="font-weight-bold text-xs btn w-100 btn-success">
+                                                Terima
+                                            </button>
+                                            <br>
+                                        @endif
+
+                                        @if ($d->status == $enum::APPROVED || $d->status == $enum::PENDING || !isset($d->status))
+                                            <button type="submit" name="status" value="{{ $enum::REJECTED->value }}"
+                                                class="px-3 btn-danger font-weight-bold text-xs btn w-100">
+                                                Tolak
+                                            </button>
+                                        @endif
                                     </form>
                                 </td>
                             </tr>

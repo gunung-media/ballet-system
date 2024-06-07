@@ -7,10 +7,10 @@ use App\Enums\StudentStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Course\Student;
 use App\Repositories\Course\StudentRepository;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
-use Illuminate\View\Factory;
 
 class StudentRegisterController extends Controller
 {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Authentication\StudentRegisterController;
 use App\Http\Controllers\Authentication\UserAuthController;
 use App\Http\Controllers\Course\AbsenceController;
 use App\Http\Controllers\Course\ClassController;
@@ -12,8 +13,8 @@ use Illuminate\Support\Facades\Session;
 
 
 Route::name('auth.')->group(function () {
-    Route::get('register', [StudentController::class, 'register'])->name('register');
-    Route::post('register_post', [StudentController::class, 'registerPost'])->name('register.post');
+    Route::get('register', [StudentRegisterController::class, 'register'])->name('register');
+    Route::post('register_post', [StudentRegisterController::class, 'registerPost'])->name('register.post');
 
     Route::middleware('guest')->group(function () {
         Route::get('login', [UserAuthController::class, 'showLoginForm'])->name('login');

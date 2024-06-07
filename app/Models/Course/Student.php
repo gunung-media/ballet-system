@@ -3,6 +3,7 @@
 namespace App\Models\Course;
 
 use App\Enums\GenderEnum;
+use App\Enums\StudentStatusEnum;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -19,13 +20,15 @@ class Student extends BaseModel
         'wali_name',
         'wali_phone',
         'registration',
+        'status',
         'note',
     ];
 
     protected function casts(): array
     {
         return [
-            'gender' => GenderEnum::class
+            'gender' => GenderEnum::class,
+            'status' => StudentStatusEnum::class,
         ];
     }
 

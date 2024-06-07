@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="form-group">
-                        <a class="btn btn-warning" href="{{ route('teacher.index') }}">Kembali</a>
+                        <a class="btn btn-warning" href="{{ route('guru.index') }}">Kembali</a>
                         <button class="btn btn-success">Simpan</button>
                     </div>
                 </div>

@@ -10,12 +10,14 @@ use App\Http\Controllers\Sales\CategoryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
+
 Route::name('auth.')->group(function () {
+    Route::get('register', [StudentController::class, 'register'])->name('register');
+    Route::post('register_post', [StudentController::class, 'registerPost'])->name('register.post');
+
     Route::middleware('guest')->group(function () {
         Route::get('login', [UserAuthController::class, 'showLoginForm'])->name('login');
         Route::post('login', [UserAuthController::class, 'login'])->name('login.post');
-        Route::get('register', [StudentController::class, 'register'])->name('register');
-        Route::post('register_post', [StudentController::class, 'registerPost'])->name('register.post');
     });
     Route::get('logout', [UserAuthController::class, 'logout'])->name('logout')->middleware('auth');
 });

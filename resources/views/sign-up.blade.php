@@ -8,7 +8,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-5 text-center mx-auto">
                     <h1 class="text-white mb-2 mt-5">Pendaftaran Siswa</h1>
-                    <p class="text-lead text-white">Silahkan Isi Form Ini dengan Sebenar-benarnyr</p>
+                    <p class="text-lead text-white">Silahkan Isi Form Ini dengan Sebenar-benarnya</p>
                 </div>
             </div>
         </div>

@@ -25,7 +25,7 @@ class TuitionTransactionRepository
     public function getById(mixed $identifier): TuitionTransaction | null
     {
         if ($identifier instanceof TuitionTransaction) return $identifier;
-        return $this->model->with('schedules')->find($identifier);
+        return $this->model->with('student')->find($identifier);
     }
 
     /**

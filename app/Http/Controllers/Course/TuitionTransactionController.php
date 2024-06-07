@@ -28,7 +28,7 @@ class TuitionTransactionController extends Controller
     public function create(): View|Factory
     {
         $students = $this->studentRepository->getAll()->mapWithKeys(fn ($student) => [$student->id => $student->name])->toArray();
-        return view('pages.courses.teacher.form', compact('students'));
+        return view('pages.courses.tuition.form', compact('students'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -36,7 +36,7 @@ class TuitionTransactionController extends Controller
         $request->validate(TuitionTransaction::validationRules());
 
         try {
-            $this->tuitionTransactionRepository->insert($request->except('_token'));
+            $this->tuitionTransactionRepository->insert([...$request->except('_token'), 'for_month' => "{$request->for_month}-01"]);
             return redirect()->intended(route('spp.index'))->with('success', 'Berhasil Menambahkan Transasksi SPP');
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', $exception->getMessage())->withInput();
@@ -47,14 +47,14 @@ class TuitionTransactionController extends Controller
     {
         $data = $this->tuitionTransactionRepository->getById($id);
         $students = $this->studentRepository->getAll()->mapWithKeys(fn ($student) => [$student->id => $student->name])->toArray();
-        return view('pages.courses.teacher.form', compact('data', 'students'));
+        return view('pages.courses.tuition.form', compact('data', 'students'));
     }
 
     public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate(TuitionTransaction::validationRules());
 
-        if ($this->tuitionTransactionRepository->update($id, $request->except('_token'))) {
+        if ($this->tuitionTransactionRepository->update($id, [...$request->except('_token'), 'for_month' => "{$request->for_month}-01"])) {
             return back()->with('success', 'Berhasil Mengedit Transaksi SPP');
         }
         return back()->with('error', 'Gagal Mengedit Transaksi SPP');

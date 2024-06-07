@@ -12,7 +12,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
 class AbsenceController extends Controller
 {
@@ -27,7 +26,6 @@ class AbsenceController extends Controller
 
     public function index(): View|Factory
     {
-        Session::flash('warning', 'Under Development!');
         $events = $this->classRepository->getForCalendar();
         return view('pages.courses.absence.index', compact('events'));
     }

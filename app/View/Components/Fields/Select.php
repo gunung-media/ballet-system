@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 class Select extends Component
 {
     public string $name;
-    public string $label;
+    public mixed $label;
     public ?string $value;
     public array $choices;
     public bool $isRequired;
@@ -25,7 +25,7 @@ class Select extends Component
     ) {
         $this->name = $name;
         $this->label = $label;
-        $this->value = !is_string($value) && isset($value) && !is_null($value) ? $value->value : $value;
+        $this->value = !is_string($value) && isset($value) && !is_null($value) && enum_exists($value) ? $value->value : $value;
         $this->choices = is_string($choices) && enum_exists($choices)
             ? collect($choices::cases())->mapWithKeys(fn ($choice) => [$choice->value => $choice->value])->toArray()
             : $choices;

@@ -5,8 +5,8 @@ use App\Http\Controllers\Course\AbsenceController;
 use App\Http\Controllers\Course\ClassController;
 use App\Http\Controllers\Course\StudentController;
 use App\Http\Controllers\Course\TeacherController;
+use App\Http\Controllers\Course\TuitionTransactionController;
 use App\Http\Controllers\Sales\CategoryController;
-use App\Models\TuitionTransaction;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::post('siswa/change_status/{id}', [StudentController::class, 'changeStatus'])->name('siswa.change-status');
     Route::resource('kelas', ClassController::class)->except('show');
     Route::resource('guru', TeacherController::class)->except('show');
-    Route::resource('spp', TuitionTransaction::class)->except('show');
+    Route::resource('spp', TuitionTransactionController::class)->except('show');
 
     Route::get('/absence', [AbsenceController::class, 'index'])->name('absence.index');
     Route::get('/absence/form', [AbsenceController::class, 'form'])->name('absence.form');

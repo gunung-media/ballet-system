@@ -4,11 +4,11 @@ namespace App\Enums;
 
 enum DayEnum: string
 {
-    case sunday = 'Sunday';
-    case monday = 'Monday';
-    case thursday = 'Thursday';
-    case wednesday = 'Wednesday';
-    case tuesday = 'Tuesday';
-    case friday = 'Friday';
-    case saturday = 'Saturday';
+    case sunday = 'Minggu';
+    case monday = 'Senin';
+    case thursday = 'Selasa';
+    case wednesday = 'Rabu';
+    case tuesday = 'Kami';
+    case friday = 'Jumat';
+    case saturday = 'Sabtu';
 }

@@ -14,6 +14,8 @@ class Absence extends BaseModel
         'teacher_id'
     ];
 
+    protected $with = ['students'];
+
     public function schedule(): BelongsTo
     {
         return $this->belongsTo(ClassSchedule::class);

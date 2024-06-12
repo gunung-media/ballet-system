@@ -39,7 +39,18 @@ class AbsenceController extends Controller
         $students = $this->studentRepository->getStudentsByScheduleId($scheduleId);
         $class = $this->classRepository->getBySchedule($scheduleId);
 
-        return view('pages.courses.absence.form', compact('scheduleId', 'date', 'teachers', 'absence', 'students', 'class'));
+        $getStudentState = function ($studentId) use ($absence) {
+            $student = $absence->students
+                ->where('student_id', $studentId)
+                ->first();
+
+            if ($student) {
+                return $student->state;
+            }
+            return null;
+        };
+
+        return view('pages.courses.absence.form', compact('scheduleId', 'date', 'teachers', 'absence', 'students', 'class', 'getStudentState'));
     }
 
     public function submit(Request $request): RedirectResponse

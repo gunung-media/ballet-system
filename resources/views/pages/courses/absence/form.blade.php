@@ -46,14 +46,18 @@
                             @foreach ($students as $student)
                                 <form class="col-md-4 col-12" action="{{ route('absence.form.submit') }}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="absence_id" value="{{ $absence->id }}">
-                                    <input type="hidden" name="student_id" value="{{ $student->id }}">
+                                    <input type="hidden" name="absence_id" value="{{ $absence?->id }}">
+                                    <input type="hidden" name="student_id" value="{{ $student?->id }}">
                                     <div class="card">
                                         <div class="card-body p-2">
                                             <img src="{{ asset('storage/' . $student->photo) }}"
                                                 class="img-fluid border-radius-lg card-img">
                                             <p class="card-title d-block text-darker text-center h5 pt-3">
                                                 {{ $student->name }}
+                                                @if (!is_null($absence))
+                                                    <span
+                                                        class="text-sm font-weight-light">{{ $getStudentState($student->id) ?? '' }}</span>
+                                                @endif
                                             </p>
                                             <div class="row">
                                                 <div class="col-6">

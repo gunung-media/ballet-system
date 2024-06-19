@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Course;
 
+use App\Enums\DayEnum;
 use App\Models\Course\ClassModel;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -30,7 +31,7 @@ class ClassRepository
 
         $data = [];
         while ($currentDate->lessThanOrEqualTo($upperBound)) {
-            $day = $currentDate->dayName;
+            $day = DayEnum::cases()[$currentDate->dayOfWeek()]->value;
             $classHasDay = $this->getByDay($day);
 
             if ($classHasDay->isNotEmpty()) {

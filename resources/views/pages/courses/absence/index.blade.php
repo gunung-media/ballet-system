@@ -21,55 +21,59 @@
 
 @section('customScripts')
     <script>
-        var calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
-            initialView: "dayGridMonth",
-            headerToolbar: {
-                start: 'title', // will normally be on the left. if RTL, will be on the right
-                center: '',
-                end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
-            },
-            selectable: false,
-            editable: false,
-            initialDate: '{{ now() }}',
-            events: @json($events),
-            eventClick: function(info) {
-                const eventId = info.event.id;
-                const date = info.event.start;
-                var jsDate = new Date(date);
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                timeZone: 'UTC',
+                initialView: 'timeGridWeek',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                selectable: false,
+                editable: false,
+                initialDate: '{{ now() }}',
+                events: @json($events),
+                eventClick: function(info) {
+                    const eventId = info.event.id;
+                    const date = info.event.start;
+                    var jsDate = new Date(date);
 
-                var year = jsDate.getFullYear();
-                var month = jsDate.getMonth() + 1;
-                var day = jsDate.getDate();
-                var phpDateString = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') +
-                    day;
+                    var year = jsDate.getFullYear();
+                    var month = jsDate.getMonth() + 1;
+                    var day = jsDate.getDate();
+                    var phpDateString = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ?
+                            '0' : '') +
+                        day;
 
-                window.location.href = "{{ route('absence.form') }}" + "?id=" + eventId + "&date=" +
-                    phpDateString;
-            },
-            views: {
-                month: {
-                    titleFormat: {
-                        month: "long",
-                        year: "numeric"
+                    window.location.href = "{{ route('absence.form') }}" + "?id=" + eventId + "&date=" +
+                        phpDateString;
+                },
+                views: {
+                    month: {
+                        titleFormat: {
+                            month: "long",
+                            year: "numeric"
+                        }
+                    },
+                    agendaWeek: {
+                        titleFormat: {
+                            month: "long",
+                            year: "numeric",
+                            day: "numeric"
+                        }
+                    },
+                    agendaDay: {
+                        titleFormat: {
+                            month: "short",
+                            year: "numeric",
+                            day: "numeric"
+                        }
                     }
                 },
-                agendaWeek: {
-                    titleFormat: {
-                        month: "long",
-                        year: "numeric",
-                        day: "numeric"
-                    }
-                },
-                agendaDay: {
-                    titleFormat: {
-                        month: "short",
-                        year: "numeric",
-                        day: "numeric"
-                    }
-                }
-            },
-        });
-
-        calendar.render();
+            });
+            calendar.render();
+        })
     </script>
 @endsection

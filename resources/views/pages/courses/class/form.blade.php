@@ -26,7 +26,6 @@
                 <div class="card-body">
                     <div action="">
                         <x-fields.input type="text" name="name" label="Nama Kelas" :value="$data->name ?? null" />
-                        <hr />
                     </div>
                 </div>
             </div>
@@ -36,7 +35,7 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between">
                     <div>
-                        <h6>Schedule</h6>
+                        <h6>Jadwal</h6>
                     </div>
                 </div>
                 <div class="card-body">
@@ -54,10 +53,19 @@
                                     </div>
                                     <div class="form-group col-md-6 col-12">
                                         <x-fields.input type="number" name="schedule[{{ $key }}][duration]"
-                                            label="Durasi" :value="$schedule->duration" />
+                                            label="Durasi (Menit)" :value="$schedule->duration" />
                                     </div>
-                                    <button class="btn btn-danger" onclick="removeDiv(this)" type="button">-</button>
-                                    <button class="btn btn-primary add-btn" onclick="copyDiv()" type="button">+</button>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button class="btn btn-danger w-100" onclick="removeDiv(this)"
+                                                type="button">Hapus
+                                                Jadwal</button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-success add-btn w-100" onclick="copyDiv()"
+                                                type="button">Tambah Jadwal</button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <hr />
                             @endforeach
@@ -72,8 +80,16 @@
                                 <div class="form-group col-md-6 col-12">
                                     <x-fields.input type="number" name="schedule[0][duration]" label="Durasi" />
                                 </div>
-                                <button class="btn btn-danger" onclick="removeDiv(this)" type="button">-</button>
-                                <button class="btn btn-primary add-btn" onclick="copyDiv()" type="button">+</button>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button class="btn btn-danger w-100" onclick="removeDiv(this)" type="button">Hapus
+                                            Jadwal</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-success add-btn w-100" onclick="copyDiv()"
+                                            type="button">Tambah Jadwal</button>
+                                    </div>
+                                </div>
                             </div>
                             <hr />
                         @endif
@@ -111,6 +127,8 @@
     <script>
         let counter = {{ isset($data) ? count($data->schedules) : 0 }}
 
+        //TODO: only 1 day on schedule allowed
+
         function copyDiv() {
             const originalDiv = document.getElementById('copy');
             const clone = originalDiv.cloneNode(true);
@@ -130,7 +148,15 @@
         }
 
         function removeDiv(button) {
-            button.closest('.row').remove();
+            let firstRow = button.closest('.row');
+            //FIX: this is not working
+            if (firstRow) {
+                let secondRow = firstRow.nextElementSibling;
+                firstRow.remove();
+                if (secondRow && secondRow.classList.contains('row')) {
+                    secondRow.remove();
+                }
+            }
             updateAddButtonVisibility()
         }
 

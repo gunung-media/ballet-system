@@ -7,15 +7,41 @@
     <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Absensi']" />
 @endsection
 @section('content')
+
     <div class="row">
         <div class="col-12">
-            <div class="card card-calendar">
-                <div class="card-body p-3">
-                    <div class="calendar" data-bs-toggle="calendar" id="calendar"></div>
-                    <p class="font-weighr-light text-xs">*Klik Kelas Untuk Melanjutkan Presensi</p>
-                </div>
+            <div class="nav-wrapper position-relative end-0">
+                <ul class="nav nav-pills nav-fill p-1" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="#pill-absensi" role="tab"
+                            aria-controls="preview" aria-selected="true">
+                            <i class="ni ni-badge text-sm me-2"></i> Absensi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pill-rekap" role="tab"
+                            aria-controls="code" aria-selected="false">
+                            <i class="ni ni-laptop text-sm me-2"></i> Rekap
+                        </a>
+                    </li>
+                </ul>
             </div>
+            <brj <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pill-absensi" role="tabpanel"
+                    aria-labelledby="pills-absensi-tab">
+
+                    <div class="card card-calendar">
+                        <div class="card-body p-3">
+                            <div class="calendar" data-bs-toggle="calendar" id="calendar"></div>
+                            <p class="font-weighr-light text-xs">*Klik Kelas Untuk Melanjutkan Presensi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="pills-rekap" role="tabpanel" aria-labelledby="pills-rekap-tab">
+                    <!-- TODO: Add Table -->
+                </div>
         </div>
+    </div>
     </div>
 @endsection
 
@@ -38,17 +64,18 @@
                 eventClick: function(info) {
                     const eventId = info.event.id;
                     const date = info.event.start;
-                    var jsDate = new Date(date);
+                    const jsDate = new Date(date);
 
-                    var year = jsDate.getFullYear();
-                    var month = jsDate.getMonth() + 1;
-                    var day = jsDate.getDate();
-                    var phpDateString = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ?
-                            '0' : '') +
-                        day;
+                    const year = jsDate.getFullYear();
+                    const month = String(jsDate.getMonth() + 1).padStart(2, '0');
+                    const day = String(jsDate.getDate()).padStart(2, '0');
+                    const hours = String(jsDate.getHours()).padStart(2, '0');
+                    const minutes = String(jsDate.getMinutes()).padStart(2, '0');
 
-                    window.location.href = "{{ route('absence.form') }}" + "?id=" + eventId + "&date=" +
-                        phpDateString;
+                    const phpDateString = `${year}-${month}-${day} ${hours}:${minutes}`;
+
+                    window.location.href =
+                        `{{ route('absence.form') }}?id=${eventId}&date=${phpDateString}`;
                 },
                 views: {
                     month: {

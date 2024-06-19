@@ -13,7 +13,7 @@
                 <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
                     @php
                         use Carbon\Carbon;
-                        $formattedDate = Carbon::parse($date)->translatedFormat('l, d F Y');
+                        $formattedDate = Carbon::parse($date)->translatedFormat('l, d F Y, H:i');
                     @endphp
                     <h5>{{ $class->name }}</h5>
                     <p class="font-weight-light text-sm">Tanggal: {{ $formattedDate }}</p>

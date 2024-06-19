@@ -6,7 +6,9 @@
 <script src="{{ asset('assets/js/plugins/chartjs.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/sweetalert.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/choices.min.js') }}"></script>
-<script src="{{ asset('assets/js/plugins/fullcalendar.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.14/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.14/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.14/index.global.min.js"></script>
 <script>
     var win = navigator.platform.indexOf("Win") > -1;
     if (win && document.querySelector("#sidenav-scrollbar")) {
@@ -27,8 +29,8 @@
         const example = new Choices(element, {});
     }
     var choicesTags = document.getElementById('choices-tags');
-    var color = choicesTags.dataset.color;
     if (choicesTags) {
+        var color = choicesTags.dataset.color;
         const example = new Choices(choicesTags, {
             delimiter: ',',
             editItems: true,

@@ -42,7 +42,8 @@
                     <div class="parent" id="parent">
                         @if (isset($data))
                             @foreach ($data->schedules as $key => $schedule)
-                                <div class="row " id="copy" style="background-color: #f8f9fa; border-radius:10px ">
+                                <div class="row draggable" id="copy"
+                                    style="background-color: #f8f9fa; border-radius:10px ">
                                     <div class="col-12">
                                         <x-fields.select name="schedule[{{ $key }}][day]" label="Hari"
                                             :choices="$days" :value="$schedule->day" />
@@ -70,7 +71,8 @@
                                 <hr />
                             @endforeach
                         @else
-                            <div class="row " id="copy" style="background-color: #f8f9fa; border-radius:10px ">
+                            <div class="row draggable" id="copy"
+                                style="background-color: #f8f9fa; border-radius:10px ">
                                 <div class="col-12">
                                     <x-fields.select name="schedule[0][day]" label="Hari" :choices="$days" />
                                 </div>
@@ -127,8 +129,6 @@
     <script>
         let counter = {{ isset($data) ? count($data->schedules) : 0 }}
 
-        //TODO: only 1 day on schedule allowed
-
         function copyDiv() {
             const originalDiv = document.getElementById('copy');
             const clone = originalDiv.cloneNode(true);
@@ -148,14 +148,9 @@
         }
 
         function removeDiv(button) {
-            let firstRow = button.closest('.row');
-            //FIX: this is not working
+            let firstRow = button.closest('.draggable');
             if (firstRow) {
-                let secondRow = firstRow.nextElementSibling;
                 firstRow.remove();
-                if (secondRow && secondRow.classList.contains('row')) {
-                    secondRow.remove();
-                }
             }
             updateAddButtonVisibility()
         }

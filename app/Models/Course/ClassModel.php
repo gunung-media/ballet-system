@@ -3,6 +3,7 @@
 namespace App\Models\Course;
 
 use App\Models\BaseModel;
+use App\Rules\UniqueScheduleDays;
 use App\Traits\HasActive;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -37,7 +38,7 @@ class ClassModel extends BaseModel
                 Rule::unique('classes', 'name')->ignore($ignoredVal)
             ],
             'is_active' => 'boolean',
-            'schedule' => 'required|array|min:1',
+            'schedule' => ['required', 'array', new UniqueScheduleDays],
         ];
     }
 

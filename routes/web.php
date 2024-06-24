@@ -10,7 +10,6 @@ use App\Http\Controllers\Course\TuitionTransactionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Sales\CategoryController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 
 
 Route::name('auth.')->group(function () {

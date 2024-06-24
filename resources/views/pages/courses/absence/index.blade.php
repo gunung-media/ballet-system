@@ -26,7 +26,8 @@
                     </li>
                 </ul>
             </div>
-            <brj <div class="tab-content" id="pills-tabContent">
+            <br />
+            <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pill-absensi" role="tabpanel"
                     aria-labelledby="pills-absensi-tab">
 
@@ -37,11 +38,51 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="pills-rekap" role="tabpanel" aria-labelledby="pills-rekap-tab">
-                    <!-- TODO: Add Table -->
+                <div class="tab-pane fade" id="pill-rekap" role="tabpanel" aria-labelledby="pill-rekap-tab">
+                    <div class="card">
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <x-table :table-columns="['No', 'Tanggal', 'Kelas', 'Guru', 'Jumlah Hadir', 'Jumlah Tidak Hadir']">
+                                @foreach ($absences as $key => $absence)
+                                    <tr>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $key + 1 }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $absence->created_at_formated }}
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $absence->schedule->class->name }}
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $absence->teacher->name }}
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $absence->attended_student }} Siswa
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $absence->not_attended_student }}
+                                                Siswa
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('absence.form', ['id' => $absence->schedule->id, 'date' => $absence->date]) }}"
+                                                class="text-secondary font-weight-bold text-xs btn w-100"
+                                                data-toggle="tooltip">
+                                                Detail
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </x-table>
+                        </div>
+                    </div>
                 </div>
+            </div>
         </div>
-    </div>
     </div>
 @endsection
 

@@ -27,7 +27,9 @@ class AbsenceController extends Controller
     public function index(): View|Factory
     {
         $events = $this->classRepository->getForCalendar();
-        return view('pages.courses.absence.index', compact('events'));
+        $absences = $this->absenceRepository->getAbsences();
+        // dd($absences->toArray());
+        return view('pages.courses.absence.index', compact('events', 'absences'));
     }
 
     public function form(Request $request): View|Factory

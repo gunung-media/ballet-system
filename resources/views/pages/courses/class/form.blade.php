@@ -80,7 +80,7 @@
                                     <x-fields.input type="time" name="schedule[0][time]" label="Waktu" />
                                 </div>
                                 <div class="form-group col-md-6 col-12">
-                                    <x-fields.input type="number" name="schedule[0][duration]" label="Durasi" />
+                                    <x-fields.input type="number" name="schedule[0][duration]" label="Durasi (Menit)" />
                                 </div>
                                 <div class="row">
                                     <div class="col-6">

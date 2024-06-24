@@ -5,7 +5,6 @@ namespace App\Repositories\Course;
 use Carbon\Carbon;
 use App\Enums\DayEnum;
 use App\Models\Course\ClassModel;
-use DateTime;
 use Illuminate\Database\Eloquent\Collection;
 
 class ClassRepository

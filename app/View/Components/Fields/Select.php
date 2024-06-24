@@ -15,6 +15,7 @@ class Select extends Component
     public array $choices;
     public bool $isRequired;
     public bool $isMultiple;
+    public bool $isEnabled;
 
     public function __construct(
         string $name,
@@ -23,6 +24,7 @@ class Select extends Component
         mixed $choices = null,
         bool $isRequired = true,
         bool $isMultiple = false,
+        bool $isEnabled = true
     ) {
         $this->name = $name;
         $this->label = $label;
@@ -34,6 +36,7 @@ class Select extends Component
             : $choices;
         $this->isRequired = $isRequired;
         $this->isMultiple = $isMultiple;
+        $this->isEnabled = $isEnabled;
     }
 
     public function render(): View|Closure|string

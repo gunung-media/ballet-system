@@ -35,21 +35,21 @@ class ClassRepository
             $day = DayEnum::cases()[$currentDate->dayOfWeek()]->value;
             $classHasDay = $this->getByDay($day);
 
+
             if ($classHasDay->isNotEmpty()) {
-                $data[] = $classHasDay->mapWithKeys(
-                    function ($data) use ($day, $currentDate) {
-                        $scheduleData = $this->classScheduleRepository->getScheduleByClassAndDay($data->id, $day);
-                        $now = $currentDate->format('Y-m-d');
-                        $startHour = $scheduleData->time;
-                        $dateTime = Carbon::parse($now . ' ' . $startHour);
-                        return [
-                            'id' => $scheduleData->id,
-                            'title' => $data->name,
-                            'start' => $dateTime->format('Y-m-d H:i:s'),
-                            'end' => $dateTime->addMinutes(intval($scheduleData->duration))->format('Y-m-d H:i:s'),
-                        ];
-                    }
-                )->toArray();
+                foreach ($classHasDay as $c) {
+                    $scheduleData = $this->classScheduleRepository->getScheduleByClassAndDay($c->id, $day);
+                    $now = $currentDate->format('Y-m-d');
+                    $startHour = $scheduleData->time;
+                    $dateTime = Carbon::parse($now . ' ' . $startHour);
+
+                    $data[] = [
+                        'id' => $scheduleData->id,
+                        'title' => $c->name,
+                        'start' => $dateTime->format('Y-m-d H:i:s'),
+                        'end' => $dateTime->addMinutes(intval($scheduleData->duration))->format('Y-m-d H:i:s'),
+                    ];
+                }
             }
 
             $currentDate->addDay();

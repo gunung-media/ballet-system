@@ -28,7 +28,6 @@ class AbsenceController extends Controller
     {
         $events = $this->classRepository->getForCalendar();
         $absences = $this->absenceRepository->getAbsences();
-        // dd($absences->toArray());
         return view('pages.courses.absence.index', compact('events', 'absences'));
     }
 

@@ -8,7 +8,6 @@ use App\Models\Course\StudentModel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\ValidationException;
 use InvalidArgumentException;
 
 class StudentRepository
@@ -44,6 +43,15 @@ class StudentRepository
         }
 
         return collect();
+    }
+
+    public function getStudentsByClass(mixed $classId): Collection
+    {
+        return $this->student
+            ->whereHas('classes', function ($query) use ($classId) {
+                $query->where('classes.id', $classId);
+            })
+            ->get();
     }
 
     /**

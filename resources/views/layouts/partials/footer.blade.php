@@ -7,15 +7,14 @@
                     <script>
                         document.write(new Date().getFullYear());
                     </script>
-                    <a href="https://www.gunungmedia.com" class="font-weight-bold" target="_blank">Gunung
-                        Media</a>
+                    <a href="" class="font-weight-bold" target="_blank">Angelique Ballet</a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <ul class="nav nav-footer justify-content-center justify-content-lg-end">
                     <li class="nav-item">
-                        <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative
-                            Tim</a>
+                        <a href="https://www.gunungmedia.com" class="nav-link text-muted" target="_blank">Gunung
+                            Media</a>
                     </li>
                 </ul>
             </div>

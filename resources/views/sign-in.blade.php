@@ -16,7 +16,7 @@
                                 <x-fields.input type="email" name="email" label="Email" />
                                 <x-fields.input type="password" name="password" label="Password" />
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="rememberMe">
+                                    <input class="form-check-input" type="checkbox" name="remember">
                                     <label class="form-check-label" for="rememberMe">Remember me</label>
                                 </div>
                                 <div class="text-center">

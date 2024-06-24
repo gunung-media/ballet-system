@@ -23,7 +23,7 @@
                     <form action="{{ route('absence.form.submit') }}" method="POST">
                         @csrf
                         <x-fields.select name="teacher_id" label="Guru" :choices="$teachers" />
-                        @if (is_null($absence))
+                        @if (is_null($absence) && !$date->isPast())
                             <input name="date" value="{{ $date }}" type="hidden">
                             <input name="class_schedule_id" value="{{ $scheduleId }}" type="hidden">
                             <input type="hidden" value="true" name="is_submit">

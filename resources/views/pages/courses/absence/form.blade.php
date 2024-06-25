@@ -15,7 +15,7 @@
                         use Carbon\Carbon;
                         $date = Carbon::parse($date);
                         $formattedDate = $date->translatedFormat('l, d F Y, H:i');
-                        $shouldDisable = is_null($absence) || $date->isPast() || $date->isFuture() ? 'disabled' : '';
+                        $shouldDisable = is_null($absence) && $date->startOfDay()->isPast() ? 'disabled' : '';
                     @endphp
                     <h5>{{ $class->name }}</h5>
                     <p class="font-weight-light text-sm">Tanggal: {{ $formattedDate }}</p>
@@ -25,7 +25,7 @@
                         @csrf
                         <x-fields.select name="teacher_id" label="Guru" :choices="$teachers" :is-enabled="is_null($absence) && !$date->isPast()"
                             :value="$absence?->teacher_id ?? null" />
-                        @if (is_null($absence) && !$date->isPast())
+                        @if (is_null($absence) && !$date->startOfDay()->isPast())
                             <input name="date" value="{{ $date }}" type="hidden">
                             <input name="class_schedule_id" value="{{ $scheduleId }}" type="hidden">
                             <input type="hidden" value="true" name="is_submit">

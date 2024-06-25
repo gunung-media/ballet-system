@@ -38,16 +38,16 @@
 
                             <x-fields.input type="date" name="birth_date" label="Tanggal Lahir" />
 
-                            <x-fields.input type="text" name="address" label="Alamat" />
+                            <x-fields.input type="text" name="address" label="Alamat" :is-required="false" />
 
 
                             <div class="row">
                                 <div class="col-md-6 col-12">
-                                    <x-fields.input type="email" name="email" label="Email" />
+                                    <x-fields.input type="email" name="email" label="Email" :is-required="false" />
                                 </div>
 
                                 <div class="col-md-6 col-12">
-                                    <x-fields.input type="tel" name="phone" label="No. Telepon" />
+                                    <x-fields.input type="tel" name="phone" label="No. Telepon" :is-required="false" />
                                 </div>
                             </div>
 
@@ -55,14 +55,15 @@
 
                             <div class="row">
                                 <div class="col-md-6 col-12">
-                                    <x-fields.input type="text" name="wali_name" label="Nama Wali" />
+                                    <x-fields.input type="text" name="wali_name" label="Nama Wali" :is-required="false" />
                                 </div>
 
                                 <div class="col-md-6 col-12">
-                                    <x-fields.input type="tel" name="wali_phone" label="Nomor Wali/Kontak Darurat" />
+                                    <x-fields.input type="tel" name="wali_phone" label="Nomor Wali/Kontak Darurat"
+                                        :is-required="false" />
 
                                     <x-fields.input type="hidden" name="registration" label="Tanggal Pendaftaran"
-                                        value="{{ now() }}" />
+                                        value="{{ now() }}" :is-required="false" />
 
                                     <x-fields.input type="hidden" name="note" label="Tanggal Pendaftaran"
                                         value="Daftar dari web" />

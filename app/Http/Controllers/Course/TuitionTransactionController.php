@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Course;
 
+use App\Enums\TuitionTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Models\TuitionTransaction;
 use App\Repositories\Course\StudentRepository;
@@ -28,7 +29,8 @@ class TuitionTransactionController extends Controller
     public function create(): View|Factory
     {
         $students = $this->studentRepository->getAll()->mapWithKeys(fn ($student) => [$student->id => $student->name])->toArray();
-        return view('pages.courses.tuition.form', compact('students'));
+        $tuitionTypes = TuitionTypeEnum::class;
+        return view('pages.courses.tuition.form', compact('students', 'tuitionTypes'));
     }
 
     public function store(Request $request): RedirectResponse

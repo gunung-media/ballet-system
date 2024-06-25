@@ -18,14 +18,14 @@ return new class extends Migration
             $table->string('name');
             $table->enum('gender', EnumUtils::toArray(GenderEnum::class));
             $table->date('birth_date');
-            $table->string('address');
-            $table->string('phone');
-            $table->string('email');
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
             $table->string('photo')->nullable();
-            $table->string('wali_name');
-            $table->string('wali_phone');
-            $table->date('registration');
-            $table->string('note');
+            $table->string('wali_name')->nullable();
+            $table->string('wali_phone')->nullable();
+            $table->date('registration')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

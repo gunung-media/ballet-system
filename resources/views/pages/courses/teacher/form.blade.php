@@ -39,19 +39,23 @@
 
                         <x-fields.input type="date" name="birth_date" label="Tanggal Lahir" :value="$data->birth_date ?? null" />
 
-                        <x-fields.input type="text" name="address" label="Alamat" :value="$data->address ?? null" />
+                        <x-fields.input type="text" name="address" label="Alamat" :value="$data->address ?? null" :is-required="false" />
 
-                        <x-fields.select name="status" label="Status" :choices="$status" :value="$data->status ?? null" />
+                        <x-fields.select name="status" label="Status" :choices="$status" :value="$data->status ?? null"
+                            :is-required="false" />
 
-                        <x-fields.input type="date" name="join_date" label="Tanggal Masuk" :value="$data->join_date ?? null" />
+                        <x-fields.input type="date" name="join_date" label="Tanggal Masuk" :value="$data->join_date ?? null"
+                            :is-required="false" />
 
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <x-fields.input type="email" name="email" label="Email" :value="$data->email ?? null" />
+                                <x-fields.input type="email" name="email" label="Email" :value="$data->email ?? null"
+                                    :is-required="false" />
                             </div>
 
                             <div class="col-md-6 col-12">
-                                <x-fields.input type="tel" name="phone" label="No. Telepon " :value="$data->phone ?? null" />
+                                <x-fields.input type="tel" name="phone" label="No. Telepon " :value="$data->phone ?? null"
+                                    :is-required="false" />
                             </div>
                         </div>
 

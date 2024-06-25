@@ -15,7 +15,7 @@ class ClassSchedule extends BaseModel
         'duration'
     ];
 
-    public function casts(): array
+    protected function casts(): array
     {
         return [
             'day' => DayEnum::class

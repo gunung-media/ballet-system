@@ -40,18 +40,19 @@
                         <x-fields.input type="date" name="birth_date" label="Tanggal Lahir"
                             value="{{ $data->birth_date ?? null }}" />
 
-                        <x-fields.input type="text" name="address" label="Alamat" value="{{ $data->address ?? null }}" />
+                        <x-fields.input type="text" name="address" label="Alamat" value="{{ $data->address ?? null }}"
+                            :is-required="false" />
 
 
                         <div class="row">
                             <div class="col-md-6 col-12">
                                 <x-fields.input type="email" name="email" label="Email"
-                                    value="{{ $data->email ?? null }}" />
+                                    value="{{ $data->email ?? null }}" :is-required="false" />
                             </div>
 
                             <div class="col-md-6 col-12">
                                 <x-fields.input type="tel" name="phone" label="No. Telepon"
-                                    value="{{ $data->phone ?? null }}" />
+                                    value="{{ $data->phone ?? null }}" :is-required="false" />
                             </div>
                         </div>
 
@@ -77,9 +78,9 @@
                 <div class="card-body">
                     <div action="">
                         <x-fields.input type="text" name="wali_name" label="Nama Wali"
-                            value="{{ $data->wali_name ?? null }}    " />
+                            value="{{ $data->wali_name ?? null }}" :is-required="false" />
                         <x-fields.input type="tel" name="wali_phone" label="Nomor Wali/Kontak Darurat"
-                            value="{{ $data->wali_phone ?? null }}" />
+                            value="{{ $data->wali_phone ?? null }}" :is-required="false" />
                         <br />
                     </div>
                 </div>
@@ -94,9 +95,10 @@
                             :value="isset($selectedClass) ? $selectedClass : null" />
 
                         <x-fields.input type="date" name="registration" label="Tanggal Pendaftaran"
-                            value="{{ $data->registration ?? null }}" />
+                            value="{{ $data->registration ?? null }}" :is-required="false" />
 
-                        <x-fields.input type="text" name="note" label="Catatan" value="{{ $data->note ?? null }}" />
+                        <x-fields.input type="text" name="note" label="Catatan" value="{{ $data->note ?? null }}"
+                            :is-required="false" />
 
                         <hr />
 

@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('identity_number');
             $table->enum('gender', EnumUtils::toArray(GenderEnum::class));
-            $table->string('email');
-            $table->string('phone');
-            $table->string('address');
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
             $table->date('birth_date');
-            $table->date('join_date');
+            $table->date('join_date')->nullable();
             $table->enum('status', EnumUtils::toArray(TeacherStatus::class))->default('Active');
             $table->timestamps();
         });

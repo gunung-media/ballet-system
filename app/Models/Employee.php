@@ -10,7 +10,8 @@ class Employee extends BaseModel
     protected $fillable = [
         'name',
         'email',
-        'gender'
+        'gender',
+        'photo'
     ];
 
     protected function casts(): array

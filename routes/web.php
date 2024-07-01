@@ -8,6 +8,7 @@ use App\Http\Controllers\Course\StudentController;
 use App\Http\Controllers\Course\TeacherController;
 use App\Http\Controllers\Course\TuitionTransactionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeeAbsenceController;
 use App\Http\Controllers\Sales\CategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,4 +39,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/absence', [AbsenceController::class, 'index'])->name('absence.index');
     Route::get('/absence/form', [AbsenceController::class, 'form'])->name('absence.form');
     Route::post('/absence/form/submit', [AbsenceController::class, 'submit'])->name('absence.form.submit');
+
+
+    Route::name('employee.')->prefix('employee')->group(function () {
+        Route::get('/', [EmployeeAbsenceController::class, 'index'])->name('index');
+        Route::get('/absence', [EmployeeAbsenceController::class, 'index'])->name('absence.index');
+    });
 });

@@ -72,24 +72,24 @@
                                                         <span class="btn-inner--text">Hadir</span>
                                                     </button>
                                                 </div>
-                                                <div class="col-6">
-                                                    <button type="submit" name="state" value="Ijin"
-                                                        class="btn btn-warning w-100 btn-tooltip" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="Saya Ijin" data-container="body"
-                                                        data-animation="true" {{ $shouldDisable }}>
-                                                        <span class="btn-inner--icon"><i class="ni ni-planet"></i></span>
-                                                        <span class="btn-inner--text">Ijin</span>
-                                                    </button>
-                                                </div>
-                                                <div class="col-6">
-                                                    <button type="submit" name="state" value="Sakit"
-                                                        class="btn btn-primary w-100 btn-tooltip" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="Saya Sakit" data-container="body"
-                                                        data-animation="true" {{ $shouldDisable }}>
-                                                        <span class="btn-inner--icon"><i class="ni ni-diamond"></i></span>
-                                                        <span class="btn-inner--text">Sakit</span>
-                                                    </button>
-                                                </div>
+                                                <!-- <div class="col-6"> -->
+                                                <!--     <button type="submit" name="state" value="Ijin" -->
+                                                <!--         class="btn btn-warning w-100 btn-tooltip" data-bs-toggle="tooltip" -->
+                                                <!--         data-bs-placement="top" title="Saya Ijin" data-container="body" -->
+                                                <!--         data-animation="true" {{ $shouldDisable }}> -->
+                                                <!--         <span class="btn-inner--icon"><i class="ni ni-planet"></i></span> -->
+                                                <!--         <span class="btn-inner--text">Ijin</span> -->
+                                                <!--     </button> -->
+                                                <!-- </div> -->
+                                                <!-- <div class="col-6"> -->
+                                                <!--     <button type="submit" name="state" value="Sakit" -->
+                                                <!--         class="btn btn-primary w-100 btn-tooltip" data-bs-toggle="tooltip" -->
+                                                <!--         data-bs-placement="top" title="Saya Sakit" data-container="body" -->
+                                                <!--         data-animation="true" {{ $shouldDisable }}> -->
+                                                <!--         <span class="btn-inner--icon"><i class="ni ni-diamond"></i></span> -->
+                                                <!--         <span class="btn-inner--text">Sakit</span> -->
+                                                <!--     </button> -->
+                                                <!-- </div> -->
                                                 <div class="col-6">
                                                     <button type="submit" name="state" value="Tidak Hadir"
                                                         class="btn btn-danger w-100 btn-tooltip" data-bs-toggle="tooltip"

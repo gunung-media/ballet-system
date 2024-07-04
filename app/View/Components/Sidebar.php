@@ -34,8 +34,8 @@ class Sidebar extends Component
             new SidebarItem(title: 'Data Absensi', url: route('absence.index'), icon: IconEnum::home),
             new SidebarItem(title: 'Pembayaran SPP', url: route('spp.index'), icon: IconEnum::home),
             "Lain-Lain",
-            new SidebarItem(title: 'Data Pegawai', url: route('employee.index'), icon: IconEnum::users),
-            new SidebarItem(title: 'Absensi Pegawai', url: route('employee.absence.index'), icon: IconEnum::users),
+            new SidebarItem(title: 'Data Pegawai', url: route('pegawai.index'), icon: IconEnum::users),
+            new SidebarItem(title: 'Absensi Pegawai', url: route('pegawai.absence.index'), icon: IconEnum::users),
             new SidebarItem(title: 'Panduan', url: route('auth.login'), icon: IconEnum::book),
             new SidebarItem(title: 'Logout', url: route('auth.logout'), icon: IconEnum::logout),
         ];

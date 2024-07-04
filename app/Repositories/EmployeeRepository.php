@@ -57,6 +57,7 @@ class EmployeeRepository
     public function update(mixed $identifier, array $data): bool
     {
         $model = $this->getById($identifier);
+
         if (isset($data['photo']) && !is_string($data['photo'])) {
             $photo = $data['photo'];
             $fileName = uniqid('employee_') . '.' . $photo->getClientOriginalExtension();

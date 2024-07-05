@@ -45,5 +45,7 @@ Route::middleware('auth')->group(function () {
 
     Route::name('pegawai.absence.')->prefix('pegawai/absence')->group(function () {
         Route::get('/', [EmployeeAbsenceController::class, 'index'])->name('index');
+        Route::get('form', [EmployeeAbsenceController::class, 'form'])->name('form');
+        Route::post('form/submit', [EmployeeAbsenceController::class, 'submit'])->name('form.submit');
     });
 });

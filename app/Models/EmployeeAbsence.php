@@ -9,6 +9,7 @@ class EmployeeAbsence extends BaseModel
 {
     protected $fillable = [
         'employee_id',
+        'date',
         'state'
     ];
 

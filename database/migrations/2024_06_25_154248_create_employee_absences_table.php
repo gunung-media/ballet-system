@@ -17,7 +17,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('employee_id');
             $table->enum('state', EnumUtils::toArray(AbsenceStateEnum::class))->default(AbsenceStateEnum::hadir->value);
+            $table->date('date');
             $table->timestamps();
+
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

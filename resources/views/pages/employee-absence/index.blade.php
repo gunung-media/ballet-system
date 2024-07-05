@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title', 'Presensi')
+@section('title', 'Presensi Pegawai')
 @section('sidebar')
-    <x-sidebar active-menu="Data Absensi" />
+    <x-sidebar active-menu="Absensi Pegawai" />
 @endsection
 @section('breadcrumb')
-    <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Absensi']" />
+    <x-breadcrumb :stacks="['Home', 'Absensi Pegawai']" />
 @endsection
 @section('content')
 
@@ -41,6 +41,32 @@
                 <div class="tab-pane fade" id="pill-rekap" role="tabpanel" aria-labelledby="pill-rekap-tab">
                     <div class="card">
                         <div class="card-body px-0 pt-0 pb-2">
+                            <x-table :table-columns="['No', 'Tanggal', 'Jumlah Hadir', 'Jumlah Tidak Hadir']">
+
+                                @foreach ($absences as $key => $absence)
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ $key + 1 }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">
+                                            {{ Carbon\Carbon::parse($absence->date)->format('d F y') }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">
+                                            {{ $absence->total }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">
+                                            {{ $employeeCount - $absence->total }}</p>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('pegawai.absence.form', ['date' => $absence->date]) }}"
+                                            class="text-secondary font-weight-bold text-xs btn w-100" data-toggle="tooltip">
+                                            Detail
+                                        </a>
+                                    </td>
+                                @endforeach
+                            </x-table>
                         </div>
                     </div>
                 </div>
@@ -76,10 +102,10 @@
                     const hours = String(jsDate.getHours()).padStart(2, '0');
                     const minutes = String(jsDate.getMinutes()).padStart(2, '0');
 
-                    const phpDateString = `${year}-${month}-${day} ${hours}:${minutes}`;
+                    const phpDateString = `${year}-${month}-${day}`;
 
                     window.location.href =
-                        `{{ route('absence.form') }}?id=${eventId}&date=${phpDateString}`;
+                        `{{ route('pegawai.absence.form') }}?id=${eventId}&date=${phpDateString}`;
                 },
                 views: {
                     month: {

@@ -21,8 +21,7 @@ class AbsenceController extends Controller
         protected AbsenceRepository $absenceRepository,
         protected AbsenceStudentRepository $absenceStudentRepository,
         protected StudentRepository $studentRepository,
-    ) {
-    }
+    ) {}
 
     public function index(): View|Factory
     {
@@ -36,7 +35,7 @@ class AbsenceController extends Controller
         $scheduleId = $request->get('id');
         $date = $request->get('date');
         $absence = $this->absenceRepository->getAbsence($scheduleId, $date);
-        $teachers = $this->teacherRepository->getAll()->mapWithKeys(fn ($teacher) => [$teacher->id => $teacher->name])->toArray();
+        $teachers = $this->teacherRepository->getAll()->mapWithKeys(fn($teacher) => [$teacher->id => $teacher->name])->toArray();
         $students = $this->studentRepository->getStudentsByScheduleId($scheduleId);
         $class = $this->classRepository->getBySchedule($scheduleId);
 

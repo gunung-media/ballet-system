@@ -13,8 +13,7 @@ class AbsenceRepository
     public function __construct(
         protected Absence $model,
         protected StudentRepository $studentRepository,
-    ) {
-    }
+    ) {}
 
     public function getAbsences(): Collection
     {
@@ -24,7 +23,7 @@ class AbsenceRepository
             ->map(function ($absence) {
                 $students = $this->studentRepository->getStudentsByClass($absence->schedule->class_id);
                 $absence['all_students'] = $students;
-                $absence['attended_student'] = $absence->students->filter(fn ($student) => $student->state == AbsenceStateEnum::hadir)->count();
+                $absence['attended_student'] = $absence->students->filter(fn($student) => $student->state == AbsenceStateEnum::hadir)->count();
                 $absence['not_attended_student'] = $students->count() - $absence['attended_student'];
 
                 return $absence;

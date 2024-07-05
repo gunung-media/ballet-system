@@ -17,8 +17,7 @@ class TuitionTransactionController extends Controller
     public function __construct(
         protected TuitionTransactionRepository $tuitionTransactionRepository,
         protected StudentRepository $studentRepository,
-    ) {
-    }
+    ) {}
 
     public function index(): View|Factory
     {
@@ -28,7 +27,7 @@ class TuitionTransactionController extends Controller
 
     public function create(): View|Factory
     {
-        $students = $this->studentRepository->getAll()->mapWithKeys(fn ($student) => [$student->id => $student->name])->toArray();
+        $students = $this->studentRepository->getAll()->mapWithKeys(fn($student) => [$student->id => $student->name])->toArray();
         $tuitionTypes = TuitionTypeEnum::class;
         return view('pages.courses.tuition.form', compact('students', 'tuitionTypes'));
     }
@@ -41,6 +40,7 @@ class TuitionTransactionController extends Controller
             $this->tuitionTransactionRepository->insert([...$request->except('_token'), 'for_month' => "{$request->for_month}-01"]);
             return redirect()->intended(route('spp.index'))->with('success', 'Berhasil Menambahkan Transasksi SPP');
         } catch (\Exception $exception) {
+            dd($exception);
             return redirect()->back()->with('error', $exception->getMessage())->withInput();
         }
     }
@@ -48,7 +48,7 @@ class TuitionTransactionController extends Controller
     public function edit(string $id): View|Factory
     {
         $data = $this->tuitionTransactionRepository->getById($id);
-        $students = $this->studentRepository->getAll()->mapWithKeys(fn ($student) => [$student->id => $student->name])->toArray();
+        $students = $this->studentRepository->getAll()->mapWithKeys(fn($student) => [$student->id => $student->name])->toArray();
         return view('pages.courses.tuition.form', compact('data', 'students'));
     }
 

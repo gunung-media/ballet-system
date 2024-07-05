@@ -16,6 +16,7 @@ class Select extends Component
     public bool $isRequired;
     public bool $isMultiple;
     public bool $isEnabled;
+    public bool $isTuition;
 
     public function __construct(
         string $name,
@@ -24,7 +25,8 @@ class Select extends Component
         mixed $choices = null,
         bool $isRequired = true,
         bool $isMultiple = false,
-        bool $isEnabled = true
+        bool $isEnabled = true,
+        bool $isTuition = false,
     ) {
         $this->name = $name;
         $this->label = $label;
@@ -32,11 +34,12 @@ class Select extends Component
             ? $value->value
             : $value;
         $this->choices = is_string($choices) && enum_exists($choices)
-            ? collect($choices::cases())->mapWithKeys(fn ($choice) => [$choice->value => $choice->value])->toArray()
+            ? collect($choices::cases())->mapWithKeys(fn($choice) => [$choice->value => $choice->value])->toArray()
             : $choices;
         $this->isRequired = $isRequired;
         $this->isMultiple = $isMultiple;
         $this->isEnabled = $isEnabled;
+        $this->isTuition = $isTuition;
     }
 
     public function render(): View|Closure|string

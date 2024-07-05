@@ -11,6 +11,7 @@ class TuitionTransaction extends BaseModel
 {
     protected $fillable = [
         'student_id',
+        'student_name',
         'for_month',
         'amount',
         'note',

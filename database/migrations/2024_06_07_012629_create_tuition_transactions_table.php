@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('tuition_transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id')->nullable();
+            $table->string('student_name')->nullable();
             $table->date('for_month');
             $table->unsignedBigInteger('amount');
             $table->string('note')->nullable();

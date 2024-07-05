@@ -27,9 +27,9 @@
                 <div class="card-body">
                     <div action="">
                         <x-fields.select name="student_id" label="Siswa" :choices="$students" :value="$data->student?->id ?? null"
-                            :is-required="false" />
+                            :is-required="false" :is-tuition="true" />
 
-                        <x-fields.select name="tuitoin_type" label="Jenis SPP" :choices="$tuitionTypes" :value="$data->tuition_type ?? null"
+                        <x-fields.select name="tuition_type" label="Jenis SPP" :choices="$tuitionTypes" :value="$data->tuition_type ?? null"
                             :is-required="true" />
 
                         <x-fields.input type="number" name="amount" label="Jumlah Pembayaran" :value="$data->amount ?? null" />

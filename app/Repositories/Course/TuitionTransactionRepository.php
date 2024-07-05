@@ -9,8 +9,7 @@ class TuitionTransactionRepository
 {
     public function __construct(
         protected TuitionTransaction $model,
-    ) {
-    }
+    ) {}
 
     /**
      * @return Collection<int,TuitionTransaction>
@@ -33,6 +32,7 @@ class TuitionTransactionRepository
      */
     public function insert(array $data): TuitionTransaction
     {
+        if ($data['student_id'] === "Lainnya") $data['student_id'] = null;
         $model =  $this->model->create($data);
         return $model;
     }

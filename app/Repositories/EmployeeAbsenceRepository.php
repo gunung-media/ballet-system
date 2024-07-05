@@ -16,7 +16,7 @@ class EmployeeAbsenceRepository
     public function getAbsences()
     {
         return $this->employeeAbsence
-            ->select('date', DB::raw('SUM(CASE WHEN state = "Hadir" THEN 1 ELSE 0 END) as total'))
+            ->select('date', DB::raw('SUM(CASE WHEN state = \'Hadir\' THEN 1 ELSE 0 END) as total'))
             ->groupBy('date')
             ->get();
     }

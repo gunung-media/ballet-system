@@ -44,27 +44,30 @@
                             <x-table :table-columns="['No', 'Tanggal', 'Jumlah Hadir', 'Jumlah Tidak Hadir']">
 
                                 @foreach ($absences as $key => $absence)
-                                    <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ $key + 1 }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-xs font-weight-bold mb-0">
-                                            {{ Carbon\Carbon::parse($absence->date)->format('d F y') }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-xs font-weight-bold mb-0">
-                                            {{ $absence->total }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-xs font-weight-bold mb-0">
-                                            {{ $employeeCount - $absence->total }}</p>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('pegawai.absence.form', ['date' => $absence->date]) }}"
-                                            class="text-secondary font-weight-bold text-xs btn w-100" data-toggle="tooltip">
-                                            Detail
-                                        </a>
-                                    </td>
+                                    <tr>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $key + 1 }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                {{ Carbon\Carbon::parse($absence->date)->format('d F y') }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                {{ $absence->total }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                {{ $employeeCount - $absence->total }}</p>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('pegawai.absence.form', ['date' => $absence->date]) }}"
+                                                class="text-secondary font-weight-bold text-xs btn w-100"
+                                                data-toggle="tooltip">
+                                                Detail
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </x-table>
                         </div>

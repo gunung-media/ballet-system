@@ -107,14 +107,6 @@
     </form>
 @endsection
 
-@section('customStyles')
-    <style>
-        .draggable {
-            cursor: move;
-        }
-    </style>
-@endsection
-
 @section('customScripts')
     <script>
         $(function() {

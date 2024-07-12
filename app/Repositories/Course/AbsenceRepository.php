@@ -4,6 +4,7 @@ namespace App\Repositories\Course;
 
 use App\Enums\AbsenceStateEnum;
 use App\Models\Course\Absence;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -36,7 +37,8 @@ class AbsenceRepository
     {
         $query = $this->model->query();
 
-        return $query->where('class_schedule_id', $scheduleId)->where('date', $date)->first();
+        $parsedDate = Carbon::parse($date)->format('Y-m-d');
+        return $query->where('class_schedule_id', $scheduleId)->where('date', $parsedDate)->first();
     }
 
     public function insert(array $data): Model|Absence

@@ -95,22 +95,22 @@
             </div>
         </div>
     </div>
-    <div class="row mt-4">
-        <div class="col-lg-12">
-            <div class="card z-index-2">
-                <div class="card-header pb-0">
-                    <h6>Kelas Absensi</h6>
-                    <p class="text-sm">
-                    </p>
-                </div>
-                <div class="card-body p-3">
-                    <div class="chart">
-                        <!-- <canvas id="chart-line" class="chart-canvas" height="300"></canvas> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- <div class="row mt-4"> -->
+    <!--     <div class="col-lg-12"> -->
+    <!--         <div class="card z-index-2"> -->
+    <!--             <div class="card-header pb-0"> -->
+    <!--                 <h6>Kelas Absensi</h6> -->
+    <!--                 <p class="text-sm"> -->
+    <!--                 </p> -->
+    <!--             </div> -->
+    <!--             <div class="card-body p-3"> -->
+    <!--                 <div class="chart"> -->
+    <!--                     <canvas id="chart-line" class="chart-canvas" height="300"></canvas> -->
+    <!--                 </div> -->
+    <!--             </div> -->
+    <!--         </div> -->
+    <!--     </div> -->
+    <!-- </div> -->
 @endsection
 
 @section('customScripts')

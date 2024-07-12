@@ -8,7 +8,7 @@ enum DayEnum: string
     case monday = 'Senin';
     case thursday = 'Selasa';
     case wednesday = 'Rabu';
-    case tuesday = 'Kami';
+    case tuesday = 'Kamis';
     case friday = 'Jumat';
     case saturday = 'Sabtu';
 }

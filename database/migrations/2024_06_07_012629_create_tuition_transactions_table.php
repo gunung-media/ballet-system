@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('for_month');
             $table->unsignedBigInteger('amount');
             $table->string('note')->nullable();
-            $table->enum('tuition_type', EnumUtils::toArray(TuitionTypeEnum::class));
+            $table->enum('tuition_type', EnumUtils::toArray(TuitionTypeEnum::class))->default(TuitionTypeEnum::fixed);
             $table->timestamps();
 
             $table->foreign('student_id')->references('id')->on('students');

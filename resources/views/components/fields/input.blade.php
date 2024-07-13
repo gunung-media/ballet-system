@@ -18,6 +18,9 @@
         <input type="{{ $isMoney ? 'hidden' : $type }}" class="form-control" placeholder="Masukan {{ $label }}"
             {{ $isRequired ? 'required' : '' }} name="{{ $name }}" id="{{ $name }}"
             value="{{ $value ?? old($name) }}" />
+        @if (!is_null($hintText))
+            <label class="text-xs " style="font-weight: 100">{{ $hintText }}</label>
+        @endif
     </div>
 </div>
 

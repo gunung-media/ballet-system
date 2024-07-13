@@ -29,11 +29,11 @@
                         <x-fields.select name="student_id" label="Siswa" :choices="$students" :value="$data->student?->id ?? null"
                             :is-required="false" :is-tuition="true" />
 
-                        <x-fields.select name="tuition_type" label="Jenis SPP" :choices="$tuitionTypes" :value="$data->tuition_type ?? null"
+                        <x-fields.select name="class_id" label="Pilih Kelas" :choices="$defaultClasses" :value="$data->class_id ?? null"
                             :is-required="true" />
 
                         <x-fields.input type="number" name="amount" label="Jumlah Pembayaran" :value="$data->amount ?? null"
-                            :is-money="true" />
+                            :is-money="true" hint-text="Maximal 100000" />
 
                         <x-fields.input type="month" name="for_month" label="Untuk Bulan" :value="$data->for_month ?? null" />
                     </div>
@@ -51,4 +51,13 @@
 @endsection
 
 @section('customScripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let selectedClass = document.querySelector('select[name="class_id"]');
+
+            selectedClass.addEventListener('change', function() {
+                console.log(selectedClass.value);
+            });
+        });
+    </script>
 @endsection

@@ -13,7 +13,8 @@ class Input extends Component
     public string $label;
     public bool $isRequired;
     public ?string $value;
-    public ?string $isMoney;
+    public bool $isMoney;
+    public ?string $hintText;
 
     public function __construct(
         string $type,
@@ -22,6 +23,7 @@ class Input extends Component
         bool $isRequired = true,
         ?string $value = null,
         bool $isMoney = false,
+        ?string $hintText = null,
     ) {
         $this->type = $type;
         $this->name = $name;
@@ -29,6 +31,7 @@ class Input extends Component
         $this->isRequired = $isRequired;
         $this->value = $value;
         $this->isMoney = $isMoney;
+        $this->hintText = $hintText;
     }
 
     public function render(): View|Closure|string

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Course;
 use App\Enums\TuitionTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Models\TuitionTransaction;
+use App\Repositories\Course\ClassRepository;
 use App\Repositories\Course\StudentRepository;
 use App\Repositories\Course\TuitionTransactionRepository;
 use Illuminate\Contracts\View\Factory;
@@ -17,6 +18,7 @@ class TuitionTransactionController extends Controller
     public function __construct(
         protected TuitionTransactionRepository $tuitionTransactionRepository,
         protected StudentRepository $studentRepository,
+        protected ClassRepository $classRepository,
     ) {}
 
     public function index(): View|Factory
@@ -25,11 +27,26 @@ class TuitionTransactionController extends Controller
         return view('pages.courses.tuition.index', compact('data'));
     }
 
-    public function create(): View|Factory
+    private function gatherFormData(): array
     {
         $students = $this->studentRepository->getAll()->mapWithKeys(fn($student) => [$student->id => $student->name])->toArray();
+        $defaultClasses = $this->classRepository->getAll()->mapWithKeys(fn($class) => [$class->id => $class->name])->toArray();
+        $getClasses = function (mixed $studentId) use ($defaultClasses) {
+            if ($studentId == "Lainnya") return $defaultClasses;
+
+            $student = $this->studentRepository->getById($studentId);
+            return $student->classes->mapWithKeys(fn($class) => [$class->id => $class->name])->toArray();
+        };
+        $getClassPrice = fn(mixed $classId) => $this->classRepository->getById($classId);
         $tuitionTypes = TuitionTypeEnum::class;
-        return view('pages.courses.tuition.form', compact('students', 'tuitionTypes'));
+
+        return compact('students', 'tuitionTypes', 'getClasses', 'defaultClasses', 'getClassPrice');
+    }
+
+    public function create(): View|Factory
+    {
+        $formData = $this->gatherFormData();
+        return view('pages.courses.tuition.form', $formData);
     }
 
     public function store(Request $request): RedirectResponse
@@ -47,9 +64,8 @@ class TuitionTransactionController extends Controller
 
     public function edit(string $id): View|Factory
     {
-        $data = $this->tuitionTransactionRepository->getById($id);
-        $students = $this->studentRepository->getAll()->mapWithKeys(fn($student) => [$student->id => $student->name])->toArray();
-        return view('pages.courses.tuition.form', compact('data', 'students'));
+        $formData = $this->gatherFormData();
+        return view('pages.courses.tuition.form', array_merge($formData, ['data' => $this->tuitionTransactionRepository->getById($id)]));
     }
 
     public function update(Request $request, string $id): RedirectResponse

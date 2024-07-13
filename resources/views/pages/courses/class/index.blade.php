@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    <x-table :table-columns="['No', 'Nama Kelas', 'Jadwal']" :isEmpty="count($data) == 0">
+                    <x-table :table-columns="['No', 'Nama Kelas', 'Biaya', 'Jadwal']" :isEmpty="count($data) == 0">
                         @foreach ($data as $key => $d)
                             <tr>
                                 <td>
@@ -29,6 +29,9 @@
                                 </td>
                                 <td>
                                     <p class="text-xs font-weight-bold mb-0">{{ $d->name }}</p>
+                                </td>
+                                <td>
+                                    <p class="text-xs font-weight-bold mb-0">{{ IntegerUtils::toRupiah($d->price) }}</p>
                                 </td>
                                 <td class="">
                                     <p class="text-xs font-weight-bold mb-0">

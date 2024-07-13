@@ -16,7 +16,8 @@ class ClassModel extends BaseModel
     protected $table = 'classes';
 
     protected $fillable = [
-        'name'
+        'name',
+        'price'
     ];
 
     protected function casts(): array
@@ -25,7 +26,6 @@ class ClassModel extends BaseModel
             'is_active' => 'boolean',
         ];
     }
-
 
     #[\Override]
     static function validationRules(mixed $ignoredVal = null): array

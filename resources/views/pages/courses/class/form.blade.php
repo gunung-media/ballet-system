@@ -24,8 +24,13 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div action="">
-                        <x-fields.input type="text" name="name" label="Nama Kelas" :value="$data->name ?? null" />
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <x-fields.input type="text" name="name" label="Nama Kelas" :value="$data->name ?? null" />
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <x-fields.input type="number" name="price" label="Harga" :value="$data->price ?? null" />
+                        </div>
                     </div>
                 </div>
             </div>

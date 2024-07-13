@@ -19,8 +19,9 @@
                 <div class="card-header pb-0 d-flex justify-content-between">
                     <div>
                         <h6>Data Kelas</h6>
-                        <p class="font-weight-light text-xs">Wajib masukan data yang bertanda <span
-                                class="text-danger">*</span></p>
+                        <p class="font-weight-light text-xs">Wajib masukan data yang bertanda
+                            <span class="text-danger">*</span>
+                        </p>
                     </div>
                 </div>
                 <div class="card-body">
@@ -29,7 +30,8 @@
                             <x-fields.input type="text" name="name" label="Nama Kelas" :value="$data->name ?? null" />
                         </div>
                         <div class="col-md-6 col-12">
-                            <x-fields.input type="number" name="price" label="Harga" :value="$data->price ?? null" />
+                            <x-fields.input type="number" name="price" label="Biaya" :value="$data->price ?? null"
+                                :is-money="true" />
                         </div>
                     </div>
                 </div>

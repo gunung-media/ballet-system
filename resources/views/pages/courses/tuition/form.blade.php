@@ -32,7 +32,8 @@
                         <x-fields.select name="tuition_type" label="Jenis SPP" :choices="$tuitionTypes" :value="$data->tuition_type ?? null"
                             :is-required="true" />
 
-                        <x-fields.input type="number" name="amount" label="Jumlah Pembayaran" :value="$data->amount ?? null" />
+                        <x-fields.input type="number" name="amount" label="Jumlah Pembayaran" :value="$data->amount ?? null"
+                            :is-money="true" />
 
                         <x-fields.input type="month" name="for_month" label="Untuk Bulan" :value="$data->for_month ?? null" />
                     </div>

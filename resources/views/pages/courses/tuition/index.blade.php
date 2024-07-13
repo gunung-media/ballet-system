@@ -38,7 +38,7 @@
                                     <p class="text-xs font-weight-bold mb-0">{{ $d->for_month }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-xs font-weight-bold mb-0">Rp. {{ number_format($d->amount, 0, ',') }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ IntegerUtils::toRupiah($d->amount) }}</p>
                                 </td>
                                 <td class="align-middle">
                                     <a href="{{ route('spp.edit', $d->id) }}"

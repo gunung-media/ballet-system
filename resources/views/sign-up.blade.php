@@ -28,10 +28,15 @@
 
                             <div class="row">
                                 <div class="col-md-6 col-12">
-                                    <x-fields.input type="text" name="name" label="Name" />
+                                    <x-fields.input type="text" name="name" label="Name Lengkap" />
                                 </div>
 
                                 <div class="col-md-6 col-12">
+                                    <x-fields.input type="text" name="surname" label="Nama Panggilan"
+                                        :is-required="false" />
+                                </div>
+
+                                <div class="col-12">
                                     <x-fields.select name="gender" label="Jenis Kelamin" :choices="$genders" />
                                 </div>
                             </div>

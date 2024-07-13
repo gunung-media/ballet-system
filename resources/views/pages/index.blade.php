@@ -9,7 +9,7 @@
                         <div class="col-8">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-capitalize font-weight-bold">
-                                    Jumlah Pembayaran SPP Berhasil
+                                    Pembayaran SPP
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
                                     Rp. {{ number_format($tuition) }}

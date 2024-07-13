@@ -11,6 +11,7 @@ class Student extends BaseModel
 {
     protected $fillable = [
         'name',
+        'surname',
         'gender',
         'birth_date',
         'address',

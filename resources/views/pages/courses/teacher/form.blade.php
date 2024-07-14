@@ -26,6 +26,7 @@
                 </div>
                 <div class="card-body">
                     <div action="">
+                        <x-fields.select name="type" label="Tipe" :choices="$type" :value="$data->type ?? null" />
                         <x-fields.input type="text" name="identity_number" label="NIK" :value="$data->identity_number ?? null" />
                         <div class="row">
                             <div class="col-md-6 col-12">
@@ -54,6 +55,11 @@
                             </div>
 
                             <div class="col-md-6 col-12">
+                                <x-fields.input type="password" name="password" label="Password" :value="$data->password ?? null"
+                                    :is-required="false" />
+                            </div>
+
+                            <div class=" col-12">
                                 <x-fields.input type="tel" name="phone" label="No. Telepon " :value="$data->phone ?? null"
                                     :is-required="false" />
                             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Models\Course;
 
+use App\Enums\EmployeeTypeEnum;
 use App\Enums\GenderEnum;
 use App\Enums\TeacherStatus;
 use App\Models\BaseModel;
@@ -19,13 +20,16 @@ class Teacher extends BaseModel
         'address',
         'join_date',
         'status',
+        'type',
+        'password'
     ];
 
     protected function casts(): array
     {
         return [
             'gender' => GenderEnum::class,
-            'status'  => TeacherStatus::class
+            'status'  => TeacherStatus::class,
+            'type'  => EmployeeTypeEnum::class,
         ];
     }
 }

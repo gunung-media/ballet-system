@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Course;
 
+use App\Enums\EmployeeTypeEnum;
 use App\Enums\GenderEnum;
 use App\Enums\TeacherStatus;
 use App\Http\Controllers\Controller;
@@ -16,8 +17,7 @@ class TeacherController extends Controller
 {
     public function __construct(
         protected TeacherRepository $teacherRepository
-    ) {
-    }
+    ) {}
 
     public function index(): View|Factory
     {
@@ -29,7 +29,8 @@ class TeacherController extends Controller
     {
         $genders = GenderEnum::class;
         $status = TeacherStatus::class;
-        return view('pages.courses.teacher.form', compact('genders', 'status'));
+        $type = EmployeeTypeEnum::class;
+        return view('pages.courses.teacher.form', compact('genders', 'status', 'type'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -48,8 +49,9 @@ class TeacherController extends Controller
     {
         $genders = GenderEnum::class;
         $status = TeacherStatus::class;
+        $type = EmployeeTypeEnum::class;
         $data =  $this->teacherRepository->getById($teacher);
-        return view('pages.courses.teacher.form', compact('genders', 'status', 'data'));
+        return view('pages.courses.teacher.form', compact('genders', 'status', 'data', 'type'));
     }
 
     public function update(Request $request, mixed $teacher): RedirectResponse

@@ -2,9 +2,11 @@
 
 namespace App\Repositories\Course;
 
+use App\Enums\AbsenceStateEnum;
 use App\Models\Course\ClassModel;
 use App\Models\Course\Student;
 use App\Models\Course\StudentModel;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -15,8 +17,7 @@ class StudentRepository
     public function __construct(
         protected Student $student,
         protected ClassModel $classModel,
-    ) {
-    }
+    ) {}
 
     /**
      * @return Collection<int,StudentModel>
@@ -52,6 +53,35 @@ class StudentRepository
                 $query->where('classes.id', $classId);
             })
             ->get();
+    }
+
+    public function getStudentAbsence(mixed $studentId, int $classId, int $year): array
+    {
+        $student = $this->getById($studentId);
+
+
+        $data = [];
+        for ($month = 1; $month <= 12; $month++) {
+            $startDate = Carbon::parse("$year-$month-01");
+            $startDateOfMonth = $startDate->copy()->startOfMonth();
+            $endDateOfMonth = $startDate->copy()->endOfMonth();
+            $monthTotalDays = $startDateOfMonth->daysInMonth;
+            $absences  = $student->studentAbsences()
+                ->whereHas('absence', fn($query) => $query->whereBetween('date', [$startDateOfMonth, $endDateOfMonth]))
+                ->whereHas('absence.schedule', fn($query) => $query->where('class_id', $classId))
+                ->get();
+
+            $sum = 0;
+            foreach ($absences as $absence) {
+                if ($absence->state === AbsenceStateEnum::hadir) {
+                    $sum += 1;
+                }
+            }
+
+            $data[] = number_format($sum / $monthTotalDays * 100) . "%";
+        }
+
+        return $data;
     }
 
     /**

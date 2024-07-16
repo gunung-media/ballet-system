@@ -6,6 +6,8 @@ use App\Enums\GenderEnum;
 use App\Enums\StudentStatusEnum;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Student extends BaseModel
 {
@@ -44,5 +46,22 @@ class Student extends BaseModel
     public function classes(): BelongsToMany
     {
         return $this->belongsToMany(ClassModel::class, 'class_students', 'student_id', 'class_id');
+    }
+
+    public function absences(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Absence::class,
+            AbsenceStudent::class,
+            'student_id',
+            'id',
+            'id',
+            'absence_id'
+        );
+    }
+
+    public function studentAbsences()
+    {
+        return $this->hasMany(AbsenceStudent::class, 'student_id', 'id');
     }
 }

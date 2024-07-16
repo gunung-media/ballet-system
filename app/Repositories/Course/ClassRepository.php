@@ -12,8 +12,7 @@ class ClassRepository
     public function __construct(
         protected ClassModel $classModel,
         protected ClassScheduleRepository $classScheduleRepository,
-    ) {
-    }
+    ) {}
 
     /**
      * @return Collection<int,ClassModel>

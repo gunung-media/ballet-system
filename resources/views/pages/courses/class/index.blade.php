@@ -44,6 +44,11 @@
                                         data-original-title="Edit user">
                                         Edit
                                     </a>
+                                    <a href="{{ route('kelas.show', $d->id) }}"
+                                        class="btn text-secondary font-weight-bold text-xs" data-toggle="tooltip"
+                                        data-original-title="Detail user">
+                                        Detail
+                                    </a>
                                     <form action="{{ route('kelas.destroy', $d->id) }}" method="post">
                                         @method('DELETE')
                                         @csrf

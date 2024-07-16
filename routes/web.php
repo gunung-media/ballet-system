@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('siswa', StudentController::class)->except('show');
     Route::post('siswa/change_status/{id}', [StudentController::class, 'changeStatus'])->name('siswa.change-status');
-    Route::resource('kelas', ClassController::class)->except('show');
+    Route::resource('kelas', ClassController::class);
     Route::resource('guru', TeacherController::class)->except('show');
     Route::resource('spp', TuitionTransactionController::class)->except('show');
 

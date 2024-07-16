@@ -6,6 +6,7 @@ use App\Enums\DayEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Course\ClassModel;
 use App\Repositories\Course\ClassRepository;
+use App\Repositories\Course\StudentRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -15,8 +16,8 @@ class ClassController extends Controller
 {
     public function __construct(
         protected ClassRepository $classRepository,
-    ) {
-    }
+        protected StudentRepository $studentRepository
+    ) {}
 
     public function index(): View|Factory
     {
@@ -40,6 +41,14 @@ class ClassController extends Controller
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', $exception->getMessage())->withInput();
         }
+    }
+
+    public function show(mixed $classModel)
+    {
+        $data = $this->classRepository->getById($classModel)->students;
+        $getStudentByAbsence = fn($studentId)  => $this->studentRepository->getStudentAbsence($studentId, $classModel, date('Y'));
+
+        return view('pages.courses.class.show', compact('data', 'getStudentByAbsence'));
     }
 
     public function edit(mixed $classModel): View|Factory

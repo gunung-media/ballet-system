@@ -74,6 +74,12 @@
                                                 data-toggle="tooltip">
                                                 Detail
                                             </a>
+                                            <br>
+                                            <a href="{{ route('kelas.show', $absence->schedule->class->id) }}"
+                                                class="font-weight-bold text-xs btn w-100 btn-warning"
+                                                data-toggle="tooltip">
+                                                Rekap Kelas {{ $absence->schedule->class->name }}
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

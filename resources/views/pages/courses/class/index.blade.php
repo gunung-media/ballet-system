@@ -44,8 +44,9 @@
                                         data-original-title="Edit user">
                                         Edit
                                     </a>
+                                    <br>
                                     <a href="{{ route('kelas.show', $d->id) }}"
-                                        class="btn text-secondary font-weight-bold text-xs" data-toggle="tooltip"
+                                        class="btn btn-success  font-weight-bold text-xs" data-toggle="tooltip"
                                         data-original-title="Detail user">
                                         Detail
                                     </a>

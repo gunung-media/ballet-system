@@ -8,4 +8,26 @@
 <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
 <!-- CSS Files -->
 <link id="pagestyle" href="{{ asset('assets/css/soft-ui-dashboard.css?v=1.0.7') }}" rel="stylesheet" />
+<style>
+    .sticky-col {
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        background-color: #fff !important;
+        z-index: 100 !important;
+    }
+
+    .first-col {
+        width: 100px;
+        min-width: 100px;
+        max-width: 100px;
+        left: 0px;
+    }
+
+    .second-col {
+        width: 150px;
+        min-width: 150px;
+        max-width: 150px;
+        left: 100px;
+    }
+</style>
 @yield('customStyles')

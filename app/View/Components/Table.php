@@ -12,8 +12,9 @@ class Table extends Component
         public array $tableColumns,
         public bool $hasActions = true,
         public bool $isEmpty = false,
-    ) {
-    }
+        public bool $isSortable = true,
+        public array $freezeColumns = [],
+    ) {}
 
     public function render(): View|Closure|string
     {

@@ -65,7 +65,8 @@
 
                         @if ($data->photo ?? false)
                             <div>
-                                <img src="{{ asset('storage/' . $data->photo) }}    " alt="{{ $data->name }}" />
+                                <img src="{{ asset('storage/' . $data->photo) }}    " alt="{{ $data->name }}"
+                                    class="img-custom" />
                             </div>
                         @endif
                     </div>

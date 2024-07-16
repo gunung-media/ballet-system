@@ -9,6 +9,17 @@
 <!-- CSS Files -->
 <link id="pagestyle" href="{{ asset('assets/css/soft-ui-dashboard.css?v=1.0.7') }}" rel="stylesheet" />
 <style>
+    .img-custom {
+        max-width: 200px;
+    }
+
+    .img-absence {
+        min-height: 400px;
+        max-height: 400px;
+        object-fit: cover;
+        object-position: top
+    }
+
     .sticky-col {
         position: -webkit-sticky !important;
         position: sticky !important;

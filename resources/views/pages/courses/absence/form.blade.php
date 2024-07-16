@@ -54,7 +54,7 @@
                                     <div class="card">
                                         <div class="card-body p-2">
                                             <img src="{{ asset('storage/' . $student->photo) }}"
-                                                class="img-fluid border-radius-lg card-img">
+                                                class="img-fluid border-radius-lg card-img img-absence">
                                             <p class="card-title d-block text-darker text-center h5 pt-3">
                                                 {{ $student->name }}
                                                 @if (!is_null($absence))

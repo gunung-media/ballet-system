@@ -11,7 +11,8 @@
                             <p class="mb-0">Enter your email and password to sign in</p>
                         </div>
                         <div class="card-body">
-                            <form role="form" method="POST" action="{{ route('auth.login.post') }}">
+                            <form role="form" method="POST"
+                                action="{{ route(isset($isEmployee) ? 'employee.login' : 'auth.login.post') }}">
                                 @csrf
                                 <x-fields.input type="email" name="email" label="Email" />
                                 <x-fields.input type="password" name="password" label="Password" />

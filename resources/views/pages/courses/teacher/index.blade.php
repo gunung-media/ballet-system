@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title', 'Guru')
+@section('title', 'Pegawai')
 @section('sidebar')
-    <x-sidebar active-menu="Data Guru" />
+    <x-sidebar active-menu="Data Pegawai" />
 @endsection
 @section('breadcrumb')
-    <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Guru']" />
+    <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Pegawai']" />
 @endsection
 @section('content')
     <div class="row">
@@ -12,7 +12,7 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between">
                     <div>
-                        <h6>Data Guru</h6>
+                        <h6>Data Pegawai</h6>
                         <p class="font-weight-light text-xs">Berikut data siswa yang ada di Sistem</p>
                     </div>
 
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    <x-table :table-columns="['No', 'Nama', 'Nik', 'Status']">
+                    <x-table :table-columns="['No', 'Nama', 'NIK', 'Tipe', 'Status']">
                         @foreach ($data as $key => $d)
                             <tr>
                                 <td>
@@ -41,6 +41,9 @@
                                 </td>
                                 <td>
                                     <p class="text-xs font-weight-bold mb-0">{{ $d->identity_number }}</p>
+                                </td>
+                                <td>
+                                    <p class="text-xs font-weight-bold mb-0">{{ $d->type->value }}</p>
                                 </td>
                                 <td class="align-middle  text-sm">
                                     <span

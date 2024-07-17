@@ -9,8 +9,9 @@ use App\Http\Controllers\Course\TeacherController;
 use App\Http\Controllers\Course\TuitionTransactionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeAbsenceController;
-use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployeeAuthController;
 use App\Http\Controllers\Sales\CategoryController;
+use App\Http\Middleware\EmployeeAuth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -41,11 +42,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/absence/form', [AbsenceController::class, 'form'])->name('absence.form');
     Route::post('/absence/form/submit', [AbsenceController::class, 'submit'])->name('absence.form.submit');
 
-    Route::resource('pegawai', EmployeeController::class)->except('show');
+    // Route::resource('pegawai', EmployeeController::class)->except('show');
 
-    Route::name('pegawai.absence.')->prefix('pegawai/absence')->group(function () {
-        Route::get('/', [EmployeeAbsenceController::class, 'index'])->name('index');
-        Route::get('form', [EmployeeAbsenceController::class, 'form'])->name('form');
-        Route::post('form/submit', [EmployeeAbsenceController::class, 'submit'])->name('form.submit');
+    // Route::name('pegawai.absence.')->prefix('pegawai/absence')->group(function () {
+    //     Route::get('/', [EmployeeAbsenceController::class, 'index'])->name('index');
+    //     Route::get('form', [EmployeeAbsenceController::class, 'form'])->name('form');
+    //     Route::post('form/submit', [EmployeeAbsenceController::class, 'submit'])->name('form.submit');
+    // });
+});
+
+
+Route::prefix('pegawai')->name('employee.')->group(function () {
+    Route::get('login', [EmployeeAuthController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [EmployeeAuthController::class, 'login'])->name('login');
+    Route::middleware(EmployeeAuth::class)->group(function () {
+        Route::get('logout', [EmployeeAuthController::class, 'logout'])->name('logout');
+        Route::get('/', [EmployeeAuthController::class, 'index'])->name('index');
+        Route::post('/check-in', [EmployeeAbsenceController::class, 'checkIn'])->name('absence.checkin');
+        Route::post('/check-out', [EmployeeAbsenceController::class, 'checkOut'])->name('absence.checkout');
     });
 });

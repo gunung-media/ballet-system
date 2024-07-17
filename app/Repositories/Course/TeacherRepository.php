@@ -13,8 +13,7 @@ class TeacherRepository
     public function __construct(
         protected Teacher $teacher,
 
-    ) {
-    }
+    ) {}
 
     /**
      * @return Collection<int,TeacherModel>

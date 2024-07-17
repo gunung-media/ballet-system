@@ -2,26 +2,20 @@
 
 namespace App\Models;
 
-use App\Enums\AbsenceStateEnum;
+use App\Models\Course\Teacher;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EmployeeAbsence extends BaseModel
 {
     protected $fillable = [
-        'employee_id',
+        'teacher_id',
         'date',
-        'state'
+        'check_in',
+        'check_out'
     ];
 
-    protected function casts(): array
+    public function teacher(): BelongsTo
     {
-        return [
-            'state' => AbsenceStateEnum::class
-        ];
-    }
-
-    public function employee(): BelongsTo
-    {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Teacher::class);
     }
 }

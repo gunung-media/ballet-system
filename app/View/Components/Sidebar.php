@@ -20,25 +20,29 @@ class Sidebar extends Component
     ) {
         $this->items = [
             new SidebarItem(title: 'Beranda', url: route('dashboard'), icon: IconEnum::home),
-            // "Penjualan",
-            // new SidebarItem(title: 'Kategori', url: route('kategori.index'), icon: IconEnum::tag),
-            // new SidebarItem(title: 'Data Barang', url: route('kategori.index'), icon: IconEnum::wrenchScrewdriver),
-            // new SidebarItem(title: 'Penjualan', url: route('kategori.index'), icon: IconEnum::sale),
-            // "Penyewaan",
-            // new SidebarItem(title: 'Inventori', url: route('dashboard'), icon: IconEnum::home),
-            // new SidebarItem(title: 'Transaksi Penyewaan', url: route('dashboard'), icon: IconEnum::sale),
-            "Kursus",
-            new SidebarItem(title: 'Data Siswa', url: route('siswa.index'), icon: IconEnum::users),
-            new SidebarItem(title: 'Data Guru', url: route('guru.index'), icon: IconEnum::users),
-            new SidebarItem(title: 'Data Kelas', url: route('kelas.index'), icon: IconEnum::home),
-            new SidebarItem(title: 'Data Absensi', url: route('absence.index'), icon: IconEnum::home),
-            new SidebarItem(title: 'Pembayaran SPP', url: route('spp.index'), icon: IconEnum::home),
-            "Lain-Lain",
-            new SidebarItem(title: 'Data Pegawai', url: route('pegawai.index'), icon: IconEnum::users),
-            new SidebarItem(title: 'Absensi Pegawai', url: route('pegawai.absence.index'), icon: IconEnum::users),
-            new SidebarItem(title: 'Panduan', url: route('auth.login'), icon: IconEnum::book),
-            new SidebarItem(title: 'Logout', url: route('auth.logout'), icon: IconEnum::logout),
+            new SidebarItem(title: 'Logout', url: route('employee.logout'), icon: IconEnum::logout),
         ];
+        if (!auth('employee')->check()) {
+            $this->items = [
+                new SidebarItem(title: 'Beranda', url: route('dashboard'), icon: IconEnum::home),
+                // "Penjualan",
+                // new SidebarItem(title: 'Kategori', url: route('kategori.index'), icon: IconEnum::tag),
+                // new SidebarItem(title: 'Data Barang', url: route('kategori.index'), icon: IconEnum::wrenchScrewdriver),
+                // new SidebarItem(title: 'Penjualan', url: route('kategori.index'), icon: IconEnum::sale),
+                // "Penyewaan",
+                // new SidebarItem(title: 'Inventori', url: route('dashboard'), icon: IconEnum::home),
+                // new SidebarItem(title: 'Transaksi Penyewaan', url: route('dashboard'), icon: IconEnum::sale),
+                "Kursus",
+                new SidebarItem(title: 'Data Siswa', url: route('siswa.index'), icon: IconEnum::users),
+                new SidebarItem(title: 'Data Pegawai', url: route('guru.index'), icon: IconEnum::users),
+                new SidebarItem(title: 'Data Kelas', url: route('kelas.index'), icon: IconEnum::home),
+                new SidebarItem(title: 'Data Absensi', url: route('absence.index'), icon: IconEnum::home),
+                new SidebarItem(title: 'Pembayaran SPP', url: route('spp.index'), icon: IconEnum::home),
+                "Lain-Lain",
+                new SidebarItem(title: 'Panduan', url: route('auth.login'), icon: IconEnum::book),
+                new SidebarItem(title: 'Logout', url: route('auth.logout'), icon: IconEnum::logout),
+            ];
+        }
     }
 
     public function isActive(SidebarItem $item): ?string

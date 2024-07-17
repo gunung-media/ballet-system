@@ -1,5 +1,5 @@
 <div {{ $attributes->merge(['class' => 'table-responsive p-0']) }}>
-    <table class="table align-items-center mb-0" id="datatable">
+    <table class="table align-items-center mb-0" id="{{ $id }}">
         <thead>
             <tr>
                 @foreach ($tableColumns as $key => $header)
@@ -27,7 +27,7 @@
 
     <script src="../assets/js/plugins/datatables.js"></script>
     <script type="text/javascript">
-        const dataTableBasic = new simpleDatatables.DataTable("#datatable", {
+        const dataTableBasic = new simpleDatatables.DataTable("#{{ $id }}", {
             searchable: true,
             sortable: {{ $isSortable ? 'true' : 'false' }},
         });

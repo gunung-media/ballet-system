@@ -14,6 +14,7 @@ class Table extends Component
         public bool $isEmpty = false,
         public bool $isSortable = true,
         public array $freezeColumns = [],
+        public string $id = 'datatable'
     ) {}
 
     public function render(): View|Closure|string

@@ -53,10 +53,35 @@
 @section('customScripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            let selectedClass = document.querySelector('select[name="class_id"]');
+            let selectedStudent = document.querySelector('select[name="student_id"]');
+            const classSelect = document.querySelector('select[name="class_id"]');
 
-            selectedClass.addEventListener('change', function() {
-                console.log(selectedClass.value);
+
+            selectedStudent.addEventListener('change', function() {
+                const value = selectedStudent.value;
+
+                if (value === "Lainnya") {
+
+                    classSelect.innerHTML = '';
+                    Object.entries(@json($defaultClasses)).forEach(function([id, name]) {
+                        const option = document.createElement('option');
+                        option.value = id;
+                        option.textContent = name;
+                        classSelect.appendChild(option);
+                    });
+                    return
+                }
+                fetch(`/get-classes/${value}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        classSelect.innerHTML = '';
+                        Object.entries(data).forEach(function([id, name]) {
+                            const option = document.createElement('option');
+                            option.value = id;
+                            option.textContent = name;
+                            classSelect.appendChild(option);
+                        });
+                    });
             });
         });
     </script>

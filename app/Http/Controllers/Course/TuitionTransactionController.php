@@ -27,6 +27,19 @@ class TuitionTransactionController extends Controller
         return view('pages.courses.tuition.index', compact('data'));
     }
 
+    public function getClasses($studentId)
+    {
+        $defaultClasses = $this->classRepository->getAll()->mapWithKeys(fn($class) => [$class->id => $class->name])->toArray();
+        $getClasses = function (mixed $studentId) use ($defaultClasses) {
+            if ($studentId == "Lainnya") return $defaultClasses;
+
+            $student = $this->studentRepository->getById($studentId);
+            return $student->classes->mapWithKeys(fn($class) => [$class->id => $class->name])->toArray();
+        };
+
+        return response()->json($getClasses($studentId));
+    }
+
     private function gatherFormData(): array
     {
         $students = $this->studentRepository->getAll()->mapWithKeys(fn($student) => [$student->id => $student->name])->toArray();

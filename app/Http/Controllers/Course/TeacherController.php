@@ -8,6 +8,7 @@ use App\Enums\TeacherStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Course\Teacher;
 use App\Repositories\Course\TeacherRepository;
+use App\Repositories\EmployeeAbsenceRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -16,13 +17,15 @@ use Illuminate\Http\Request;
 class TeacherController extends Controller
 {
     public function __construct(
-        protected TeacherRepository $teacherRepository
+        protected TeacherRepository $teacherRepository,
+        protected EmployeeAbsenceRepository $employeeAbsenceRepository,
     ) {}
 
     public function index(): View|Factory
     {
         $data = $this->teacherRepository->getAll();
-        return view('pages.courses.teacher.index', compact('data'));
+        $absences = $this->employeeAbsenceRepository->getAll();
+        return view('pages.courses.teacher.index', compact('data', 'absences'));
     }
 
     public function create(): View|Factory

@@ -13,6 +13,12 @@ class EmployeeAbsenceRepository
         protected EmployeeAbsence $employeeAbsence
     ) {}
 
+
+    public function getAll()
+    {
+        return $this->employeeAbsence->get();
+    }
+
     public function getAbsences()
     {
         return $this->employeeAbsence

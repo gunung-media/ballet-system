@@ -27,7 +27,7 @@
 
     <script src="../assets/js/plugins/datatables.js"></script>
     <script type="text/javascript">
-        const dataTableBasic = new simpleDatatables.DataTable("#{{ $id }}", {
+        new simpleDatatables.DataTable("#{{ $id }}", {
             searchable: true,
             sortable: {{ $isSortable ? 'true' : 'false' }},
         });

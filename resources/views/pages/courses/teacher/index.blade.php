@@ -101,12 +101,12 @@
                             </div>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
-                            <x-table :table-columns="['Tanggal', 'Nama', 'Check-in', 'Check-out']" id="rekap">
+                            <x-table :table-columns="['Tanggal', 'Nama', 'Check-in', 'Check-out']" id="rekap" :has-actions="false">
                                 @foreach ($absences as $key => $absence)
                                     <tr>
                                         <td>
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $absence->date }}
+                                                {{ DateUtils::format($absence->date) }}
                                             </p>
                                         </td>
                                         <td>

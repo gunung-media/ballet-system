@@ -13,8 +13,8 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $loader = AliasLoader::getInstance();
-
         $loader->alias('IntegerUtils', \App\Utils\IntegerUtils::class);
+        $loader->alias('DateUtils', \App\Utils\DateUtils::class);
     }
 
     /**

@@ -98,12 +98,12 @@
                             </div>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
-                            <x-table :table-columns="$tableHeaders" id="rekap">
+                            <x-table :table-columns="$tableHeaders" id="rekap" :has-actions="false">
                                 @foreach ($data as $key => $d)
                                     <tr>
                                         <td>
                                             <p class="text-xs font-weight-bold mb-0">
-                                                {{ $d->for_month }}
+                                                {{ DateUtils::format($d->for_month) }}
                                             </p>
                                         </td>
                                         <td>

@@ -5,13 +5,31 @@ namespace App\Models\Course;
 use App\Enums\EmployeeTypeEnum;
 use App\Enums\GenderEnum;
 use App\Enums\TeacherStatus;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class Teacher extends Authenticatable
 {
+    protected static function boot(): void
+    {
+        parent::boot();
+        static::creating(function ($user) {
+            if ($user->isDirty('password')) {
+                $user->password = Hash::make($user->password);
+            }
+        });
+
+        static::updating(function ($user) {
+            if ($user->isDirty('password')) {
+                $user->password = Hash::make($user->password);
+            }
+        });
+    }
+
     static function validationRules(mixed $ignoredVal = null): array
     {
         return  [];

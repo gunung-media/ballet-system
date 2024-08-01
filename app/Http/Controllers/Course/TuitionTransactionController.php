@@ -74,7 +74,7 @@ class TuitionTransactionController extends Controller
         $request->validate(TuitionTransaction::validationRules());
 
         try {
-            $this->tuitionTransactionRepository->insert([...$request->except('_token'), 'for_month' => "{$request->for_month}-01"]);
+            $this->tuitionTransactionRepository->insert([...$request->except('_token'), 'for_month' => "{$request->for_month}-01", 'tuition_type' => 'Variable']);
             return redirect()->intended(route('spp.index'))->with('success', 'Berhasil Menambahkan Transasksi SPP');
         } catch (\Exception $exception) {
             dd($exception);

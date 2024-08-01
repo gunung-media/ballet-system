@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div action="">
+                    <div>
                         <x-fields.select name="type" label="Tipe" :choices="$type" :value="$data->type ?? null" />
                         <x-fields.input type="text" name="identity_number" label="NIK" :value="$data->identity_number ?? null" />
                         <div class="row">
@@ -50,13 +50,11 @@
 
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <x-fields.input type="email" name="email" label="Email" :value="$data->email ?? null"
-                                    :is-required="false" />
+                                <x-fields.input type="email" name="email" label="Email" :value="$data->email ?? null" />
                             </div>
 
                             <div class="col-md-6 col-12">
-                                <x-fields.input type="password" name="password" label="Password" :value="$data->password ?? null"
-                                    :is-required="false" />
+                                <x-fields.input type="password" name="password" label="Password" />
                             </div>
 
                             <div class=" col-12">
@@ -65,7 +63,7 @@
                             </div>
                         </div>
 
-                        <x-fields.input type="file" name="photo" label="Foto Guru" :is-required="!isset($data) || empty($data->photo)" />
+                        <x-fields.input type="file" name="photo" label="Foto " :is-required="!isset($data) || empty($data->photo)" />
 
                         @if ($data->photo ?? false)
                             <div>

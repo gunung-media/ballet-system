@@ -44,6 +44,7 @@ class TeacherController extends Controller
             $this->teacherRepository->insert($request->except('_token'));
             return redirect()->intended(route('guru.index'))->with('success', 'Berhasil Menambahkan Guru');
         } catch (\Exception $exception) {
+            error_log($exception->getMessage());
             return redirect()->back()->with('error', $exception->getMessage())->withInput();
         }
     }

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->date('birth_date');
             $table->date('join_date')->nullable();
-            $table->enum('status', EnumUtils::toArray(TeacherStatus::class))->default('Active');
+            $table->enum('status', EnumUtils::toArray(TeacherStatus::class))->default('Active')->nullable();
             $table->timestamps();
         });
     }

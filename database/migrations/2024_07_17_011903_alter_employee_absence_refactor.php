@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->time('check_in')->nullable();
             $table->time('check_out')->nullable();
-            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
         });
     }
 
@@ -37,7 +37,7 @@ return new class extends Migration
             $table->dropForeign(['teacher_id']);
             $table->dropColumn('teacher_id');
             $table->unsignedBigInteger('employee_id');
-            $table->foreign('employee_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 };

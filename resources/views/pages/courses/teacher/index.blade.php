@@ -68,7 +68,7 @@
                                         </td>
                                         <td class="align-middle  text-sm">
                                             <span
-                                                class="badge badge-sm badge-{{ $d->status->color() }}">{{ $d->status->value }}</span>
+                                                class="badge badge-sm badge-{{ $d->status?->color() ?? 'success' }}">{{ $d->status?->value ?? 'Active' }}</span>
                                         </td>
                                         <td class="align-middle">
                                             <a href="{{ route('guru.edit', $d->id) }}"

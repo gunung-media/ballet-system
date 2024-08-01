@@ -5,7 +5,7 @@
         @endif
     </label>
     <select class="form-control" id="{{ $isMultiple ? 'choices-tags' : 'the-select' }}" name="{{ $name }}"
-        placeholder="Pilih {{ $label }}" required="{{ $isRequired }}" data-color="dark"
+        placeholder="Pilih {{ $label }}" {{ $isRequired ? 'required' : '' }} data-color="dark"
         {{ $isMultiple ? 'multiple' : '' }} value="{{ $value ?? old($name) }}   " {{ !$isEnabled ? 'disabled' : '' }}>
         <option value="">Pilih {{ $label }}</option>
         @foreach ($choices as $key => $choice)

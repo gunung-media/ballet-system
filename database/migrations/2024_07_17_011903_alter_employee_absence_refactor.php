@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::table('employee_absences', function (Blueprint $table) {
             $table->dropColumn('state');
             $table->dropForeign(['employee_id']);
+            $table->dropColumn('employee_id');
 
             $table->unsignedBigInteger('teacher_id');
 

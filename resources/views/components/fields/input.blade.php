@@ -20,7 +20,7 @@
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Masukan {{ $label }}"
                     {{ $isRequired ? 'required' : '' }} value="{{ $value ?? old($name) }}"
-                    id="percentage-{{ $name }}" />
+                    id="percentage-{{ $name }}" name="{{ $name }}" />
                 <span class="input-group-text" id="basic-addon1">%</span>
             </div>
         @endif

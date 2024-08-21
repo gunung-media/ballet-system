@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title', 'Pembayaran SPP')
+@section('title', 'Pembayaran Reguler')
 @section('sidebar')
-    <x-sidebar active-menu="Pembayaran SPP" />
+    <x-sidebar active-menu="Pembayaran Reguler" />
 @endsection
 @section('breadcrumb')
-    <x-breadcrumb :stacks="['Home', 'Kursus', 'Pembayaran SPP']" />
+    <x-breadcrumb :stacks="['Home', 'Kursus', 'Pembayaran Reguler']" />
 @endsection
 @section('content')
     <div class="row">
@@ -20,7 +20,7 @@
                     <li class="nav-item">
                         <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#pill-rekap" role="tab"
                             aria-controls="code" aria-selected="false">
-                            <i class="ni ni-laptop text-sm me-2"></i> Rekap
+                            <i class="ni ni-laptop text-sm me-2"></i> Rekap SPP
                         </a>
                     </li>
                 </ul>
@@ -32,7 +32,7 @@
                     <div class="card mb-4">
                         <div class="card-header pb-0 d-flex justify-content-between">
                             <div>
-                                <h6>Pembayaran SPP</h6>
+                                <h6>Pembayaran Reguler</h6>
                                 <p class="font-weight-light text-xs">Berikut data pembayaran yang ada di Sistem</p>
                             </div>
 

@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\DiscountTypeEnum;
+use App\Enums\StudioTypeEnum;
 use App\Enums\TuitionTypeEnum;
 use App\Utils\EnumUtils;
 use Illuminate\Database\Migrations\Migration;
@@ -17,10 +19,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('student_id')->nullable();
             $table->string('student_name')->nullable();
-            $table->date('for_month');
+            $table->date('for_month')->nullable();
             $table->unsignedBigInteger('amount');
             $table->string('note')->nullable();
-            $table->enum('tuition_type', EnumUtils::toArray(TuitionTypeEnum::class))->default(TuitionTypeEnum::fixed);
+            $table->enum('tuition_type', EnumUtils::toArray(TuitionTypeEnum::class))->default(TuitionTypeEnum::spp);
+            $table->enum('discount_type', EnumUtils::toArray(DiscountTypeEnum::class))->nullable();
+            $table->enum('studio_type', EnumUtils::toArray(StudioTypeEnum::class))->nullable();
+            $table->integer('discount')->nullable();
             $table->timestamps();
 
             $table->foreign('student_id')->references('id')->on('students');

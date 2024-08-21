@@ -17,6 +17,7 @@ class Select extends Component
     public bool $isMultiple;
     public bool $isEnabled;
     public bool $isTuition;
+    public ?string $otherInput;
 
     public function __construct(
         string $name,
@@ -27,6 +28,7 @@ class Select extends Component
         bool $isMultiple = false,
         bool $isEnabled = true,
         bool $isTuition = false,
+        ?string $otherInput = null,
     ) {
         $this->name = $name;
         $this->label = $label;
@@ -40,6 +42,7 @@ class Select extends Component
         $this->isMultiple = $isMultiple;
         $this->isEnabled = $isEnabled;
         $this->isTuition = $isTuition;
+        $this->otherInput = $otherInput;
     }
 
     public function render(): View|Closure|string

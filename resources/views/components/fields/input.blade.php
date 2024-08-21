@@ -15,14 +15,42 @@
                     id="money-{{ $name }}" />
             </div>
         @endif
-        <input type="{{ $isMoney ? 'hidden' : $type }}" class="form-control" placeholder="Masukan {{ $label }}"
-            {{ $isRequired ? 'required' : '' }} name="{{ $name }}" id="{{ $name }}"
-            value="{{ $value ?? old($name) }}" />
+
+        @if ($isPercentage)
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Masukan {{ $label }}"
+                    {{ $isRequired ? 'required' : '' }} value="{{ $value ?? old($name) }}"
+                    id="percentage-{{ $name }}" />
+                <span class="input-group-text" id="basic-addon1">%</span>
+            </div>
+        @endif
+        <input type="{{ $isMoney || $isPercentage ? 'hidden' : $type }}" class="form-control"
+            placeholder="Masukan {{ $label }}" {{ $isRequired ? 'required' : '' }} name="{{ $name }}"
+            id="{{ $name }}" value="{{ $value ?? old($name) }}" />
+
         @if (!is_null($hintText))
             <label class="text-xs " style="font-weight: 100">{{ $hintText }}</label>
         @endif
     </div>
 </div>
+
+@if ($isPercentage)
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const percentageInput = document.querySelector('#percentage-{{ $name }}');
+
+            percentageInput.addEventListener('input', function() {
+                let value = parseInt(this.value, 10);
+
+                if (value > 100) {
+                    this.value = 100;
+                } else if (value < 0) {
+                    this.value = 0;
+                }
+            });
+        });
+    </script>
+@endif
 
 @if ($isMoney)
     <script>
@@ -43,6 +71,7 @@
                 value = value.replace(/Rp/, '').trim();
                 input.value = value;
             });
+
         });
     </script>
 @endif

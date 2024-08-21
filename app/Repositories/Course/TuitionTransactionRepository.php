@@ -42,6 +42,7 @@ class TuitionTransactionRepository
      */
     public function update(mixed $identifier, array $data): bool
     {
+        if ($data['student_id'] === "Lainnya") $data['student_id'] = null;
         $model = $this->getById($identifier);
         $modelUpdated = $model->update($data);
         return $modelUpdated;

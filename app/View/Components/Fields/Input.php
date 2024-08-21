@@ -14,6 +14,7 @@ class Input extends Component
     public bool $isRequired;
     public ?string $value;
     public bool $isMoney;
+    public bool $isPercentage;
     public ?string $hintText;
 
     public function __construct(
@@ -23,6 +24,7 @@ class Input extends Component
         bool $isRequired = true,
         ?string $value = null,
         bool $isMoney = false,
+        bool $isPercentage = false,
         ?string $hintText = null,
     ) {
         $this->type = $type;
@@ -31,6 +33,7 @@ class Input extends Component
         $this->isRequired = $isRequired;
         $this->value = $value;
         $this->isMoney = $isMoney;
+        $this->isPercentage = $isPercentage;
         $this->hintText = $hintText;
     }
 

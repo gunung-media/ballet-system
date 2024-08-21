@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Course;
 
+use App\Enums\DiscountTypeEnum;
+use App\Enums\StudioTypeEnum;
 use App\Enums\TuitionTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Models\TuitionTransaction;
@@ -59,8 +61,10 @@ class TuitionTransactionController extends Controller
         };
         $getClassPrice = fn(mixed $classId) => $this->classRepository->getById($classId);
         $tuitionTypes = TuitionTypeEnum::class;
+        $studioTypes = StudioTypeEnum::class;
+        $discountTypes = DiscountTypeEnum::class;
 
-        return compact('students', 'tuitionTypes', 'getClasses', 'defaultClasses', 'getClassPrice');
+        return compact('students', 'tuitionTypes', 'getClasses', 'defaultClasses', 'getClassPrice', 'studioTypes', 'discountTypes');
     }
 
     public function create(): View|Factory
@@ -74,7 +78,7 @@ class TuitionTransactionController extends Controller
         $request->validate(TuitionTransaction::validationRules());
 
         try {
-            $this->tuitionTransactionRepository->insert([...$request->except('_token'), 'for_month' => "{$request->for_month}-01", 'tuition_type' => 'Variable']);
+            $this->tuitionTransactionRepository->insert([...$request->except('_token'), 'for_month' => "{$request->for_month}-01",]);
             return redirect()->intended(route('spp.index'))->with('success', 'Berhasil Menambahkan Transasksi SPP');
         } catch (\Exception $exception) {
             dd($exception);

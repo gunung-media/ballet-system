@@ -15,7 +15,7 @@
         @endforeach
 
         @if ($isTuition)
-            <option value="Lainnya">Lainnya</option>
+            <option value="Lainnya" {{ $value == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
         @endif
     </select>
 
@@ -24,7 +24,7 @@
 @if ($isTuition)
     <div id="additional-input" style="display: none;" class="form-group">
         <label for="other-input">Please specify:</label>
-        <input type="text" id="other-input" name="student_name" class="form-control">
+        <input type="text" id="other-input" name="student_name" class="form-control" value="{{ $otherInput }}">
     </div>
 @endif
 <script>

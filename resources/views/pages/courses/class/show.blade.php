@@ -32,6 +32,7 @@
                         'Oktober',
                         'November',
                         'Desember',
+                        'Jumlah',
                     ]" :is-empty="count($data) == 0" :is-sortable="false" :freeze-columns="['No', 'Nama']">
                         @foreach ($data as $key => $d)
                             <tr>
@@ -39,10 +40,15 @@
                                 <td class="sticky-col second-col">{{ $d->name }}</td>
                                 @php
                                     $absenceData = $getStudentByAbsence($d->id);
+                                    $sum = 0;
                                 @endphp
                                 @foreach ($absenceData as $key => $absence)
+                                    @php
+                                        $sum += $absence;
+                                    @endphp
                                     <td>{{ $absence }}</td>
                                 @endforeach
+                                <td>{{ $sum }}</td>
                             </tr>
                         @endforeach
 

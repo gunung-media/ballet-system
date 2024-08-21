@@ -78,7 +78,9 @@ class StudentRepository
                 }
             }
 
-            $data[] = number_format($sum / $monthTotalDays * 100) . "%";
+            // Percentage
+            // $data[] = number_format($sum / $monthTotalDays * 100) . "%";
+            $data[] = number_format($sum);
         }
 
         return $data;

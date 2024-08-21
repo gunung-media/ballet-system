@@ -94,6 +94,7 @@
             var additionalInput = document.querySelector("#additional-input");
             const forMonthInput = document.querySelector('input[name="for_month"]');
             const studioTypeInput = document.querySelector('select[name="studio_type"]');
+            const amount = document.querySelector('#money-amount');
 
             if (selectedStudent.value === 'Lainnya') {
                 additionalInput.style.display = "block";
@@ -135,6 +136,12 @@
                 }
             })
 
+            classSelect.addEventListener('change', function() {
+                amount.value = classSelect.options[classSelect.selectedIndex].getAttribute('data-cost');
+                document.querySelector('input[name="amount"]').value = classSelect.options[classSelect
+                    .selectedIndex].getAttribute('data-cost');
+            })
+
 
             selectedStudent.addEventListener('change', function() {
                 const value = selectedStudent.value;
@@ -155,10 +162,15 @@
                     .then(response => response.json())
                     .then(data => {
                         classSelect.innerHTML = '';
-                        Object.entries(data).forEach(function([id, name]) {
+                        const option = document.createElement('option');
+                        option.value = null;
+                        option.textContent = "Pilih";
+                        classSelect.appendChild(option);
+                        Object.entries(data).forEach(function([id, [name, cost]]) {
                             const option = document.createElement('option');
                             option.value = id;
                             option.textContent = name;
+                            option.setAttribute('data-cost', cost)
                             classSelect.appendChild(option);
                         });
                     });

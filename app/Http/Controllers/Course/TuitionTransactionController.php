@@ -12,6 +12,7 @@ use App\Repositories\Course\StudentRepository;
 use App\Repositories\Course\TuitionTransactionRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -37,14 +38,14 @@ class TuitionTransactionController extends Controller
         return view('pages.courses.tuition.index', compact('data', 'dataSpp', 'month', 'defaultMonth', 'tableHeaders', 'classes'));
     }
 
-    public function getClasses($studentId)
+    public function getClasses($studentId): JsonResponse
     {
         $defaultClasses = $this->classRepository->getAll()->mapWithKeys(fn($class) => [$class->id => $class->name])->toArray();
         $getClasses = function (mixed $studentId) use ($defaultClasses) {
             if ($studentId == "Lainnya") return $defaultClasses;
 
             $student = $this->studentRepository->getById($studentId);
-            return $student->classes->mapWithKeys(fn($class) => [$class->id => $class->name])->toArray();
+            return $student->classes->mapWithKeys(fn($class) => [$class->id => [$class->name, $class->price]])->toArray();
         };
 
         return response()->json($getClasses($studentId));

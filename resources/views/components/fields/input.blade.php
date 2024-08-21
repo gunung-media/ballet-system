@@ -24,6 +24,7 @@
                 <span class="input-group-text" id="basic-addon1">%</span>
             </div>
         @endif
+
         <input type="{{ $isMoney || $isPercentage ? 'hidden' : $type }}" class="form-control"
             placeholder="Masukan {{ $label }}" {{ $isRequired ? 'required' : '' }} name="{{ $name }}"
             id="{{ $name }}" value="{{ $value ?? old($name) }}" />

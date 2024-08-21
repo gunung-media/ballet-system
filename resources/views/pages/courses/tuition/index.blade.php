@@ -61,6 +61,12 @@
                                                 data-original-title="Edit user">
                                                 Edit
                                             </a>
+                                            <br />
+                                            <a href="{{ route('spp.cetak-spp', $d->id) }}"
+                                                class=" font-weight-bold text-xs btn btn-warning" data-toggle="tooltip"
+                                                data-original-title="Edit user" target="_blank">
+                                                Cetak
+                                            </a>
                                             <form action="{{ route('spp.destroy', $d->id) }}" method="post">
                                                 @method('DELETE')
                                                 @csrf

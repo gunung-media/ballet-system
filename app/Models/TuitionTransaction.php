@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\DiscountTypeEnum;
 use App\Enums\StudioTypeEnum;
 use App\Enums\TuitionTypeEnum;
+use App\Models\Course\ClassModel;
 use App\Models\Course\Student;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -27,6 +28,11 @@ class TuitionTransaction extends BaseModel
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
+    }
+
+    public function class(): BelongsTo
+    {
+        return $this->belongsTo(ClassModel::class);
     }
 
     protected function casts(): array

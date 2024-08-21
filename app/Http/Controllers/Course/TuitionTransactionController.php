@@ -96,6 +96,12 @@ class TuitionTransactionController extends Controller
         return view('pages.courses.tuition.form', array_merge($formData, ['data' => $this->tuitionTransactionRepository->getById($id)]));
     }
 
+    public function cetakSpp(string $id): View|Factory
+    {
+        $formData = $this->gatherFormData();
+        return view('pages.courses.tuition.receipt', array_merge($formData, ['data' => $this->tuitionTransactionRepository->getById($id)]));
+    }
+
     public function update(Request $request, string $id): RedirectResponse
     {
         $request->validate(TuitionTransaction::validationRules());

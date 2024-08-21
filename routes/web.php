@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('kelas', ClassController::class);
     Route::resource('guru', TeacherController::class)->except('show');
     Route::resource('spp', TuitionTransactionController::class)->except('show');
+    Route::get('cetak-spp/{studentId}', [TuitionTransactionController::class, 'cetakSpp'])->name('spp.cetak-spp');
     Route::get('/get-classes/{studentId}', [TuitionTransactionController::class, 'getClasses'])->name('spp.get-classes');
 
     Route::get('/absence', [AbsenceController::class, 'index'])->name('absence.index');

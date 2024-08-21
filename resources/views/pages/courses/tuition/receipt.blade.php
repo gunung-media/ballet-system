@@ -102,7 +102,7 @@
         <hr>
         <div class="receipt-summary">
             @php
-                $diskon = $data->amount * ($data->discount_amount / 100);
+                $diskon = $data->amount * ($data->discount / 100);
             @endphp
             <p><strong>Catatan:</strong> {{ $data->note ?? '-' }} </p>
             <p><strong>Subtotal:</strong> {{ IntegerUtils::toRupiah($data->amount) }}</p>

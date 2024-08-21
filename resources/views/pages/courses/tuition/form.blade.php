@@ -29,18 +29,19 @@
                         <x-fields.select name="tuition_type" label="Tipe" :choices="$tuitionTypes" :value="$data->tuition_type ?? null" />
 
                         <div id="spp-input" style="display: none;">
-                            <x-fields.select name="student_id" label="Siswa" :choices="$students" :value="$data->student?->id ?? ($data->student_name ? 'Lainnya' : null)"
-                                :is-required="true" :is-tuition="true" :other-input="$data->student_name ?? null" />
+                            <x-fields.select name="student_id" label="Siswa" :choices="$students" :value="$data->student?->id ?? (isset($data->student_name) ? 'Lainnya' : null)"
+                                :is-required="false" :is-tuition="true" :other-input="$data->student_name ?? null" />
 
                             <x-fields.select name="class_id" label="Pilih Kelas" :choices="$defaultClasses" :value="$data->class_id ?? null"
-                                :is-required="true" />
+                                :is-required="false" />
 
-                            <x-fields.input type="month" name="for_month" label="Untuk Bulan" :value="$data->for_month ? substr($data->for_month, 0, 7) : null" />
+                            <x-fields.input type="month" name="for_month" label="Untuk Bulan" :value="isset($data->for_month) ? substr($data->for_month, 0, 7) : null"
+                                :is-required="false" />
                         </div>
 
                         <div id="studio-input" style="display:none">
                             <x-fields.select name="studio_type" label="Tipe Studio" :choices="$studioTypes" :is-required="false"
-                                :value="$data->studio_type ?? null" />
+                                :value="$data->studio_type ?? null":is-required="false" />
                         </div>
 
                         <x-fields.input type="number" name="amount" label="Jumlah " :value="$data->amount ?? null"
@@ -71,7 +72,7 @@
                         <x-fields.select name="discount_type" label="Tipe Diskon" :choices="$discountTypes" :is-required="false"
                             :value="$data->discount_type ?? null" />
 
-                        <x-fields.input type="number" name="discount" label="Diskon " :value="$data->discount ?? null" :is-percentage="true"
+                        <x-fields.input type="number" name="discount" label="Diskon " :value="$data->discount ?? 0" :is-percentage="true"
                             hint-text="Maximal 100%" :is-required="false" />
                     </div>
 
@@ -91,6 +92,8 @@
             const sppBx = document.querySelector('#spp-input')
             const studioBx = document.querySelector('#studio-input')
             var additionalInput = document.querySelector("#additional-input");
+            const forMonthInput = document.querySelector('input[name="for_month"]');
+            const studioTypeInput = document.querySelector('select[name="studio_type"]');
 
             if (selectedStudent.value === 'Lainnya') {
                 additionalInput.style.display = "block";
@@ -98,26 +101,36 @@
 
             if (selectedType.value === 'Iuran Bulanan(SPP)') {
                 sppBx.style.display = "block";
+                selectedStudent.required = true;
+                classSelect.required = true;
+                forMonthInput.required = true;
             }
 
             if (selectedType.value === 'Biaya Sewa Studio') {
                 studioBx.style.display = "block";
+                studioTypeInput.required = true;
             }
             selectedType.addEventListener('change', function() {
                 const value = selectedType.value;
                 if (value === 'Iuran Bulanan(SPP)') {
                     sppBx.style.display = "block";
                     studioBx.style.display = "none";
-                    return
+                    selectedStudent.required = true;
+                    classSelect.required = true;
+                    forMonthInput.required = true;
                 } else {
+                    selectedStudent.required = false;
+                    classSelect.required = false;
+                    forMonthInput.required = false;
                     sppBx.style.display = "none";
                 }
 
                 if (selectedType.value === 'Biaya Sewa Studio') {
                     studioBx.style.display = "block";
                     sppBx.style.display = "none";
-                    return
+                    studioTypeInput.required = true;
                 } else {
+                    studioTypeInput.required = false;
                     studioBx.style.display = "none";
                 }
             })

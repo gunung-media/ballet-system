@@ -41,22 +41,14 @@
                             </div>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
-                            <x-table :table-columns="['No', 'Nama Siswa', 'Jenis', 'Bulan', 'Jumlah']">
+                            <x-table :table-columns="['No', 'Jenis', 'Jumlah']">
                                 @foreach ($data as $key => $d)
                                     <tr>
                                         <td>
                                             <p class="text-xs font-weight-bold mb-0">{{ $key + 1 }}</p>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0">
-                                                {{ $d->student?->name ?? $d->student_name }}
-                                            </p>
-                                        </td>
-                                        <td>
                                             <p class="text-xs font-weight-bold mb-0">{{ $d->tuition_type->value }}</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{ $d->for_month }}</p>
                                         </td>
                                         <td>
                                             <p class="text-xs font-weight-bold mb-0">
@@ -99,7 +91,7 @@
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <x-table :table-columns="$tableHeaders" id="rekap" :has-actions="false">
-                                @foreach ($data as $key => $d)
+                                @foreach ($dataSpp as $key => $d)
                                     <tr>
                                         <td>
                                             <p class="text-xs font-weight-bold mb-0">

@@ -26,6 +26,7 @@ class TuitionTransactionController extends Controller
     public function index(): View|Factory
     {
         $data = $this->tuitionTransactionRepository->getAll();
+        $dataSpp = $this->tuitionTransactionRepository->getAll(type: TuitionTypeEnum::spp);
         $month = [1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'];
         $defaultMonth = now()->month;
         $classes = $this->classRepository->getAll();
@@ -33,7 +34,7 @@ class TuitionTransactionController extends Controller
             ['Tanggal', 'Nama Siswa'],
             $classes->map(fn($class) => $class->name)->toArray(),
         );
-        return view('pages.courses.tuition.index', compact('data', 'month', 'defaultMonth', 'tableHeaders', 'classes'));
+        return view('pages.courses.tuition.index', compact('data', 'dataSpp', 'month', 'defaultMonth', 'tableHeaders', 'classes'));
     }
 
     public function getClasses($studentId)
@@ -78,7 +79,10 @@ class TuitionTransactionController extends Controller
         $request->validate(TuitionTransaction::validationRules());
 
         try {
-            $this->tuitionTransactionRepository->insert([...$request->except('_token'), 'for_month' => "{$request->for_month}-01",]);
+            $this->tuitionTransactionRepository->insert([
+                ...$request->except('_token'),
+                'for_month' => $request->for_month ? "{$request->for_month}-01" : null
+            ]);
             return redirect()->intended(route('spp.index'))->with('success', 'Berhasil Menambahkan Transasksi SPP');
         } catch (\Exception $exception) {
             dd($exception);
@@ -96,7 +100,10 @@ class TuitionTransactionController extends Controller
     {
         $request->validate(TuitionTransaction::validationRules());
 
-        if ($this->tuitionTransactionRepository->update($id, [...$request->except('_token'), 'for_month' => "{$request->for_month}-01"])) {
+        if ($this->tuitionTransactionRepository->update($id, [
+            ...$request->except('_token'),
+            'for_month' => $request->for_month ? "{$request->for_month}-01" : null
+        ])) {
             return back()->with('success', 'Berhasil Mengedit Transaksi SPP');
         }
         return back()->with('error', 'Gagal Mengedit Transaksi SPP');

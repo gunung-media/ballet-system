@@ -14,9 +14,10 @@ class TuitionTransactionRepository
     /**
      * @return Collection<int,TuitionTransaction>
      */
-    public function getAll(): Collection
+    public function getAll($type = null): Collection
     {
         $query = $this->model->with('student');
+        if ($type) $query->where('tuition_type', $type);
         return $query->get();
     }
 

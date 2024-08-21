@@ -74,12 +74,12 @@
         <div class="receipt-details">
             <p><strong>Date:</strong> {{ $data->created_at }}</p>
             <p><strong>Receipt No:</strong> {{ $data->id }}</p>
-            <p><strong>Jenis: </strong>{{ $data->tuition_type }} </p>
         </div>
         <hr>
         <table class="receipt-table">
             <thead>
                 <tr>
+                    <th>Jenis</th>
                     @if ($data->tuition_type === \App\Enums\TuitionTypeEnum::spp)
                         <th>Nama Siswa</th>
                         <th>Kelas</th>
@@ -90,6 +90,7 @@
             </thead>
             <tbody>
                 <tr>
+                    <td>{{ $data->tuition_type }}</td>
                     @if ($data->tuition_type === \App\Enums\TuitionTypeEnum::spp)
                         <td>{{ $data->student?->name ?? $data->student_name }}</td>
                         <td>{{ $data->class?->name }}</td>

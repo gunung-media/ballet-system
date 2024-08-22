@@ -7,6 +7,10 @@
     <x-breadcrumb :stacks="['Home', 'Kursus', 'Pembayaran Reguler']" />
 @endsection
 @section('content')
+
+    <div id="floating-button" style="display:none; position:fixed; bottom:20px; right:20px;z-index:100">
+        <button class="btn btn-primary" onclick="printSelected()">Cetak</button>
+    </div>
     <div class="row">
         <div class="col-12">
             <div class="nav-wrapper position-relative end-0">
@@ -41,9 +45,10 @@
                             </div>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
-                            <x-table :table-columns="['No', 'Jenis', 'Jumlah']">
+                            <x-table :table-columns="['No', 'Jenis', 'Jumlah']" :is-selectable="true">
                                 @foreach ($data as $key => $d)
                                     <tr>
+                                        <td><input type="checkbox" class="item-checkbox" value="{{ $d->id }}" /></td>
                                         <td>
                                             <p class="text-xs font-weight-bold mb-0">{{ $key + 1 }}</p>
                                         </td>
@@ -62,7 +67,7 @@
                                                 Edit
                                             </a>
                                             <br />
-                                            <a href="{{ route('spp.cetak-spp', $d->id) }}"
+                                            <a href="{{ route('spp.cetak-spp', ['id' => $d->id]) }}"
                                                 class=" font-weight-bold text-xs btn btn-warning" data-toggle="tooltip"
                                                 data-original-title="Edit user" target="_blank">
                                                 Cetak
@@ -128,4 +133,38 @@
 @endsection
 
 @section('customScripts')
+    <script>
+        function printSelected() {
+            const checkboxes = document.querySelectorAll('.item-checkbox');
+            const selectedIds = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            if (selectedIds.length > 0) {
+                const printUrl = `{{ route('spp.cetak-spp') }}?id=${selectedIds.join(',')}`;
+                window.open(printUrl, '_blank');
+            }
+        };
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.item-checkbox');
+            const floatingButton = document.getElementById('floating-button');
+            const selectAllCheckbox = document.getElementById('select-all');
+
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('change', updateFloatingButton);
+            });
+
+            selectAllCheckbox.addEventListener('change', function() {
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = selectAllCheckbox.checked;
+                });
+                updateFloatingButton();
+            });
+
+            function updateFloatingButton() {
+                const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+                floatingButton.style.display = anyChecked ? 'block' : 'none';
+            }
+        });
+    </script>
 @endsection

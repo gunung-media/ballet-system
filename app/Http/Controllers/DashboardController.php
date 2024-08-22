@@ -17,17 +17,16 @@ class DashboardController extends Controller
         protected StudentRepository $studentRepository,
         protected ClassRepository $classRepository,
         protected TeacherRepository $teacherRepository,
-    ) {
-    }
+    ) {}
 
     public function index()
     {
         $tuition = $this->tuitionTransactionRepository->getAll();
-        $tuition = $tuition->reduce(fn ($carry, $item) => $carry + $item->amount, 0);
+        $tuition = $tuition->reduce(fn($carry, $item) => $carry + $item->amount, 0);
 
-        $students = $this->studentRepository->getAll()->filter(fn ($item) => $item->status == StudentStatusEnum::APPROVED)->count();
+        $students = $this->studentRepository->getAll()->filter(fn($item) => $item->status == StudentStatusEnum::APPROVED)->count();
         $classes = $this->classRepository->getAll()->count();
-        $teachers = $this->teacherRepository->getAll()->filter(fn ($teacher) => $teacher->status == TeacherStatus::Active)->count();
+        $teachers = $this->teacherRepository->getAll()->count();
 
         return view('pages.index', compact('tuition', 'students', 'classes', 'teachers'));
     }

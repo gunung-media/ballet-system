@@ -22,9 +22,10 @@ class TuitionTransactionRepository
     }
 
 
-    public function getById(mixed $identifier): TuitionTransaction | null
+    public function getById(mixed $identifier): mixed
     {
         if ($identifier instanceof TuitionTransaction) return $identifier;
+        if (strpos($identifier, ',') !== false) return $this->model->with('student')->findMany(explode(',', $identifier));
         return $this->model->with('student')->find($identifier);
     }
 

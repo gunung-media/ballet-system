@@ -2,6 +2,9 @@
     <table class="table align-items-center mb-0" id="{{ $id }}">
         <thead>
             <tr>
+                @if ($isSortable)
+                    <th></th>
+                @endif
                 @foreach ($tableColumns as $key => $header)
                     <th
                         class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 {{ in_array($header, $freezeColumns) ? 'sticky-col ' . ($key == 0 ? 'first-col' : 'second-col') : ' ?>' }}">

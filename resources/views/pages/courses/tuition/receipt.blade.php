@@ -107,9 +107,12 @@
             @endphp
             <p><strong>Catatan:</strong> {{ $data->note ?? '-' }} </p>
             <p><strong>Subtotal:</strong> {{ IntegerUtils::toRupiah($data->amount) }}</p>
-            <p><strong>Diskon ({{ $data->discount ?? 0 }}%):</strong>
-                {{ IntegerUtils::toRupiah($diskon) }}
-            </p>
+            @if (!is_null($data->discount))
+                <p>
+                    <strong>Diskon ({{ $data->discount ?? 0 }}%):</strong>
+                    {{ IntegerUtils::toRupiah($diskon) }}
+                </p>
+            @endif
             <p><strong>Total:</strong> {{ IntegerUtils::toRupiah($data->amount - $diskon) }}</p>
         </div>
         <hr>

@@ -10,6 +10,43 @@
     <div class="row">
         <div class="col-12">
             <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6>Jumlah Kelas</h6>
+                </div>
+                <div class="card-body">
+
+                    @php
+                        $months = [
+                            9 => 'September',
+                            10 => 'October',
+                            11 => 'November',
+                            12 => 'December',
+                            1 => 'January',
+                            2 => 'February',
+                            3 => 'March',
+                            4 => 'April',
+                            5 => 'May',
+                            6 => 'June',
+                            7 => 'July',
+                            8 => 'August',
+                        ];
+                    @endphp
+                    <x-table :is-sortable="false" :table-columns="['Nama', 'Jumlah']" id="month" :per-page="12">
+                        @foreach ($months as $monthNumber => $monthName)
+                            @php
+                                $sum = $getClassAbsences($monthNumber);
+                            @endphp
+                            <tr>
+                                <td>{{ $monthName }}</td>
+                                <td>{{ $sum }}</td>
+                            </tr>
+                        @endforeach
+                    </x-table>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between">
                     <div>
                         <h6>Detail Kehadiran Siswa</h6>
@@ -20,6 +57,10 @@
                     <x-table :table-columns="[
                         'No',
                         'Nama',
+                        'September',
+                        'Oktober',
+                        'November',
+                        'Desember',
                         'Januari',
                         'Februari',
                         'Maret',
@@ -28,10 +69,6 @@
                         'Juni',
                         'Juli',
                         'Agustus',
-                        'September',
-                        'Oktober',
-                        'November',
-                        'Desember',
                         'Jumlah',
                     ]" :is-empty="count($data) == 0" :is-sortable="false" :freeze-columns="['No', 'Nama']">
                         @foreach ($data as $key => $d)
@@ -41,8 +78,12 @@
                                 @php
                                     $absenceData = $getStudentByAbsence($d->id);
                                     $sum = 0;
+                                    $orderedAbsenceData = array_merge(
+                                        array_slice($absenceData, 8, 4), // Sep - Dec
+                                        array_slice($absenceData, 0, 8), // Jan - Aug
+                                    );
                                 @endphp
-                                @foreach ($absenceData as $key => $absence)
+                                @foreach ($orderedAbsenceData as $absence)
                                     @php
                                         $sum += $absence;
                                     @endphp
@@ -51,7 +92,6 @@
                                 <td>{{ $sum }}</td>
                             </tr>
                         @endforeach
-
                     </x-table>
                 </div>
             </div>

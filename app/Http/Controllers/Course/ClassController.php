@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Course;
 use App\Enums\DayEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Course\ClassModel;
+use App\Repositories\Course\AbsenceRepository;
 use App\Repositories\Course\ClassRepository;
 use App\Repositories\Course\StudentRepository;
 use Illuminate\Contracts\View\Factory;
@@ -16,7 +17,8 @@ class ClassController extends Controller
 {
     public function __construct(
         protected ClassRepository $classRepository,
-        protected StudentRepository $studentRepository
+        protected StudentRepository $studentRepository,
+        protected AbsenceRepository $absenceRepository,
     ) {}
 
     public function index(): View|Factory
@@ -47,8 +49,9 @@ class ClassController extends Controller
     {
         $data = $this->classRepository->getById($classModel)->students;
         $getStudentByAbsence = fn($studentId)  => $this->studentRepository->getStudentAbsence($studentId, $classModel, date('Y'));
+        $getClassAbsences = fn($month)  => $this->absenceRepository->getByMonth($classModel, $month, date('Y'))->count();
 
-        return view('pages.courses.class.show', compact('data', 'getStudentByAbsence'));
+        return view('pages.courses.class.show', compact('data', 'getStudentByAbsence', 'getClassAbsences'));
     }
 
     public function edit(mixed $classModel): View|Factory

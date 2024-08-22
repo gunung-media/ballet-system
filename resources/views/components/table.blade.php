@@ -33,6 +33,7 @@
         new simpleDatatables.DataTable("#{{ $id }}", {
             searchable: true,
             sortable: {{ $isSortable ? 'true' : 'false' }},
+            perPage: {{ $perPage }},
         });
     </script>
 </div>

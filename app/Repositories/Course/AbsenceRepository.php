@@ -45,4 +45,13 @@ class AbsenceRepository
     {
         return $this->model->create($data);
     }
+
+    public function getByMonth($classId, $month, $year)
+    {
+        return $this->model
+            ->whereRelation('schedule', 'class_id', $classId)
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
+            ->get();
+    }
 }

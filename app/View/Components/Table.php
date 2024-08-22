@@ -15,7 +15,8 @@ class Table extends Component
         public bool $isSortable = true,
         public array $freezeColumns = [],
         public string $id = 'datatable',
-        public bool $isSelectable = false
+        public bool $isSelectable = false,
+        public int $perPage = 10
     ) {}
 
     public function render(): View|Closure|string

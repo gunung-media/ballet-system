@@ -124,9 +124,9 @@
                                     <p><strong>Untuk Bulan:</strong>
                                         {{ DateUtils::format($d->for_month, false, true) }}</p>
                                     <p><strong>Catatan :</strong> {{ $d->note ?? '-' }}</p>
-                                @elseif($data->tuition_type === \App\Enums\TuitionTypeEnum::sewa)
-                                    <p><strong>Studio :</strong> {{ $data->studio_type->value }}</p>
-                                    <p><strong>Catatan :</strong> {{ $data->note ?? '-' }}</p>
+                                @elseif($d->tuition_type === \App\Enums\TuitionTypeEnum::sewa)
+                                    <p><strong>Studio :</strong> {{ $d->studio_type->value }}</p>
+                                    <p><strong>Catatan :</strong> {{ $d->note ?? '-' }}</p>
                                 @else
                                     <p><strong>Catatan :</strong> {{ $d->note ?? '-' }}</p>
                                 @endif

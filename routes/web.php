@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeAbsenceController;
 use App\Http\Controllers\EmployeeAuthController;
 use App\Http\Controllers\Sales\CategoryController;
+use App\Http\Controllers\SettingController;
 use App\Http\Middleware\EmployeeAuth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/absence', [AbsenceController::class, 'index'])->name('absence.index');
     Route::get('/absence/form', [AbsenceController::class, 'form'])->name('absence.form');
     Route::post('/absence/form/submit', [AbsenceController::class, 'submit'])->name('absence.form.submit');
+
+    Route::prefix('setting')->name('setting.')->group(function () {
+        Route::get('/', [SettingController::class, 'index'])->name('index');
+        Route::post('/', [SettingController::class, 'store'])->name('store');
+    });
 
     // Route::resource('pegawai', EmployeeController::class)->except('show');
 

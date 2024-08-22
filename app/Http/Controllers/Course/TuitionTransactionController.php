@@ -10,6 +10,7 @@ use App\Models\TuitionTransaction;
 use App\Repositories\Course\ClassRepository;
 use App\Repositories\Course\StudentRepository;
 use App\Repositories\Course\TuitionTransactionRepository;
+use App\Repositories\SettingRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -22,6 +23,7 @@ class TuitionTransactionController extends Controller
         protected TuitionTransactionRepository $tuitionTransactionRepository,
         protected StudentRepository $studentRepository,
         protected ClassRepository $classRepository,
+        protected SettingRepository $settingRepository,
     ) {}
 
     public function index(): View|Factory
@@ -102,7 +104,8 @@ class TuitionTransactionController extends Controller
         $formData = $this->gatherFormData();
         $id = $request->query('id');
         $data = $this->tuitionTransactionRepository->getById($id);
-        return view('pages.courses.tuition.receipt', array_merge($formData, ['data' => $data]));
+        $setting = $this->settingRepository->get();
+        return view('pages.courses.tuition.receipt', array_merge($formData, ['data' => $data, 'setting' => $setting]));
     }
 
     public function update(Request $request, string $id): RedirectResponse

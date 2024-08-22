@@ -2,7 +2,7 @@
     <table class="table align-items-center mb-0" id="{{ $id }}">
         <thead>
             <tr>
-                @if ($isSortable)
+                @if ($isSelectable)
                     <th></th>
                 @endif
                 @foreach ($tableColumns as $key => $header)

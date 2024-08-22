@@ -16,6 +16,7 @@ class Input extends Component
     public bool $isMoney;
     public bool $isPercentage;
     public ?string $hintText;
+    public bool $isReadOnly;
 
     public function __construct(
         string $type,
@@ -26,6 +27,7 @@ class Input extends Component
         bool $isMoney = false,
         bool $isPercentage = false,
         ?string $hintText = null,
+        bool $isReadOnly = false,
     ) {
         $this->type = $type;
         $this->name = $name;
@@ -35,6 +37,7 @@ class Input extends Component
         $this->isMoney = $isMoney;
         $this->isPercentage = $isPercentage;
         $this->hintText = $hintText;
+        $this->isReadOnly = $isReadOnly;
     }
 
     public function render(): View|Closure|string

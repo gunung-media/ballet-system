@@ -1,3 +1,12 @@
+<style>
+    .disabled-prefix {
+        background-color: #e9ecef;
+        color: #6c757d;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+</style>
+
 <div class="form-group">
     @if ($type != 'hidden')
         <label>{{ $label }}
@@ -9,10 +18,10 @@
     <div class="mb-3">
         @if ($isMoney)
             <div class="input-group">
-                <span class="input-group-text" id="basic-addon1">Rp</span>
+                <span class="input-group-text {{ $isReadOnly ? 'disabled-prefix' : '' }}" id="basic-addon1">Rp</span>
                 <input type="text" class="form-control" placeholder="Masukan {{ $label }}"
-                    {{ $isRequired ? 'required' : '' }} value="{{ $value ?? old($name) }}"
-                    id="money-{{ $name }}" />
+                    {{ $isRequired ? 'required' : '' }} value="{{ $value ?? old($name) }}" id="money-{{ $name }}"
+                    {{ $isReadOnly ? 'readonly' : '' }} />
             </div>
         @endif
 
@@ -20,14 +29,16 @@
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Masukan {{ $label }}"
                     {{ $isRequired ? 'required' : '' }} value="{{ $value ?? old($name) }}"
-                    id="percentage-{{ $name }}" name="{{ $name }}" />
-                <span class="input-group-text" id="basic-addon1">%</span>
+                    id="percentage-{{ $name }}" name="{{ $name }}"
+                    {{ $isReadOnly ? 'readonly' : '' }} />
+                <span class="input-group-text {{ $isReadOnly ? 'disabled-prefix' : '' }}" id="basic-addon1">%</span>
             </div>
+        @else
+            <input type="{{ $isMoney ? 'hidden' : $type }}" class="form-control"
+                placeholder="Masukan {{ $label }}" {{ $isRequired ? 'required' : '' }}
+                name="{{ $name }}" id="{{ $name }}" value="{{ $value ?? old($name) }}"
+                {{ $isReadOnly ? 'readonly' : '' }} />
         @endif
-
-        <input type="{{ $isMoney || $isPercentage ? 'hidden' : $type }}" class="form-control"
-            placeholder="Masukan {{ $label }}" {{ $isRequired ? 'required' : '' }} name="{{ $name }}"
-            id="{{ $name }}" value="{{ $value ?? old($name) }}" />
 
         @if (!is_null($hintText))
             <label class="text-xs " style="font-weight: 100">{{ $hintText }}</label>

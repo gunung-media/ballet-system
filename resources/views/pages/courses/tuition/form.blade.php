@@ -61,10 +61,8 @@
 
         <div class="col-md-4 col-12">
             <div class="card mb-4">
-                <div class="card-header pb-0 d-flex justify-content-between">
-                    <div>
-                        <h6>Total</h6>
-                    </div>
+                <div class="card-header pb-0">
+                    <h6>Total</h6>
                 </div>
                 <div class="card-body">
                     <div action="">
@@ -73,6 +71,15 @@
 
                         <x-fields.input type="number" name="discount" label="Diskon " :value="$data->discount ?? 0" :is-percentage="true"
                             hint-text="Maximal 100%" :is-required="false" />
+
+                        <x-fields.input type="number" name="total" label="Jumlah" :is-money="true" :is-required="false"
+                            :is-read-only="true" :value="0" />
+
+                        <x-fields.input type="number" name="discount-total" label="Diskon Total" :is-money="true"
+                            :is-required="false" :is-read-only="true" :value="0" />
+
+                        <x-fields.input type="number" name="sum" label="Total" :is-money="true" :is-required="false"
+                            :is-read-only="true" :value="0" />
                     </div>
 
                 </div>
@@ -84,88 +91,136 @@
 
 @section('customScripts')
     <script>
+        const handleSummarizer = () => {
+            const inputMoneyAmount = document.querySelector('#money-amount');
+            const inputDiscount = document.querySelector('#percentage-discount');
+            const totalAmount = document.querySelector('#money-total');
+            const totalSum = document.querySelector('#money-sum');
+            const totalDiscount = document.querySelector('#money-discount-total');
+
+            function handleDiscount() {
+                const totalAmountValue = parseFloat(totalAmount?.value) || 0;
+                const discountPercentage = parseFloat(inputDiscount.value) || 0;
+
+                const totalDiscountValue = (discountPercentage / 100) * totalAmountValue
+                totalDiscount.value = totalDiscountValue.toFixed(2) * 1000;
+                totalSum.value = (totalAmountValue - totalDiscountValue).toFixed(2) * 1000;
+            }
+
+            inputMoneyAmount.addEventListener('change', function() {
+                totalAmount.value = inputMoneyAmount.value
+                handleDiscount()
+            })
+
+            inputDiscount.addEventListener('change', handleDiscount)
+
+        }
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const selectedStudent = document.querySelector('select[name="student_id"]');
-            const selectedType = document.querySelector('select[name="tuition_type"]');
-            const classSelect = document.querySelector('select[name="class_id"]');
+            var additionalInput = document.querySelector("#additional-input");
+            const inputStudent = document.querySelector('select[name="student_id"]');
+            const inputType = document.querySelector('select[name="tuition_type"]');
+            const inputClass = document.querySelector('select[name="class_id"]');
+            const inputForMonth = document.querySelector('input[name="for_month"]');
+            const inputStudioType = document.querySelector('select[name="studio_type"]');
+            const inputMoneyAmount = document.querySelector('#money-amount');
+            const inputAmount = document.querySelector('input[name="amount"]');
             const sppBx = document.querySelector('#spp-input')
             const studioBx = document.querySelector('#studio-input')
-            var additionalInput = document.querySelector("#additional-input");
-            const forMonthInput = document.querySelector('input[name="for_month"]');
-            const studioTypeInput = document.querySelector('select[name="studio_type"]');
-            const amount = document.querySelector('#money-amount');
+
+            handleSummarizer()
 
             function updateUIBasedOnSelection() {
-                additionalInput.style.display = selectedStudent.value === 'Lainnya' ? "block" : "none";
+                additionalInput.style.display = inputStudent.value === 'Lainnya' ? "block" : "none";
 
-                if (selectedType.value === 'Iuran Bulanan(SPP)') {
+                if (inputType.value === 'Iuran Bulanan(SPP)') {
                     sppBx.style.display = "block";
                     studioBx.style.display = "none";
-                    selectedStudent.required = true;
-                    classSelect.required = true;
-                    forMonthInput.required = true;
+                    inputStudent.required = true;
+                    inputClass.required = true;
+                    inputForMonth.required = true;
                     return;
                 } else {
-                    if (sppBx && selectedStudent && classSelect && forMonthInput) {
+                    if (sppBx && inputStudent && inputClass && inputForMonth) {
                         sppBx.style.display = "none";
-                        selectedStudent.required = false;
-                        classSelect.required = false;
-                        forMonthInput.required = false;
+                        inputStudent.required = false;
+                        inputClass.required = false;
+                        inputForMonth.required = false;
                     }
                 }
 
-                if (selectedType.value === 'Biaya Sewa Studio') {
+                if (inputType.value === 'Biaya Sewa Studio') {
                     studioBx.style.display = "block";
                     sppBx.style.display = "none";
-                    studioTypeInput.required = true;
+                    inputStudioType.required = true;
                     return
                 } else {
-                    if (studioBx && studioTypeInput) {
+                    if (studioBx && inputStudioType) {
                         studioBx.style.display = "none";
-                        studioTypeInput.required = false;
+                        inputStudioType.required = false;
                     }
                 }
             }
 
             updateUIBasedOnSelection();
 
-            selectedType.addEventListener('change', updateUIBasedOnSelection);
+            inputType.addEventListener('change', updateUIBasedOnSelection);
 
-            classSelect.addEventListener('change', function() {
-                amount.value = classSelect.options[classSelect.selectedIndex].getAttribute('data-cost');
-                document.querySelector('input[name="amount"]').value = classSelect.options[classSelect
-                    .selectedIndex].getAttribute('data-cost');
+            inputClass.addEventListener('change', function() {
+                const dataCost = inputClass.options[inputClass.selectedIndex].getAttribute('data-cost');
+                inputMoneyAmount.value = dataCost
+                inputAmount.value = dataCost
+
+                const inputDiscount = document.querySelector('#percentage-discount');
+                const totalAmount = document.querySelector('#money-total');
+                const totalSum = document.querySelector('#money-sum');
+                const totalDiscount = document.querySelector('#money-discount-total');
+
+                function handleDiscount() {
+                    const totalAmountValue = parseFloat(totalAmount?.value) || 0;
+                    const discountPercentage = parseFloat(inputDiscount.value) || 0;
+
+                    const totalDiscountValue = (discountPercentage / 100) * totalAmountValue
+                    totalDiscount.value = totalDiscountValue.toFixed(2);
+                    totalSum.value = (totalAmountValue - totalDiscountValue).toFixed(2);
+                }
+
+                totalAmount.value = dataCost
+                handleDiscount()
+
             })
 
-            selectedStudent.addEventListener('change', function() {
-                const value = selectedStudent.value;
+            inputStudent.addEventListener('change', function() {
+                const value = inputStudent.value;
 
                 if (value === "Lainnya") {
                     additionalInput.style.display = "block";
-                    classSelect.innerHTML = '';
+                    inputClass.innerHTML = '';
                     Object.entries(@json($defaultClasses)).forEach(function([id, name]) {
                         const option = document.createElement('option');
                         option.value = id;
                         option.textContent = name;
-                        classSelect.appendChild(option);
+                        inputClass.appendChild(option);
                     });
                     return
                 }
+
                 additionalInput.style.display = "none";
                 fetch(`/get-classes/${value}`)
                     .then(response => response.json())
                     .then(data => {
-                        classSelect.innerHTML = '';
+                        inputClass.innerHTML = '';
                         const option = document.createElement('option');
                         option.value = null;
                         option.textContent = "Pilih";
-                        classSelect.appendChild(option);
+                        inputClass.appendChild(option);
                         Object.entries(data).forEach(function([id, [name, cost]]) {
                             const option = document.createElement('option');
                             option.value = id;
                             option.textContent = name;
                             option.setAttribute('data-cost', cost)
-                            classSelect.appendChild(option);
+                            inputClass.appendChild(option);
                         });
                     });
             });

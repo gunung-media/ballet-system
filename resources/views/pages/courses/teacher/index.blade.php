@@ -34,7 +34,7 @@
                         <div class="card-header pb-0 d-flex justify-content-between">
                             <div>
                                 <h6>Data Staf</h6>
-                                <p class="font-weight-light text-xs">Berikut data siswa yang ada di Sistem</p>
+                                <p class="font-weight-light text-xs">Berikut data staf yang ada di Sistem</p>
                             </div>
 
                             <div>

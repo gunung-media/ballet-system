@@ -120,7 +120,7 @@
                                 @endif
                             </td>
                             <td>{{ IntegerUtils::toRupiah($d->amount) }}</td>
-                            <td>{{ $d->discount }}%</td>
+                            <td>{{ $d->discount ?? 0 }}%</td>
                             @php
                                 $diskon = $d->amount * ($d->discount / 100);
                                 $theAmount += $d->amount - $diskon;

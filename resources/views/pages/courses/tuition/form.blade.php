@@ -41,7 +41,7 @@
 
                         <div id="studio-input" style="display:none">
                             <x-fields.select name="studio_type" label="Tipe Studio" :choices="$studioTypes" :is-required="false"
-                                :value="$data->studio_type ?? null":is-required="false" />
+                                :value="$data->studio_type ?? null" />
                         </div>
 
                         <x-fields.input type="number" name="amount" label="Jumlah " :value="$data->amount ?? null"
@@ -49,7 +49,6 @@
 
                         <x-fields.input type="textarea" name="notes" label="Catatan " :value="$data->notes ?? null"
                             :is-required='false' />
-
                     </div>
 
                     <div class="form-group">
@@ -96,52 +95,47 @@
             const studioTypeInput = document.querySelector('select[name="studio_type"]');
             const amount = document.querySelector('#money-amount');
 
-            if (selectedStudent.value === 'Lainnya') {
-                additionalInput.style.display = "block";
-            }
+            function updateUIBasedOnSelection() {
+                additionalInput.style.display = selectedStudent.value === 'Lainnya' ? "block" : "none";
 
-            if (selectedType.value === 'Iuran Bulanan(SPP)') {
-                sppBx.style.display = "block";
-                selectedStudent.required = true;
-                classSelect.required = true;
-                forMonthInput.required = true;
-            }
-
-            if (selectedType.value === 'Biaya Sewa Studio') {
-                studioBx.style.display = "block";
-                studioTypeInput.required = true;
-            }
-            selectedType.addEventListener('change', function() {
-                const value = selectedType.value;
-                if (value === 'Iuran Bulanan(SPP)') {
+                if (selectedType.value === 'Iuran Bulanan(SPP)') {
                     sppBx.style.display = "block";
                     studioBx.style.display = "none";
                     selectedStudent.required = true;
                     classSelect.required = true;
                     forMonthInput.required = true;
+                    return;
                 } else {
-                    selectedStudent.required = false;
-                    classSelect.required = false;
-                    forMonthInput.required = false;
-                    sppBx.style.display = "none";
+                    if (sppBx && selectedStudent && classSelect && forMonthInput) {
+                        sppBx.style.display = "none";
+                        selectedStudent.required = false;
+                        classSelect.required = false;
+                        forMonthInput.required = false;
+                    }
                 }
 
                 if (selectedType.value === 'Biaya Sewa Studio') {
                     studioBx.style.display = "block";
                     sppBx.style.display = "none";
                     studioTypeInput.required = true;
+                    return
                 } else {
-                    studioTypeInput.required = false;
-                    studioBx.style.display = "none";
+                    if (studioBx && studioTypeInput) {
+                        studioBx.style.display = "none";
+                        studioTypeInput.required = false;
+                    }
                 }
-            })
+            }
+
+            updateUIBasedOnSelection();
+
+            selectedType.addEventListener('change', updateUIBasedOnSelection);
 
             classSelect.addEventListener('change', function() {
                 amount.value = classSelect.options[classSelect.selectedIndex].getAttribute('data-cost');
                 document.querySelector('input[name="amount"]').value = classSelect.options[classSelect
                     .selectedIndex].getAttribute('data-cost');
             })
-
 
             selectedStudent.addEventListener('change', function() {
                 const value = selectedStudent.value;

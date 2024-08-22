@@ -47,7 +47,7 @@
                         <x-fields.input type="number" name="amount" label="Jumlah " :value="$data->amount ?? null"
                             :is-money="true" />
 
-                        <x-fields.input type="textarea" name="notes" label="Catatan " :value="$data->notes ?? null"
+                        <x-fields.input type="textarea" name="note" label="Catatan " :value="$data->note ?? null"
                             :is-required='false' />
                     </div>
 

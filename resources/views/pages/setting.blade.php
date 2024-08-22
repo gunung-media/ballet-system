@@ -31,7 +31,8 @@
 
                         @if ($data->receipt_logo ?? false)
                             <div>
-                                <img src="{{ asset('storage/' . $data->receipt_logo) }}" alt="{{ $data->receipt_title }}" />
+                                <img src="{{ asset('storage/' . $data->receipt_logo) }}" alt="{{ $data->receipt_title }}"
+                                    class="img-custom" />
                             </div>
                         @endif
                     </div>

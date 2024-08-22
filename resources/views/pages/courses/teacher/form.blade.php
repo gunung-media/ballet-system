@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title', 'Guru Form')
+@section('title', 'Staf Form')
 @section('sidebar')
-    <x-sidebar active-menu="Data Guru" />
+    <x-sidebar active-menu="Data Staf" />
 @endsection
 @section('breadcrumb')
-    <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Guru']" />
+    <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Staf']" />
 @endsection
 @section('content')
     <form class="row" enctype="multipart/form-data"
@@ -19,7 +19,7 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between">
                     <div>
-                        <h6>Data Guru</h6>
+                        <h6>Data Staf</h6>
                         <p class="font-weight-light text-xs">Wajib masukan data yang bertanda <span
                                 class="text-danger">*</span></p>
                     </div>

@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title', 'Absensi Form')
+@section('title', 'Presensi Form')
 @section('sidebar')
-    <x-sidebar active-menu="Data Absensi" />
+    <x-sidebar active-menu="Data Presensi" />
 @endsection
 @section('breadcrumb')
-    <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Absensi']" />
+    <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Presensi']" />
 @endsection
 @section('content')
     <div>

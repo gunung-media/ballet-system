@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('title', 'Presensi')
 @section('sidebar')
-    <x-sidebar active-menu="Data Absensi" />
+    <x-sidebar active-menu="Data Presensi" />
 @endsection
 @section('breadcrumb')
-    <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Absensi']" />
+    <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Presensi']" />
 @endsection
 @section('content')
 
@@ -15,7 +15,7 @@
                     <li class="nav-item">
                         <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="#pill-absensi" role="tab"
                             aria-controls="preview" aria-selected="true">
-                            <i class="ni ni-badge text-sm me-2"></i> Absensi
+                            <i class="ni ni-badge text-sm me-2"></i> Presensi
                         </a>
                     </li>
                     <li class="nav-item">

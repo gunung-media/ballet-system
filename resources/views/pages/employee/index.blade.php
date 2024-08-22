@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title', 'Pegawai')
+@section('title', 'Staf')
 @section('sidebar')
-    <x-sidebar active-menu="Data Pegawai" />
+    <x-sidebar active-menu="Data Staf" />
 @endsection
 @section('breadcrumb')
-    <x-breadcrumb :stacks="['Home', 'Data Pegawai']" />
+    <x-breadcrumb :stacks="['Home', 'Data Staf']" />
 @endsection
 @section('content')
     <div class="row">
@@ -12,7 +12,7 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between">
                     <div>
-                        <h6>Data Pegawai</h6>
+                        <h6>Data Staf</h6>
                         <p class="font-weight-light text-xs">Berikut data pegawai yang ada di Sistem</p>
                     </div>
 

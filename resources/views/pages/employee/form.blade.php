@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title', 'Pegawai Form')
+@section('title', 'Staf Form')
 @section('sidebar')
-    <x-sidebar active-menu="Data Pegawai" />
+    <x-sidebar active-menu="Data Staf" />
 @endsection
 @section('breadcrumb')
-    <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Pegawai']" />
+    <x-breadcrumb :stacks="['Home', 'Kursus', 'Data Staf']" />
 @endsection
 @section('content')
     <form class="row" enctype="multipart/form-data"
@@ -19,7 +19,7 @@
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between">
                     <div>
-                        <h6>Data Pegawai</h6>
+                        <h6>Data Staf</h6>
                         <p class="font-weight-light text-xs">Wajib masukan data yang bertanda <span
                                 class="text-danger">*</span></p>
                     </div>
@@ -39,7 +39,7 @@
                         <x-fields.input type="email" name="email" label="Email" :value="$data->email ?? null" :is-required="false" />
 
 
-                        <x-fields.input type="file" name="photo" label="Foto Pegawai" :is-required="!isset($data) || empty($data->photo)" />
+                        <x-fields.input type="file" name="photo" label="Foto Staf" :is-required="!isset($data) || empty($data->photo)" />
 
                         @if ($data->photo ?? false)
                             <div>

@@ -101,7 +101,7 @@
                             </div>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
-                            <x-table :table-columns="['Tanggal', 'Nama', 'Check-in', 'Check-out']" id="rekap" :has-actions="false">
+                            <x-table :table-columns="['Tanggal', 'Nama', 'Check-in', 'Check-out', 'Duration (minutes)']" id="rekap" :has-actions="false">
                                 @foreach ($absences as $key => $absence)
                                     <tr>
                                         <td>
@@ -122,6 +122,16 @@
                                         <td>
                                             <p class="text-xs font-weight-bold mb-0">
                                                 {{ $absence->check_out }}
+                                            </p>
+                                        </td>
+                                        <td>
+                                            @php
+                                                $checkIn = \Carbon\Carbon::parse($absence->check_in);
+                                                $checkOut = \Carbon\Carbon::parse($absence->check_out);
+                                                $duration = $checkIn->diffInMinutes($checkOut);
+                                            @endphp
+                                            <p class="text-xs font-weight-bold mb-0">
+                                                {{ $duration }}
                                             </p>
                                         </td>
                                     </tr>

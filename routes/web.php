@@ -10,6 +10,8 @@ use App\Http\Controllers\Course\TuitionTransactionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeAbsenceController;
 use App\Http\Controllers\EmployeeAuthController;
+use App\Http\Controllers\InstallmentController;
+use App\Http\Controllers\InstallmentPaymentController;
 use App\Http\Controllers\Sales\CategoryController;
 use App\Http\Controllers\SettingController;
 use App\Http\Middleware\EmployeeAuth;
@@ -48,6 +50,15 @@ Route::middleware('auth')->group(function () {
     Route::prefix('setting')->name('setting.')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('index');
         Route::post('/', [SettingController::class, 'store'])->name('store');
+    });
+
+    Route::resource('installment', InstallmentController::class)->except('installment');
+    Route::prefix('installment/{installmentId}/payment')->name('installment.payment.')->group(function () {
+        Route::get('/', [InstallmentPaymentController::class, 'create'])->name('create');
+        Route::post('/', [InstallmentPaymentController::class, 'store'])->name('store');
+        Route::get('/{installmentPaymentId}', [InstallmentPaymentController::class, 'edit'])->name('edit');
+        Route::put('/{installmentPaymentId}', [InstallmentPaymentController::class, 'update'])->name('update');
+        Route::delete('/{installmentPaymentId}', [InstallmentPaymentController::class, 'destroy'])->name('destroy');
     });
 
     // Route::resource('pegawai', EmployeeController::class)->except('show');

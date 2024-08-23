@@ -19,7 +19,8 @@ class InstallmentRepository
 
     public function find(int $id): Model|Collection|Installment|array
     {
-        return $this->model->findOrFail($id);
+        return $this->model->with('payments')
+            ->findOrFail($id);
     }
 
     public function insert(array $data): Model|Installment

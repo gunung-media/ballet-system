@@ -3,6 +3,7 @@
 namespace App\Models\Installment;
 
 use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Installment extends BaseModel
 {
@@ -11,4 +12,9 @@ class Installment extends BaseModel
         'total',
         'notes'
     ];
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(InstallmentPayment::class);
+    }
 }

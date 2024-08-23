@@ -2,13 +2,11 @@
 @section('title', 'Presensi Form')
 @section('content')
     @if ($isClassWrong || $isNoSchedule)
-        <div class="col-12">
-            <center>
-                <h1>{{ session('warning', 'as') }}</h1>
-                @php
-                    session()->forget('warning');
-                @endphp
-            </center>
+        <div class="container-center">
+            <h1>{{ session('warning', 'as') }}</h1>
+            @php
+                session()->forget('warning');
+            @endphp
         </div>
     @else
         <div>
@@ -105,6 +103,13 @@
         .img-custom {
             max-width: 500px;
             max-height: 250px;
+        }
+
+        .container-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
     </style>
 @endsection

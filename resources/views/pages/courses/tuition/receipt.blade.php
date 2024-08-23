@@ -192,4 +192,6 @@
 
 </html>
 
-<script></script>
+<script>
+    window.print()
+</script>

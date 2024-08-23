@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Installment\Installment;
 use App\Repositories\Installment\InstallmentPaymentRepository;
 use App\Repositories\Installment\InstallmentRepository;
+use App\Repositories\SettingRepository;
 use Illuminate\Http\Request;
 
 class InstallmentController extends Controller
@@ -12,6 +13,7 @@ class InstallmentController extends Controller
     public function __construct(
         protected InstallmentRepository $installmentRepository,
         protected InstallmentPaymentRepository $installmentPaymentRepository,
+        protected SettingRepository $settingRepository,
     ) {}
 
     public function index()
@@ -39,7 +41,9 @@ class InstallmentController extends Controller
 
     public function show(string $id)
     {
-        //
+        $data = $this->installmentRepository->find($id);
+        $setting = $this->settingRepository->get();
+        return view('pages.installment.receipt', compact('data', 'setting'));
     }
 
     public function edit(string $id)

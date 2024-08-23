@@ -38,6 +38,12 @@
                                         data-original-title="Edit user">
                                         Edit
                                     </a>
+                                    <br />
+                                    <a href="{{ route('installment.show', $d->id) }}"
+                                        class=" font-weight-bold text-xs btn btn-warning" data-toggle="tooltip"
+                                        data-original-title="Edit user" target="_blank">
+                                        Cetak
+                                    </a>
                                     <form action="{{ route('installment.destroy', $d->id) }}" method="post">
                                         @method('DELETE')
                                         @csrf

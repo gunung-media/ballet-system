@@ -8,6 +8,11 @@
                 session()->forget('warning');
             @endphp
         </div>
+        <script>
+            setTimeout(() => {
+                window.location.href = "{{ route('list-kelas') }}";
+            }, 500)
+        </script>
     @else
         <div>
             <div class="col-12">

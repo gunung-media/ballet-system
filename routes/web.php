@@ -29,7 +29,8 @@ Route::name('auth.')->group(function () {
     Route::get('logout', [UserAuthController::class, 'logout'])->name('logout')->middleware('auth');
 });
 
-Route::get('/absen/{className}', [AbsenceController::class, 'perClass']);
+Route::get('/absen', [AbsenceController::class, 'class'])->name('list-kelas');
+Route::get('/absen/{className}', [AbsenceController::class, 'perClass'])->name('absen');
 
 
 Route::middleware('auth')->group(function () {

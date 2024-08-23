@@ -70,6 +70,12 @@ class AbsenceController extends Controller
         }
     }
 
+    public function class(): View|Factory
+    {
+        $data = $this->classRepository->getAll();
+        return view('pages.courses.absence.list', compact('data'));
+    }
+
     public function perClass($className)
     {
         $props = [

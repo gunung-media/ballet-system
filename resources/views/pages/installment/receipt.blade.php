@@ -96,6 +96,7 @@
             <thead>
                 <tr>
                     <th>Tanggal</th>
+                    <th>Nama Ssiwa</th>
                     <th>Jumlah</th>
                 </tr>
             </thead>
@@ -109,6 +110,7 @@
                     @endphp
                     <tr>
                         <td>{{ DateUtils::format($p->created_at) }}</td>
+                        <td>{{ $p->student->name ?? 'N/A' }}</td>
                         <td>{{ IntegerUtils::toRupiah($p->amount) }}</td>
                     </tr>
                 @endforeach

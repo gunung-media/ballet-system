@@ -61,11 +61,12 @@
                     </div>
 
                     <div class="card-body">
-                        <x-table :table-columns="['No', 'Jumlah', 'Tanggal']" :is-empty="count($data->payments) === 0" id="test">
+                        <x-table :table-columns="['No', 'Jumlah', 'Nama Siswa', 'Tanggal']" :is-empty="count($data->payments) === 0" id="test">
                             @foreach ($data->payments as $key => $p)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ IntegerUtils::toRupiah($p->amount) }}</td>
+                                    <td>{{ $p->student->name }}</td>
                                     <td>{{ DateUtils::format($p->created_at) }}</td>
                                     <td>
                                         <a href="{{ route('installment.payment.edit', ['installmentId' => $data->id, 'installmentPaymentId' => $p->id]) }}"

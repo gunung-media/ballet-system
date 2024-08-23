@@ -42,6 +42,6 @@ class InstallmentPaymentRepository
 
     public function findByInstallment(int $installmentId): Collection|array
     {
-        return $this->model->where('installment_id', $installmentId)->get();
+        return $this->model->with('student')->where('installment_id', $installmentId)->get();
     }
 }

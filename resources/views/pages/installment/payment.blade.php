@@ -28,6 +28,9 @@
                 <div class="card-body">
                     <x-fields.input type="text" name="amount" label="Jumlah" :value="$data->amount ?? null" :is-money="true" />
 
+                    <x-fields.select name="student_id" label="Siswa" :choices="$students" :value="$data->student?->id ?? (isset($data->student_name) ? 'Lainnya' : null)" :is-required="false"
+                        :is-tuition="true" :other-input="$data->student_name ?? null" />
+
                     <div class="form-group">
                         <a class="btn btn-warning" href="{{ route('installment.edit', $installmentId) }}">Kembali</a>
                         <button class="btn btn-success">Simpan</button>

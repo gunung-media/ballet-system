@@ -136,4 +136,14 @@ class ClassRepository
         if ($model === null) return false;
         return $model->delete();
     }
+
+    public function getByClassName($className)
+    {
+        return $this
+            ->classModel
+            ->with('schedules')
+            ->active()
+            ->where('name', 'like', '%' . $className . '%')
+            ->first();
+    }
 }

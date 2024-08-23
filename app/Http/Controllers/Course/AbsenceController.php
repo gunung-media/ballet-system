@@ -69,4 +69,46 @@ class AbsenceController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
+    public function perClass($className)
+    {
+        $props = [
+            'isClassWrong' => false,
+            'isNoSchedule' => false,
+        ];
+        $class = $this->classRepository->getByClassName($className);
+        if (is_null($class)) {
+            $props['isClassWrong'] = true;
+            session()->flash('warning', 'Kelas tidak ditemukan');
+            return view('pages.courses.absence.class', $props)->with('warning', 'Kelas tidak ditemukan');
+        }
+        $date = now();
+        $dayIndex = $date->dayOfWeek;
+        $daysInIndonesian = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        $today = $daysInIndonesian[$dayIndex];
+        $schedule = collect($class->schedules->toArray())->where('day', $today)->first();
+        if (is_null($schedule)) {
+            $props['isNoSchedule'] = true;
+            session()->flash('warning', 'Tidak ada jadwal pada hari ini');
+            return view('pages.courses.absence.class', $props)->with('warning', 'Tidak ada jadwal pada hari ini');
+        }
+
+        $absence = $this->absenceRepository->getAbsence($schedule['id'], $date);
+        $teachers = $this->teacherRepository->getAll()->mapWithKeys(fn($teacher) => [$teacher->id => $teacher->name])->toArray();
+        $students = $this->studentRepository->getStudentsByScheduleId($schedule['id']);
+        $class = $this->classRepository->getBySchedule($schedule['id']);
+
+        $getStudentState = function ($studentId) use ($absence) {
+            $student = $absence->students
+                ->where('student_id', $studentId)
+                ->first();
+
+            if ($student) {
+                return $student->state;
+            }
+            return null;
+        };
+        $props = array_merge($props, compact('schedule', 'absence', 'teachers', 'students', 'class', 'getStudentState', 'date'));
+        return view('pages.courses.absence.class', $props);
+    }
 }

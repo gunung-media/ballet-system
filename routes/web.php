@@ -29,6 +29,8 @@ Route::name('auth.')->group(function () {
     Route::get('logout', [UserAuthController::class, 'logout'])->name('logout')->middleware('auth');
 });
 
+Route::get('/absen/{className}', [AbsenceController::class, 'perClass']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

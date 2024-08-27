@@ -72,14 +72,14 @@
                         <x-fields.input type="number" name="discount" label="Diskon " :value="$data->discount ?? 0" :is-percentage="true"
                             hint-text="Maximal 100%" :is-required="false" />
 
-                        <x-fields.input type="number" name="total" label="Jumlah" :is-money="true" :is-required="false"
+                        <x-fields.input type="number" name="total" label="Jumlah" :is-required="false" :is-read-only="true"
+                            :value="0" />
+
+                        <x-fields.input type="number" name="discount-total" label="Diskon Total" :is-required="false"
                             :is-read-only="true" :value="0" />
 
-                        <x-fields.input type="number" name="discount-total" label="Diskon Total" :is-money="true"
-                            :is-required="false" :is-read-only="true" :value="0" />
-
-                        <x-fields.input type="number" name="sum" label="Total" :is-money="true" :is-required="false"
-                            :is-read-only="true" :value="0" />
+                        <x-fields.input type="number" name="sum" label="Total" :is-required="false" :is-read-only="true"
+                            :value="0" />
                     </div>
 
                 </div>
@@ -94,17 +94,19 @@
         const handleSummarizer = () => {
             const inputMoneyAmount = document.querySelector('#money-amount');
             const inputDiscount = document.querySelector('#percentage-discount');
-            const totalAmount = document.querySelector('#money-total');
-            const totalSum = document.querySelector('#money-sum');
-            const totalDiscount = document.querySelector('#money-discount-total');
+            const totalAmount = document.querySelector('input[name="total"]');
+            const totalSum = document.querySelector('input[name="sum"]');
+            const totalDiscount = document.querySelector('input[name="discount-total"]');
+            const inputType = document.querySelector('select[name="tuition_type"]');
 
             function handleDiscount() {
-                const totalAmountValue = parseFloat(totalAmount?.value) || 0;
-                const discountPercentage = parseFloat(inputDiscount.value) || 0;
+                const totalAmountValue = parseInt(totalAmount?.value) || 0;
+                const discountPercentage = parseInt(inputDiscount.value) || 0;
 
+                const hack = inputType.value === 'Iuran Bulanan(SPP)' ? 1 : 1000
                 const totalDiscountValue = (discountPercentage / 100) * totalAmountValue
-                totalDiscount.value = totalDiscountValue.toFixed(2) * 1000;
-                totalSum.value = (totalAmountValue - totalDiscountValue).toFixed(2) * 1000;
+                totalDiscount.value = totalDiscountValue * hack;
+                totalSum.value = (totalAmountValue - totalDiscountValue) * hack
             }
 
             inputMoneyAmount.addEventListener('change', function() {
@@ -173,17 +175,17 @@
                 inputAmount.value = dataCost
 
                 const inputDiscount = document.querySelector('#percentage-discount');
-                const totalAmount = document.querySelector('#money-total');
-                const totalSum = document.querySelector('#money-sum');
-                const totalDiscount = document.querySelector('#money-discount-total');
+                const totalAmount = document.querySelector('input[name="total"]');
+                const totalSum = document.querySelector('input[name="sum"]');
+                const totalDiscount = document.querySelector('input[name="discount-total"]');
 
                 function handleDiscount() {
-                    const totalAmountValue = parseFloat(totalAmount?.value) || 0;
-                    const discountPercentage = parseFloat(inputDiscount.value) || 0;
+                    const totalAmountValue = parseInt(totalAmount?.value) || 0;
+                    const discountPercentage = parseInt(inputDiscount.value) || 0;
 
                     const totalDiscountValue = (discountPercentage / 100) * totalAmountValue
-                    totalDiscount.value = totalDiscountValue.toFixed(2);
-                    totalSum.value = (totalAmountValue - totalDiscountValue).toFixed(2);
+                    totalDiscount.value = totalDiscountValue;
+                    totalSum.value = (totalAmountValue - totalDiscountValue);
                 }
 
                 totalAmount.value = dataCost

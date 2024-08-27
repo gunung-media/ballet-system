@@ -34,7 +34,7 @@
                         </p>
                         <div class="row">
                             <div class="col-12">
-                                <a href="{{ route('absen', $d->id) }}" name="state" value="Hadir"
+                                <a href="{{ route('absen', $d->name) }}" name="state" value="Hadir"
                                     class="btn btn-primary w-100 btn-tooltip">
                                     <span class="btn-inner--icon"><i class="ni ni-user-run"></i></span>
                                     <span class="btn-inner--text">Pergi</span>

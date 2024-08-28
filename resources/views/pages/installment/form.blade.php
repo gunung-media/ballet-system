@@ -66,7 +66,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ IntegerUtils::toRupiah($p->amount) }}</td>
-                                    <td>{{ $p->student->name }}</td>
+                                    <td>{{ $p->student?->name ?? 'N/A' }}</td>
                                     <td>{{ DateUtils::format($p->created_at) }}</td>
                                     <td>
                                         <a href="{{ route('installment.payment.edit', ['installmentId' => $data->id, 'installmentPaymentId' => $p->id]) }}"

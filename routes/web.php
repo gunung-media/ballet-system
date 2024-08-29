@@ -31,7 +31,7 @@ Route::name('auth.')->group(function () {
 
 Route::get('/absen', [AbsenceController::class, 'class'])->name('list-kelas');
 Route::get('/absen/{className}', [AbsenceController::class, 'perClass'])->name('absen');
-
+Route::post('/absence/form/submit', [AbsenceController::class, 'submit'])->name('absence.form.submit');
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -48,7 +48,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/absence', [AbsenceController::class, 'index'])->name('absence.index');
     Route::get('/absence/form', [AbsenceController::class, 'form'])->name('absence.form');
-    Route::post('/absence/form/submit', [AbsenceController::class, 'submit'])->name('absence.form.submit');
 
     Route::prefix('setting')->name('setting.')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('index');

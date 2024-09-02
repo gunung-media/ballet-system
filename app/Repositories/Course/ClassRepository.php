@@ -143,7 +143,8 @@ class ClassRepository
             ->classModel
             ->with('schedules')
             ->active()
-            ->where('name', 'like', '%' . $className . '%')
+            // ->where('name', 'like', '%' . $className . '%')
+            ->where('name', $className)
             ->first();
     }
 }

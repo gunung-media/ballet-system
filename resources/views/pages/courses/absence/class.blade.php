@@ -72,7 +72,8 @@
                                                         <button type="submit" name="state" value="Hadir"
                                                             class="btn btn-success w-100 btn-tooltip"
                                                             data-bs-toggle="tooltip" data-bs-placement="top"
-                                                            title="Saya Hadir" data-container="body" data-animation="true">
+                                                            title="Saya Hadir" data-container="body" data-animation="true"
+                                                            {{ is_null($absence) ? 'disabled' : '' }}>
                                                             <span class="btn-inner--icon"><i
                                                                     class="ni ni-active-40"></i></span>
                                                             <span class="btn-inner--text">Hadir</span>
@@ -83,7 +84,8 @@
                                                             class="btn btn-danger w-100 btn-tooltip"
                                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="Saya Tidak Hadir" data-container="body"
-                                                            data-animation="true">
+                                                            data-animation="true"
+                                                            {{ is_null($absence) ? 'disabled' : '' }}>
                                                             <span class="btn-inner--icon"><i
                                                                     class="ni ni-user-run"></i></span>
                                                             <span class="btn-inner--text">Tidak Hadir</span>

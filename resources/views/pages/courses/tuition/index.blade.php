@@ -118,6 +118,8 @@
                                             <td>
                                                 <p class="text-xs font-weight-bold mb-0">
                                                     {{ $d->class_id === $class->id ? IntegerUtils::toRupiah($d->amount) : 0 }}
+                                                    {{ $d->class_id === $class->id  && !is_null($d->discount) ? "\nDiskon: {$d->discount}%\n" . IntegerUtils::toRupiah($d->amount - ($d->amount * ($d->discount / 100)))  : '' }}
+
                                                 </p>
                                             </td>
                                         @endforeach

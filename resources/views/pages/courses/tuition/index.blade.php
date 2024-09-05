@@ -120,7 +120,8 @@
                                                     {{ $d->class_id === $class->id ? IntegerUtils::toRupiah($d->amount) : 0 }}
                                                 </p>
 
-                                                    @if($d->class_id === $class->id  && !is_null($d->discount))
+                                                    @if($d->class_id === $class->id  && !is_null($d->discount) && $d->discount > 0)
+                                                    <hr/>
                                                 <p class="text-xs font-weight-bold mb-0">
 {{ $d->class_id === $class->id  && !is_null($d->discount) ? "Diskon: {$d->discount}%" : '' }}
                                                 </p>

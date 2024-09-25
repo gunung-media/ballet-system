@@ -137,12 +137,18 @@
             clone.id = 'copy' + counter;
             counter++;
 
-            const inputs = clone.querySelectorAll('[name]');
-            inputs.forEach(input => {
+            const inputsName = clone.querySelectorAll('[name]');
+            inputsName.forEach(input => {
                 const name = input.getAttribute('name');
                 const newName = name.replace(/\[\d+\]/, '[' + counter + ']');
                 input.setAttribute('name', newName);
             });
+
+            const inputsId = clone.querySelectorAll('[id]');
+            inputsId.forEach(input => {
+                input.setAttribute('value', null);
+            });
+
             document.getElementById('parent').appendChild(clone);
 
             updateAddButtonVisibility()

@@ -119,7 +119,7 @@ class ClassRepository
             $uniqueSchedules = collect($scheduleData)->unique('day');
 
             foreach ($uniqueSchedules->toArray() as $schedule) {
-                $existingSchedule = $model->schedules()->where('day', $schedule['day'])->first();
+                $existingSchedule = $model->schedules()->where('id', $schedule['id'] === "null" ? null : $schedule['id'])->first();
 
                 if ($existingSchedule) {
                     $existingSchedule->update($schedule);

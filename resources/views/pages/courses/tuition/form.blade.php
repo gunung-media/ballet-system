@@ -69,7 +69,7 @@
                         <x-fields.select name="discount_type" label="Tipe Diskon" :choices="$discountTypes" :is-required="false"
                             :value="$data->discount_type ?? null" />
 
-                        <x-fields.input type="number" name="discount-total" label="Potongan Harga" :value="$data->discount ? $data->amount * ($data->discount / 100) : 0"
+                        <x-fields.input type="number" name="discount-total" label="Potongan Harga" :value="isset($data) && isset($data->discount) ? $data->amount * ($data->discount / 100) : 0"
                             :is-required="false" :is-money="true" />
 
                         <x-fields.input type="number" name="discount" label="Diskon " :value="$data->discount ?? 0" :is-percentage="true"

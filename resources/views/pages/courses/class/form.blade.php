@@ -51,6 +51,8 @@
                             @foreach ($data->schedules as $key => $schedule)
                                 <div class="row draggable" id="copy"
                                     style="background-color: #f8f9fa; border-radius:10px ">
+                                    <x-fields.input type="hidden" name="schedule[{{ $key }}][id]" label="Id"
+                                        :value="$schedule->id" />
                                     <div class="col-12">
                                         <x-fields.select name="schedule[{{ $key }}][day]" label="Hari"
                                             :choices="$days" :value="$schedule->day" />

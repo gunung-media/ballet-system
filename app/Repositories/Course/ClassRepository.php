@@ -113,16 +113,24 @@ class ClassRepository
 
         $modelUpdated = $model->update($data);
 
-        if (!is_null($scheduleData)) {
-            $uniqueSchedules = collect($scheduleData)->unique('day')->toArray();
+        $originSchedules = $model->schedules->map(fn($scedule) => $scedule->id)->toArray();
 
-            foreach ($uniqueSchedules as $schedule) {
+        if (!is_null($scheduleData)) {
+            $uniqueSchedules = collect($scheduleData)->unique('day');
+
+            foreach ($uniqueSchedules->toArray() as $schedule) {
                 $existingSchedule = $model->schedules()->where('day', $schedule['day'])->first();
 
                 if ($existingSchedule) {
                     $existingSchedule->update($schedule);
                 } else {
                     $model->schedules()->create($schedule);
+                }
+            }
+
+            foreach ($originSchedules as $schedule) {
+                if (!in_array($schedule, $uniqueSchedules->pluck('id')->toArray())) {
+                    $model->schedules()->find($schedule)->delete();
                 }
             }
         }

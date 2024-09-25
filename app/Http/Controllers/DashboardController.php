@@ -22,7 +22,7 @@ class DashboardController extends Controller
     public function index()
     {
         $tuition = $this->tuitionTransactionRepository->getAll();
-        $tuition = $tuition->reduce(fn($carry, $item) => $carry + $item->amount, 0);
+        $tuition = $tuition->reduce(fn($carry, $item) => $carry + ($item->amount - ($item->amount * ($item->discount / 100))), 0);
 
         $students = $this->studentRepository->getAll()->filter(fn($item) => $item->status == StudentStatusEnum::APPROVED)->count();
         $classes = $this->classRepository->getAll()->count();

@@ -69,17 +69,11 @@
                         <x-fields.select name="discount_type" label="Tipe Diskon" :choices="$discountTypes" :is-required="false"
                             :value="$data->discount_type ?? null" />
 
+                        <x-fields.input type="number" name="discount-total" label="Potongan Harga" :value="$data->discount ? $data->amount * ($data->discount / 100) : 0"
+                            :is-required="false" :is-money="true" />
+
                         <x-fields.input type="number" name="discount" label="Diskon " :value="$data->discount ?? 0" :is-percentage="true"
-                            hint-text="Maximal 100%" :is-required="false" />
-
-                        <x-fields.input type="number" name="total" label="Jumlah" :is-required="false" :is-read-only="true"
-                            :value="0" />
-
-                        <x-fields.input type="number" name="discount-total" label="Diskon Total" :is-required="false"
-                            :is-read-only="true" :value="0" />
-
-                        <x-fields.input type="number" name="sum" label="Total" :is-required="false" :is-read-only="true"
-                            :value="0" />
+                            :is-required="false" :is-read-only="true" />
                     </div>
 
                 </div>
@@ -90,34 +84,6 @@
 @endsection
 
 @section('customScripts')
-    <script>
-        const handleSummarizer = () => {
-            const inputMoneyAmount = document.querySelector('#money-amount');
-            const inputDiscount = document.querySelector('#percentage-discount');
-            const totalAmount = document.querySelector('input[name="total"]');
-            const totalSum = document.querySelector('input[name="sum"]');
-            const totalDiscount = document.querySelector('input[name="discount-total"]');
-            const inputType = document.querySelector('select[name="tuition_type"]');
-
-            function handleDiscount() {
-                const totalAmountValue = parseInt(totalAmount?.value) || 0;
-                const discountPercentage = parseInt(inputDiscount.value) || 0;
-
-                const hack = inputType.value === 'Iuran Bulanan(SPP)' ? 1 : 1000
-                const totalDiscountValue = (discountPercentage / 100) * totalAmountValue
-                totalDiscount.value = totalDiscountValue * hack;
-                totalSum.value = (totalAmountValue - totalDiscountValue) * hack
-            }
-
-            inputMoneyAmount.addEventListener('change', function() {
-                totalAmount.value = inputMoneyAmount.value
-                handleDiscount()
-            })
-
-            inputDiscount.addEventListener('change', handleDiscount)
-
-        }
-    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var additionalInput = document.querySelector("#additional-input");
@@ -130,8 +96,8 @@
             const inputAmount = document.querySelector('input[name="amount"]');
             const sppBx = document.querySelector('#spp-input')
             const studioBx = document.querySelector('#studio-input')
-
-            handleSummarizer()
+            const inputDiscountTotal = document.querySelector('#money-discount-total');
+            const inputDiscount = document.querySelector('input[name="discount"]');
 
             function updateUIBasedOnSelection() {
                 additionalInput.style.display = inputStudent.value === 'Lainnya' ? "block" : "none";
@@ -172,25 +138,21 @@
             inputClass.addEventListener('change', function() {
                 const dataCost = inputClass.options[inputClass.selectedIndex].getAttribute('data-cost');
                 inputMoneyAmount.value = dataCost
-                inputAmount.value = dataCost
+                const value = inputDiscountTotal.value.replace(/\./g, '');
+                const moneyAmount = dataCost.replace(/\./g, '');
+                inputDiscount.value = (value / moneyAmount) * 100
+            })
 
-                const inputDiscount = document.querySelector('#percentage-discount');
-                const totalAmount = document.querySelector('input[name="total"]');
-                const totalSum = document.querySelector('input[name="sum"]');
-                const totalDiscount = document.querySelector('input[name="discount-total"]');
+            inputMoneyAmount.addEventListener('change', function() {
+                const value = inputDiscountTotal.value.replace(/\./g, '');
+                const moneyAmount = inputMoneyAmount.value.replace(/\./g, '');
+                inputDiscount.value = (value / moneyAmount) * 100
+            })
 
-                function handleDiscount() {
-                    const totalAmountValue = parseInt(totalAmount?.value) || 0;
-                    const discountPercentage = parseInt(inputDiscount.value) || 0;
-
-                    const totalDiscountValue = (discountPercentage / 100) * totalAmountValue
-                    totalDiscount.value = totalDiscountValue;
-                    totalSum.value = (totalAmountValue - totalDiscountValue);
-                }
-
-                totalAmount.value = dataCost
-                handleDiscount()
-
+            inputDiscountTotal.addEventListener('change', function() {
+                const value = inputDiscountTotal.value.replace(/\./g, '');
+                const moneyAmount = inputMoneyAmount.value.replace(/\./g, '');
+                inputDiscount.value = (value / moneyAmount) * 100
             })
 
             inputStudent.addEventListener('change', function() {

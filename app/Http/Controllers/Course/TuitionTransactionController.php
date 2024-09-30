@@ -88,7 +88,6 @@ class TuitionTransactionController extends Controller
             ]);
             return redirect()->intended(route('spp.index'))->with('success', 'Berhasil Menambahkan Transasksi SPP');
         } catch (\Exception $exception) {
-            dd($exception);
             return redirect()->back()->with('error', $exception->getMessage())->withInput();
         }
     }

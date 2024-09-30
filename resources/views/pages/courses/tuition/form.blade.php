@@ -138,6 +138,7 @@
             inputClass.addEventListener('change', function() {
                 const dataCost = inputClass.options[inputClass.selectedIndex].getAttribute('data-cost');
                 inputMoneyAmount.value = dataCost
+                inputAmount.value = dataCost
                 const value = inputDiscountTotal.value.replace(/\./g, '');
                 const moneyAmount = dataCost.replace(/\./g, '');
                 inputDiscount.value = (value / moneyAmount) * 100

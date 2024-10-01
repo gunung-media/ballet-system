@@ -112,12 +112,11 @@
                     const eventId = info.event.id;
                     const date = info.event.start;
                     const jsDate = new Date(date);
-
-                    const year = jsDate.getFullYear();
-                    const month = String(jsDate.getMonth() + 1).padStart(2, '0');
-                    const day = String(jsDate.getDate()).padStart(2, '0');
-                    const hours = String(jsDate.getHours()).padStart(2, '0');
-                    const minutes = String(jsDate.getMinutes()).padStart(2, '0');
+                    const year = jsDate.getUTCFullYear();
+                    const month = String(jsDate.getUTCMonth() + 1).padStart(2, '0');
+                    const day = String(jsDate.getUTCDate()).padStart(2, '0');
+                    const hours = String(jsDate.getUTCHours()).padStart(2, '0');
+                    const minutes = String(jsDate.getUTCMinutes()).padStart(2, '0');
 
                     const phpDateString = `${year}-${month}-${day} ${hours}:${minutes}`;
 
